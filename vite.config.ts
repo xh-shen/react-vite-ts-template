@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-20 09:48:07
  * @LastEditors: shen
- * @LastEditTime: 2022-09-20 10:13:15
+ * @LastEditTime: 2022-09-20 14:51:01
  * @Description:
  */
 import { defineConfig } from 'vite'
@@ -19,7 +19,8 @@ export default defineConfig((mode: ConfigEnv): UserConfig => {
 		resolve: {
 			alias: {
 				'@': resolve(__dirname, './src')
-			}
+			},
+			extensions: ['.js', '.ts', '.jsx', '.tsx', '.json']
 		},
 		server: {
 			host: '0.0.0.0',
