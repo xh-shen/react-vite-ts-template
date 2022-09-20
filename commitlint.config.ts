@@ -2,30 +2,33 @@
  * @Author: shen
  * @Date: 2022-09-20 10:54:13
  * @LastEditors: shen
- * @LastEditTime: 2022-09-20 10:54:37
+ * @LastEditTime: 2022-09-20 13:31:55
  * @Description:
  */
+import { execSync } from 'child_process'
+import fg from 'fast-glob'
+
+const getPackages = packagePath => fg.sync('*', { cwd: packagePath, onlyDirectories: true })
+
+const scopes = [...getPackages('src'), 'public', 'core']
+
+const gitStatus = execSync('git status --porcelain || true').toString().trim().split('\n')
+
+const scopeComplete = gitStatus
+	.find(r => ~r.indexOf('M  src'))
+	?.replace(/\//g, '%%')
+	?.match(/src%%((\w|-)*)/)?.[1]
+
+const subjectComplete = gitStatus
+	.find(r => ~r.indexOf('M  src/pages'))
+	?.replace(/\//g, '%%')
+	?.match(/src%%pages%%((\w|-)*)/)?.[1]
+
 export default {
 	rules: {
-		/**
-		 * type[scope]: [function] description
-		 *
-		 * ^^^^^^^^^^^^^^ empty line.
-		 * - Something here
-		 */
+		'scope-enum': [2, 'always', scopes],
 		'body-leading-blank': [1, 'always'],
-		/**
-		 * type[scope]: [function] description
-		 *
-		 * - something here
-		 *
-		 * ^^^^^^^^^^^^^^
-		 */
 		'footer-leading-blank': [1, 'always'],
-		/**
-		 * type[scope]: [function] description [No more than 72 characters]
-		 *      ^^^^^
-		 */
 		'header-max-length': [2, 'always', 72],
 		'scope-case': [2, 'always', 'lower-case'],
 		'subject-case': [1, 'never', ['sentence-case', 'start-case', 'pascal-case', 'upper-case']],
@@ -33,10 +36,6 @@ export default {
 		'subject-full-stop': [2, 'never', '.'],
 		'type-case': [2, 'always', 'lower-case'],
 		'type-empty': [2, 'never'],
-		/**
-		 * type[scope]: [function] description
-		 * ^^^^
-		 */
 		'type-enum': [
 			2,
 			'always',
@@ -44,6 +43,9 @@ export default {
 		]
 	},
 	prompt: {
+		defaultScope: scopeComplete,
+		customScopesAlign: !scopeComplete ? 'top' : 'bottom',
+		defaultSubject: subjectComplete && `[${subjectComplete}] `,
 		allowCustomIssuePrefixs: false,
 		allowEmptyIssuePrefixs: false
 	}
