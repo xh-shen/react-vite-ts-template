@@ -10,6 +10,7 @@
 		"lint": "eslint . --ext .js,.ts,.jsx,.tsx,.json --max-warnings 0 && pretty-quick --check --branch dev",
 		"lint:fix": "eslint --fix . --ext .js,.ts,.jsx,.tsx,.json && pretty-quick --branch dev",
 		"lint:commit": "commitlint --from $(git merge-base origin/dev HEAD) --to HEAD > ./commit-lint.txt",
+		"lint:stylelint": "stylelint --cache --fix \"**/*.{less,postcss,css,scss}\" --cache --cache-location node_modules/.cache/stylelint/",
 		"prepare": "husky install"
 	},
 	"dependencies": {
@@ -43,6 +44,11 @@
 		"postcss-preset-env": "^7.8.2",
 		"prettier": "^2.7.1",
 		"pretty-quick": "^3.1.3",
+		"stylelint": "^14.12.0",
+		"stylelint-config-prettier": "^9.0.3",
+		"stylelint-config-recess-order": "^3.0.0",
+		"stylelint-config-standard": "^28.0.0",
+		"stylelint-less": "^1.0.6",
 		"typescript": "^4.6.4",
 		"vite": "^3.1.0",
 		"vite-plugin-eslint": "^1.8.1"
