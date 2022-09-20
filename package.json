@@ -1,32 +1,57 @@
 {
-  "name": "react-vite-ts-template",
-  "private": true,
-  "version": "0.0.0",
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
-  },
-  "devDependencies": {
-    "@types/node": "^18.7.18",
-    "@types/react": "^18.0.17",
-    "@types/react-dom": "^18.0.6",
-    "@typescript-eslint/eslint-plugin": "^5.38.0",
-    "@typescript-eslint/parser": "^5.38.0",
-    "@vitejs/plugin-react": "^2.1.0",
-    "eslint": "^8.23.1",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-define-config": "^1.7.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-react": "^7.31.8",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "prettier": "^2.7.1",
-    "typescript": "^4.6.4",
-    "vite": "^3.1.0",
-    "vite-plugin-eslint": "^1.8.1"
-  }
+	"name": "react-vite-ts-template",
+	"private": true,
+	"version": "0.0.0",
+	"scripts": {
+		"dev": "vite",
+		"build": "tsc && vite build",
+		"preview": "vite preview",
+		"format": "prettier --write .",
+		"lint": "eslint . --ext .js,.ts,.jsx,.tsx,.json --max-warnings 0 && pretty-quick --check --branch dev",
+		"lint:fix": "eslint --fix . --ext .js,.ts,.jsx,.tsx,.json && pretty-quick --branch dev",
+		"lint:commit": "commitlint --from $(git merge-base origin/dev HEAD) --to HEAD > ./commit-lint.txt",
+		"prepare": "husky install"
+	},
+	"dependencies": {
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0"
+	},
+	"devDependencies": {
+		"@commitlint/cli": "^17.1.2",
+		"@commitlint/config-conventional": "^17.1.0",
+		"@esbuild-kit/cjs-loader": "^2.3.3",
+		"@types/node": "^18.7.18",
+		"@types/react": "^18.0.17",
+		"@types/react-dom": "^18.0.6",
+		"@typescript-eslint/eslint-plugin": "^5.38.0",
+		"@typescript-eslint/parser": "^5.38.0",
+		"@vitejs/plugin-react": "^2.1.0",
+		"commitizen": "^4.2.5",
+		"cz-git": "^1.3.11",
+		"czg": "^1.3.11",
+		"eslint": "^8.23.1",
+		"eslint-config-prettier": "^8.5.0",
+		"eslint-define-config": "^1.7.0",
+		"eslint-plugin-prettier": "^4.2.1",
+		"eslint-plugin-react": "^7.31.8",
+		"eslint-plugin-react-hooks": "^4.6.0",
+		"husky": "^8.0.1",
+		"lint-staged": "^13.0.3",
+		"prettier": "^2.7.1",
+		"pretty-quick": "^3.1.3",
+		"typescript": "^4.6.4",
+		"vite": "^3.1.0",
+		"vite-plugin-eslint": "^1.8.1"
+	},
+	"engines": {
+		"node": ">= 16"
+	},
+	"config": {
+		"commitizen": {
+			"path": "./node_modules/cz-git"
+		}
+	},
+	"lint-staged": {
+		"*.{js,ts,jsx,tsx,json}": "eslint --fix"
+	}
 }
