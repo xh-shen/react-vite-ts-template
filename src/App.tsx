@@ -2,15 +2,23 @@
  * @Author: shen
  * @Date: 2022-09-20 09:48:07
  * @LastEditors: shen
- * @LastEditTime: 2022-09-20 10:07:38
+ * @LastEditTime: 2022-09-22 14:48:18
  * @Description:
  */
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
+import { login } from '@/api/user'
 import './App.css'
 
 function App() {
 	const [count, setCount] = useState(0)
+
+	useEffect(() => {
+		login({
+			username: 'admin',
+			password: '1234561'
+		})
+	}, [])
 
 	return (
 		<div className="App">
