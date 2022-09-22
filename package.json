@@ -26,8 +26,10 @@
 		"prepare": "husky install"
 	},
 	"dependencies": {
+		"@reduxjs/toolkit": "^1.8.5",
 		"react": "^18.2.0",
-		"react-dom": "^18.2.0"
+		"react-dom": "^18.2.0",
+		"react-redux": "^8.0.2"
 	},
 	"devDependencies": {
 		"@commitlint/cli": "^17.1.2",

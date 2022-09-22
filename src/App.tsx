@@ -2,34 +2,38 @@
  * @Author: shen
  * @Date: 2022-09-20 09:48:07
  * @LastEditors: shen
- * @LastEditTime: 2022-09-20 10:07:38
+ * @LastEditTime: 2022-09-22 16:39:49
  * @Description:
  */
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
+import type { RootState } from './store'
+import { useSelector, useDispatch } from 'react-redux'
+import { decrement, increment, incrementByAmount } from './store/reducer/counter'
+import { setUserInfo } from './store/reducer/app'
 import './App.css'
 
 function App() {
-	const [count, setCount] = useState(0)
+	const userInfo = useSelector((state: RootState) => state.app.userInfo)
+	const count = useSelector((state: RootState) => state.counter.value)
+	const dispatch = useDispatch()
 
 	return (
-		<div className="App">
+		<div>
 			<div>
-				<a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-					<img src="/vite.svg" className="logo" alt="Vite logo" />
-				</a>
-				<a href="https://reactjs.org" target="_blank" rel="noreferrer">
-					<img src={reactLogo} className="logo react" alt="React logo" />
-				</a>
+				{userInfo.username}-{userInfo.sex}-{userInfo.name}
+				<br />
+				<button aria-label="Increment value" onClick={() => dispatch(increment())}>
+					Increment
+				</button>
+				<span>{count}</span>
+				<button aria-label="Decrement value" onClick={() => dispatch(decrement())}>
+					Decrement
+				</button>
+				<button aria-label="Decrement value" onClick={() => dispatch(incrementByAmount(-1))}>
+					incrementByAmount
+				</button>
+				<br />
+				<button onClick={() => dispatch(setUserInfo({ ...userInfo, name: '测试' }))}>setUserInfo</button>
 			</div>
-			<h1>Vite + React</h1>
-			<div className="card">
-				<button onClick={() => setCount(count => count + 1)}>count is {count}</button>
-				<p>
-					Edit <code>src/App.tsx</code> and save to test HMR
-				</p>
-			</div>
-			<p className="read-the-docs">Click on the Vite and React logos to learn more</p>
 		</div>
 	)
 }
