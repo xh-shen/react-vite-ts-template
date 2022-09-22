@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-20 09:48:07
  * @LastEditors: shen
- * @LastEditTime: 2022-09-20 10:07:30
+ * @LastEditTime: 2022-09-21 09:07:02
  * @Description:
  */
 import React from 'react'
@@ -15,3 +15,5 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 		<App />
 	</React.StrictMode>
 )
+
+console.log('test')
