@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-20 10:54:13
  * @LastEditors: shen
- * @LastEditTime: 2022-09-20 16:21:35
+ * @LastEditTime: 2022-09-23 08:39:45
  * @Description:
  */
 import { execSync } from 'child_process'
@@ -10,7 +10,7 @@ import fg from 'fast-glob'
 
 const getPackages = packagePath => fg.sync('*', { cwd: packagePath, onlyDirectories: true })
 
-const scopes = [...getPackages('src'), 'public', 'core']
+const scopes = [...getPackages('src'), 'public', 'core', 'build', 'mock']
 
 const gitStatus = execSync('git status --porcelain || true').toString().trim().split('\n')
 

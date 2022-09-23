@@ -2,11 +2,12 @@
  * @Author: shen
  * @Date: 2022-09-20 09:48:07
  * @LastEditors: shen
- * @LastEditTime: 2022-09-20 14:51:01
+ * @LastEditTime: 2022-09-23 08:41:26
  * @Description:
  */
 import { defineConfig } from 'vite'
 import { resolve } from 'path'
+import { viteMockServe } from 'vite-plugin-mock'
 import react from '@vitejs/plugin-react'
 import eslint from 'vite-plugin-eslint'
 
@@ -28,6 +29,13 @@ export default defineConfig((mode: ConfigEnv): UserConfig => {
 			open: true,
 			cors: true
 		},
-		plugins: [react(), eslint()]
+		plugins: [
+			react(),
+			eslint(),
+			viteMockServe({
+				mockPath: 'mock',
+				localEnabled: mode.command === 'serve'
+			})
+		]
 	}
 })
