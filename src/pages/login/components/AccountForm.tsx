@@ -2,20 +2,37 @@
  * @Author: shen
  * @Date: 2022-09-23 16:19:32
  * @LastEditors: shen
- * @LastEditTime: 2022-09-26 09:09:27
+ * @LastEditTime: 2022-09-26 10:05:29
  * @Description:
  */
-import { Button, Form, Input } from 'antd'
-import { UserOutlined, LockOutlined, CloseCircleOutlined } from '@ant-design/icons'
 import { useState } from 'react'
-
+import { Button, Form, Input, notification } from 'antd'
+import { UserOutlined, LockOutlined, CloseCircleOutlined } from '@ant-design/icons'
+import { login } from '@/api/user'
 import type { FC } from 'react'
 
-const AccountForm: FC = () => {
-	const [loading] = useState(false)
+interface LoginForm {
+	username: string
+	password: string
+}
 
-	const onFinish = (values: any) => {
-		console.log('Success:', values)
+const AccountForm: FC = () => {
+	const [loading, setLoading] = useState(false)
+
+	const onFinish = async (values: LoginForm) => {
+		setLoading(true)
+		try {
+			const { code, data, msg } = await login<LoginForm>(values)
+			if (code === 200) {
+				console.log(data)
+				notification.success({
+					message: '提示',
+					description: msg
+				})
+			}
+		} finally {
+			setLoading(false)
+		}
 	}
 
 	const onFinishFailed = (errorInfo: any) => {
