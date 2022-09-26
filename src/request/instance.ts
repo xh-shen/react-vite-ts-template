@@ -2,35 +2,29 @@
  * @Author: shen
  * @Date: 2022-09-26 09:17:44
  * @LastEditors: shen
- * @LastEditTime: 2022-09-26 09:19:37
+ * @LastEditTime: 2022-09-26 15:38:08
  * @Description:
  */
 import axios, { AxiosError, AxiosInstance } from 'axios'
 import { requestConfig, CODE_MESSAGE } from './config'
-import { notification } from 'antd'
+import { store } from '@/store'
+import { Notification } from '@/utils'
 
 const instance: AxiosInstance = axios.create(requestConfig)
 
 const errorHandler = (error: AxiosError) => {
 	const { response }: any = error
 	const errorMsg = response?.data?.msg || CODE_MESSAGE[response?.status || 500]
-	notification.error({
-		message: '提示',
-		description: errorMsg
-	})
+	Notification(errorMsg, 'error')
 	return Promise.reject(error)
 }
-
-const getToken = () => ''
-
 // 添加请求拦截器
 instance.interceptors.request.use(config => {
-	const token: string = getToken()
-	if (token) {
-		config.headers = {
-			...config.headers,
-			token
-		}
+	const state = store.getState()
+	config.headers = {
+		...config.headers,
+		lang: state.app.lang,
+		token: state.app.token
 	}
 	return config
 }, errorHandler)
@@ -40,10 +34,7 @@ instance.interceptors.response.use(response => {
 	const { data } = response
 	// 请求异常提示信息
 	if (data.code !== 200) {
-		notification.error({
-			message: '提示',
-			description: data.msg
-		})
+		Notification(data.msg, 'error')
 	}
 	return response
 }, errorHandler)
