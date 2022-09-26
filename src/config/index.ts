@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 09:18:17
  * @LastEditors: shen
- * @LastEditTime: 2022-09-26 09:21:13
+ * @LastEditTime: 2022-09-26 14:24:54
  * @Description:
  */
 interface Config {
@@ -16,7 +16,7 @@ interface Config {
 const { themeColor, title, lang, baseApi } = JSON.parse('{}')
 const config: Config = {
 	title: title || 'shene react admin',
-	lang: lang || 'zh-cn',
+	lang: lang || 'en',
 	baseApi: baseApi || '/api',
 	themeColor: themeColor || '#409eff',
 	timeout: 5000
