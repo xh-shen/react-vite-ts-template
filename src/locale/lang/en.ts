@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 14:08:17
  * @LastEditors: shen
- * @LastEditTime: 2022-09-26 15:25:58
+ * @LastEditTime: 2022-09-26 16:04:44
  * @Description:
  */
 export default {
@@ -21,10 +21,6 @@ export default {
 		502: 'Bad Gateway',
 		503: 'Service Unavailable',
 		504: 'Gateway Time-out'
-	},
-	login: {
-		confirm: 'Login',
-		reset: 'Reset'
 	},
 	tabs: {
 		more: 'More',

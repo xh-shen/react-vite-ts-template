@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 14:08:22
  * @LastEditors: shen
- * @LastEditTime: 2022-09-26 15:27:05
+ * @LastEditTime: 2022-09-26 16:04:55
  * @Description:
  */
 export default {
@@ -21,10 +21,6 @@ export default {
 		502: '网关错误。',
 		503: '服务不可用，服务器暂时过载或维护。',
 		504: '网关超时。'
-	},
-	login: {
-		confirm: '登录',
-		reset: '重置'
 	},
 	tabs: {
 		more: '更多',

@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 14:03:51
  * @LastEditors: shen
- * @LastEditTime: 2022-09-26 14:59:00
+ * @LastEditTime: 2022-09-26 17:29:50
  * @Description:
  */
 import i18n from 'i18next'
@@ -26,7 +26,6 @@ const transformResources = () => {
 
 export function setupI18n() {
 	const state = store.getState()
-
 	i18n.use(initReactI18next).init({
 		resources: transformResources(),
 		fallbackLng: state.app.lang,
@@ -34,6 +33,22 @@ export function setupI18n() {
 		interpolation: {
 			escapeValue: false
 		}
+	})
+}
+
+export function addResourceBundles(bundles: Record<string, any>, pageKey?: string) {
+	setTimeout(() => {
+		Object.keys(bundles).forEach((key: string) => {
+			const lng = key.match(/.*\/(.*)\..*/)?.[1]
+			if (lng && lng !== 'index') {
+				const resources = (bundles[key] as any).default ?? {}
+				const _pageKey = pageKey || Object.keys(resources)[0]
+				const res = i18n.getResource(lng, 'translation', _pageKey)
+				if (!res) {
+					i18n.addResourceBundle(lng, 'translation', resources, true, true)
+				}
+			}
+		})
 	})
 }
 
