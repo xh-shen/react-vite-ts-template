@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-20 09:48:07
  * @LastEditors: shen
- * @LastEditTime: 2022-09-26 14:10:59
+ * @LastEditTime: 2022-09-27 16:50:57
  * @Description:
  */
 import React from 'react'
@@ -12,7 +12,9 @@ import { Provider } from 'react-redux'
 import { setupI18n } from './locale'
 import App from './App'
 
+import 'virtual:svg-icons-register'
 import 'antd/dist/antd.css'
+import './styles/index.less'
 
 setupI18n()
 
