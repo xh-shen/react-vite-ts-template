@@ -2,12 +2,13 @@
  * @Author: shen
  * @Date: 2022-09-20 09:48:07
  * @LastEditors: shen
- * @LastEditTime: 2022-09-23 08:41:26
+ * @LastEditTime: 2022-09-27 16:49:53
  * @Description:
  */
 import { defineConfig } from 'vite'
 import { resolve } from 'path'
 import { viteMockServe } from 'vite-plugin-mock'
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import react from '@vitejs/plugin-react'
 import eslint from 'vite-plugin-eslint'
 
@@ -35,6 +36,10 @@ export default defineConfig((mode: ConfigEnv): UserConfig => {
 			viteMockServe({
 				mockPath: 'mock',
 				localEnabled: mode.command === 'serve'
+			}),
+			createSvgIconsPlugin({
+				iconDirs: [resolve(process.cwd(), 'src/icons')],
+				symbolId: 'icon-[dir]-[name]'
 			})
 		]
 	}
