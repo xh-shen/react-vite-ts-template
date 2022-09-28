@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 10:50:37
  * @LastEditors: shen
- * @LastEditTime: 2022-09-26 12:58:03
+ * @LastEditTime: 2022-09-28 09:30:55
  * @Description:
  */
 import config from '@/config'
@@ -30,7 +30,7 @@ export const appSlice = createSlice({
 			setToken(action.payload)
 		},
 		setAppLang(state, action: PayloadAction<string>) {
-			state.token = action.payload
+			state.lang = action.payload
 			setLang(action.payload)
 		}
 	}
