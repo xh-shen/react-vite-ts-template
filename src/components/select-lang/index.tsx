@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-28 08:27:06
  * @LastEditors: shen
- * @LastEditTime: 2022-09-28 09:45:08
+ * @LastEditTime: 2022-09-28 10:51:25
  * @Description:
  */
 import { Dropdown, Menu } from 'antd'
@@ -25,9 +25,15 @@ import type { FC } from 'react'
 export interface SelectLangProps {
 	language: string
 	setLanguage: (language: string) => void
+	onChange?: (language: string) => void
 }
 
-const SelectLang: FC<SelectLangProps> = ({ language, setLanguage }) => {
+const SelectLang: FC<SelectLangProps> = ({ language, setLanguage, onChange }) => {
+	const onItemClick = async (language: string) => {
+		await setLanguage(language)
+		onChange?.(language)
+	}
+
 	const menu = (
 		<Menu
 			style={{ minWidth: 120 }}
@@ -36,14 +42,14 @@ const SelectLang: FC<SelectLangProps> = ({ language, setLanguage }) => {
 					key: '1',
 					label: <span style={{ marginLeft: 5 }}>简体中文</span>,
 					icon: '🇨🇳',
-					onClick: () => setLanguage('zh-CN'),
+					onClick: () => onItemClick('zh-CN'),
 					disabled: language === 'zh-CN'
 				},
 				{
 					key: '2',
 					label: <span style={{ marginLeft: 5 }}>English</span>,
 					icon: '🇺🇸',
-					onClick: () => setLanguage('en'),
+					onClick: () => onItemClick('en'),
 					disabled: language === 'en'
 				}
 			]}
