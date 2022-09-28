@@ -2,67 +2,68 @@
  * @Author: shen
  * @Date: 2022-09-23 16:19:32
  * @LastEditors: shen
- * @LastEditTime: 2022-09-26 10:05:29
+ * @LastEditTime: 2022-09-28 14:15:41
  * @Description:
  */
-import { useState } from 'react'
-import { Button, Form, Input, notification } from 'antd'
-import { UserOutlined, LockOutlined, CloseCircleOutlined } from '@ant-design/icons'
+import { useEffect, useState, useCallback } from 'react'
+import { Button, Form, Input } from 'antd'
+import { useTranslation } from 'react-i18next'
 import { login } from '@/api/user'
-import type { FC } from 'react'
+import { useLanguage } from '@/hooks'
+import { useAppDispatch, setAppToken } from '@/store'
+import { Notification } from '@/utils'
 
-interface LoginForm {
-	username: string
-	password: string
-}
+import type { FC } from 'react'
+import type { LoginParams } from '@/interfaces'
 
 const AccountForm: FC = () => {
 	const [loading, setLoading] = useState(false)
+	const [language] = useLanguage()
+	const [form] = Form.useForm()
+	const dispatch = useAppDispatch()
+	const { t } = useTranslation()
 
-	const onFinish = async (values: LoginForm) => {
+	const onFinish = async (values: LoginParams) => {
 		setLoading(true)
 		try {
-			const { code, data, msg } = await login<LoginForm>(values)
+			const { code, data, msg } = await login(values)
 			if (code === 200) {
-				console.log(data)
-				notification.success({
-					message: '提示',
-					description: msg
-				})
+				dispatch(setAppToken(data.token))
+				Notification(msg)
 			}
 		} finally {
 			setLoading(false)
 		}
 	}
 
-	const onFinishFailed = (errorInfo: any) => {
-		console.log('Failed:', errorInfo)
-	}
+	const hasFieldError = useCallback(() => {
+		const fieldsError = form.getFieldsError()
+		return fieldsError.some(field => field.errors.length > 0)
+	}, [])
+
+	useEffect(() => {
+		const hasError = hasFieldError()
+		if (hasError) {
+			form.validateFields()
+		}
+	}, [language])
+
 	return (
-		<Form
-			name="basic"
-			labelCol={{ span: 5 }}
-			initialValues={{ remember: true }}
-			size="large"
-			autoComplete="off"
-			onFinish={onFinish}
-			onFinishFailed={onFinishFailed}
-		>
-			<Form.Item name="username" rules={[{ required: true, message: '请输入用户名' }]}>
-				<Input placeholder="用户名：admin" prefix={<UserOutlined />} />
-			</Form.Item>
-			<Form.Item name="password" rules={[{ required: true, message: '请输入密码' }]}>
-				<Input.Password autoComplete="new-password" placeholder="密码：123456" prefix={<LockOutlined />} />
-			</Form.Item>
-			<Form.Item className="login-btn">
-				<Button onClick={() => {}} icon={<CloseCircleOutlined />}>
-					重置
-				</Button>
-				<Button type="primary" htmlType="submit" loading={loading} icon={<UserOutlined />}>
-					登录
-				</Button>
-			</Form.Item>
-		</Form>
+		<div className="login-form-wrapper">
+			<Form form={form} name="accountForm" autoComplete="off" onFinish={onFinish}>
+				<Form.Item name="username" rules={[{ required: true, message: t('login.rule.username') }]}>
+					<Input allowClear placeholder={t('login.placeholder.username')} />
+				</Form.Item>
+				<Form.Item name="password" rules={[{ required: true, message: t('login.rule.password') }]}>
+					<Input.Password autoComplete="new-password" allowClear placeholder={t('login.placeholder.password')} />
+				</Form.Item>
+				<Form.Item className="login-form-btn">
+					<Button type="primary" size="large" block htmlType="submit" loading={loading}>
+						{t('login.button.confirm')}
+					</Button>
+				</Form.Item>
+			</Form>
+		</div>
 	)
 }
 
