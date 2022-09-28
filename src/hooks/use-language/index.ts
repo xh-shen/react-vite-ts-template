@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-28 09:22:28
  * @LastEditors: shen
- * @LastEditTime: 2022-09-28 09:39:34
+ * @LastEditTime: 2022-09-28 10:51:06
  * @Description:
  */
 
@@ -14,8 +14,12 @@ export const useLanguage = (): [string, (language: string) => void] => {
 	const dispatch = useAppDispatch()
 
 	const setLanguage = (language: string) => {
-		i18n.changeLanguage(language)
-		dispatch(setAppLang(language))
+		return new Promise((resolve: (value: string) => void) => {
+			i18n.changeLanguage(language).then(() => {
+				dispatch(setAppLang(language))
+				resolve(language)
+			})
+		})
 	}
 
 	return [lang, setLanguage]
