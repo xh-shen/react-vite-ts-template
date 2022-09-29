@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-28 09:22:28
  * @LastEditors: shen
- * @LastEditTime: 2022-09-29 09:44:18
+ * @LastEditTime: 2022-09-29 16:40:45
  * @Description:
  */
 import { useState, useEffect } from 'react'
@@ -29,14 +29,14 @@ export const useLanguage = (): [string, (language: string) => void] => {
 	return [lang, setLanguage]
 }
 
+const languageToAntdMap: Record<string, Locale> = {
+	en: enUS,
+	'zh-CN': zhCN
+}
+
 export const useAntdLanguage = () => {
 	const [language] = useLanguage()
-	const [antdLanguage, setAntdLanguage] = useState<Locale>()
-
-	const languageToAntdMap: Record<string, Locale> = {
-		en: enUS,
-		'zh-CN': zhCN
-	}
+	const [antdLanguage, setAntdLanguage] = useState<Locale>(languageToAntdMap[language])
 
 	useEffect(() => {
 		setAntdLanguage(languageToAntdMap[language])
