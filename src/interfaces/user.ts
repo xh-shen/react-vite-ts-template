@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 10:25:24
  * @LastEditors: shen
- * @LastEditTime: 2022-09-26 13:13:15
+ * @LastEditTime: 2022-09-29 13:35:15
  * @Description:
  */
 export interface LoginParams {
@@ -15,6 +15,12 @@ export interface LoginResult {
 }
 
 export interface UserInfo {
+	id: string
 	username: string
-	name: string
+	realName: string
+	phone: string
+	avatar: string
+	roleName: string
+	role: string
+	sex: string
 }
