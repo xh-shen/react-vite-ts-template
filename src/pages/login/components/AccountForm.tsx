@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-23 16:19:32
  * @LastEditors: shen
- * @LastEditTime: 2022-09-28 14:15:41
+ * @LastEditTime: 2022-09-29 15:08:41
  * @Description:
  */
 import { useEffect, useState, useCallback } from 'react'
@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next'
 import { login } from '@/api/user'
 import { useLanguage } from '@/hooks'
 import { useAppDispatch, setAppToken } from '@/store'
+import { useNavigate } from 'react-router-dom'
 import { Notification } from '@/utils'
 
 import type { FC } from 'react'
@@ -20,6 +21,7 @@ const AccountForm: FC = () => {
 	const [loading, setLoading] = useState(false)
 	const [language] = useLanguage()
 	const [form] = Form.useForm()
+	const navigate = useNavigate()
 	const dispatch = useAppDispatch()
 	const { t } = useTranslation()
 
@@ -30,6 +32,7 @@ const AccountForm: FC = () => {
 			if (code === 200) {
 				dispatch(setAppToken(data.token))
 				Notification(msg)
+				navigate({ pathname: '/' }, { replace: true })
 			}
 		} finally {
 			setLoading(false)

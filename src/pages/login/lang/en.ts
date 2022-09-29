@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 15:57:51
  * @LastEditors: shen
- * @LastEditTime: 2022-09-28 15:51:57
+ * @LastEditTime: 2022-09-29 10:47:35
  * @Description:
  */
 export default {
@@ -36,6 +36,6 @@ export default {
 			mobile: 'Mobile Login'
 		},
 		copyright: '© 2022 shene development if you have any questions please scan the QQ code and ask friends',
-		tips: 'Login mode is currently used, please modify according to actual business!'
+		tips: 'It is currently a simulated login, please modify according to the actual business!'
 	}
 }

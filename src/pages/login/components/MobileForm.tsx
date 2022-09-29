@@ -2,13 +2,14 @@
  * @Author: shen
  * @Date: 2022-09-23 16:19:32
  * @LastEditors: shen
- * @LastEditTime: 2022-09-28 15:53:08
+ * @LastEditTime: 2022-09-29 16:18:32
  * @Description:
  */
 import { useState, useEffect, useCallback } from 'react'
 import { Button, Form, Input } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { login } from '@/api/user'
+import { useNavigate } from 'react-router-dom'
 import { useLanguage, useCountdown } from '@/hooks'
 import { useAppDispatch, setAppToken } from '@/store'
 import { Notification, PHONE_REGEXP } from '@/utils'
@@ -20,6 +21,7 @@ const MobileForm: FC = () => {
 	const [loading, setLoading] = useState(false)
 	const [language] = useLanguage()
 	const [form] = Form.useForm()
+	const navigate = useNavigate()
 	const dispatch = useAppDispatch()
 	const { t } = useTranslation()
 	const { currentCount, start, isStart } = useCountdown(60)
@@ -31,6 +33,7 @@ const MobileForm: FC = () => {
 			if (code === 200) {
 				dispatch(setAppToken(data.token))
 				Notification(msg)
+				navigate({ pathname: '/' }, { replace: true })
 			}
 		} finally {
 			setLoading(false)

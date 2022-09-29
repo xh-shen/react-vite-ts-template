@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 15:57:48
  * @LastEditors: shen
- * @LastEditTime: 2022-09-28 15:51:40
+ * @LastEditTime: 2022-09-29 10:47:04
  * @Description:
  */
 // addResourceBundle
@@ -37,6 +37,6 @@ export default {
 			mobile: '手机号登录'
 		},
 		copyright: '© 2022 shene 开发完成 如有问题请使用QQ扫码加好友咨询',
-		tips: '当前为模式登录，请根据实际业务修改！'
+		tips: '当前为模拟登录，请根据实际业务修改！'
 	}
 }
