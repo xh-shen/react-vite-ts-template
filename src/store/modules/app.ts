@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 10:50:37
  * @LastEditors: shen
- * @LastEditTime: 2022-09-28 09:30:55
+ * @LastEditTime: 2022-09-29 15:44:40
  * @Description:
  */
 import config from '@/config'
@@ -25,13 +25,13 @@ export const appSlice = createSlice({
 	name: 'app',
 	initialState,
 	reducers: {
-		setAppToken(state, action: PayloadAction<string>) {
-			state.token = action.payload
-			setToken(action.payload)
+		setAppToken(state, { payload }: PayloadAction<string>) {
+			state.token = payload
+			setToken(payload)
 		},
-		setAppLang(state, action: PayloadAction<string>) {
-			state.lang = action.payload
-			setLang(action.payload)
+		setAppLang(state, { payload }: PayloadAction<string>) {
+			state.lang = payload
+			setLang(payload)
 		}
 	}
 })
