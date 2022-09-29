@@ -2,14 +2,14 @@
  * @Author: shen
  * @Date: 2022-09-23 08:43:11
  * @LastEditors: shen
- * @LastEditTime: 2022-09-28 14:32:42
+ * @LastEditTime: 2022-09-29 13:37:49
  * @Description:
  */
 import Mock from 'mockjs'
 import { MockMethod } from 'vite-plugin-mock'
 
 import messages from '../_messages'
-import { resultSuccess, resultError } from '../_util'
+import { resultSuccess, resultError, getRequestToken } from '../_util'
 
 export default [
 	{
@@ -43,6 +43,24 @@ export default [
 			} else {
 				return resultError(messages[headers.lang].accountNotFount)
 			}
+		}
+	},
+	{
+		url: '/api/getUserInfo',
+		method: 'get',
+		response: request => {
+			const token = getRequestToken(request)
+			if (!token) return resultError('Invalid token')
+			return resultSuccess<any>({
+				id: '1',
+				username: 'admin',
+				realName: request.headers.lang === 'zh-CN' ? '管理员' : 'Admin',
+				phone: '13000000000',
+				avatar: 'https://q1.qlogo.cn/g?b=qq&nk=339449197&s=640',
+				roleName: request.headers.lang === 'zh-CN' ? '超级管理员' : 'Super Admin',
+				role: 'super',
+				sex: request.headers.lang === 'zh-CN' ? '男' : 'man'
+			})
 		}
 	}
 ] as MockMethod[]
