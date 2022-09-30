@@ -2,18 +2,15 @@
  * @Author: shen
  * @Date: 2022-09-23 16:19:32
  * @LastEditors: shen
- * @LastEditTime: 2022-09-29 15:08:41
+ * @LastEditTime: 2022-09-30 13:45:38
  * @Description:
  */
 import { useEffect, useState, useCallback } from 'react'
 import { Button, Form, Input } from 'antd'
 import { useTranslation } from 'react-i18next'
-import { login } from '@/api/user'
 import { useLanguage } from '@/hooks'
-import { useAppDispatch, setAppToken } from '@/store'
+import { useAppDispatch, fetchLogin } from '@/store'
 import { useNavigate } from 'react-router-dom'
-import { Notification } from '@/utils'
-
 import type { FC } from 'react'
 import type { LoginParams } from '@/interfaces'
 
@@ -28,12 +25,8 @@ const AccountForm: FC = () => {
 	const onFinish = async (values: LoginParams) => {
 		setLoading(true)
 		try {
-			const { code, data, msg } = await login(values)
-			if (code === 200) {
-				dispatch(setAppToken(data.token))
-				Notification(msg)
-				navigate({ pathname: '/' }, { replace: true })
-			}
+			await dispatch(fetchLogin(values)).unwrap()
+			navigate({ pathname: '/' }, { replace: true })
 		} finally {
 			setLoading(false)
 		}

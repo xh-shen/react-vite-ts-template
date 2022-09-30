@@ -2,17 +2,16 @@
  * @Author: shen
  * @Date: 2022-09-23 16:19:32
  * @LastEditors: shen
- * @LastEditTime: 2022-09-30 10:54:55
+ * @LastEditTime: 2022-09-30 13:46:43
  * @Description:
  */
 import { useState, useEffect, useCallback } from 'react'
 import { Button, Form, Input } from 'antd'
 import { useTranslation } from 'react-i18next'
-import { login } from '@/api/user'
 import { useNavigate } from 'react-router-dom'
 import { useLanguage, useCountdown } from '@/hooks'
-import { useAppDispatch, setAppToken } from '@/store'
-import { Notification, PHONE_REGEXP } from '@/utils'
+import { useAppDispatch, fetchLogin } from '@/store'
+import { PHONE_REGEXP } from '@/utils'
 
 import type { FC } from 'react'
 import type { LoginParams } from '@/interfaces'
@@ -29,12 +28,8 @@ const MobileForm: FC = () => {
 	const onFinish = async (values: LoginParams) => {
 		setLoading(true)
 		try {
-			const { code, data, msg } = await login(values)
-			if (code === 200) {
-				dispatch(setAppToken(data.token))
-				Notification(msg)
-				navigate({ pathname: '/' }, { replace: true })
-			}
+			await dispatch(fetchLogin(values))
+			navigate({ pathname: '/' }, { replace: true })
 		} finally {
 			setLoading(false)
 		}
