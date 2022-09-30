@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 09:17:44
  * @LastEditors: shen
- * @LastEditTime: 2022-09-29 13:24:41
+ * @LastEditTime: 2022-09-30 13:35:48
  * @Description:
  */
 import axios, { AxiosError, AxiosInstance } from 'axios'
@@ -24,7 +24,7 @@ instance.interceptors.request.use(config => {
 	config.headers = {
 		...config.headers,
 		lang: state.app.lang,
-		authorization: state.app.token
+		authorization: state.user.token
 	}
 	return config
 }, errorHandler)
