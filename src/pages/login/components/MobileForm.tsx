@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-23 16:19:32
  * @LastEditors: shen
- * @LastEditTime: 2022-09-29 16:18:32
+ * @LastEditTime: 2022-09-30 10:54:55
  * @Description:
  */
 import { useState, useEffect, useCallback } from 'react'
@@ -45,11 +45,16 @@ const MobileForm: FC = () => {
 		return fieldsError.some(field => field.errors.length > 0)
 	}, [])
 
-	const onCodeClick = () => {
-		if (isStart) {
-			return
+	const onCodeClick = async () => {
+		try {
+			await form.validateFields(['phone'])
+			if (isStart) {
+				return
+			}
+			start()
+		} catch (error) {
+			// TODO
 		}
-		start()
 	}
 
 	useEffect(() => {
