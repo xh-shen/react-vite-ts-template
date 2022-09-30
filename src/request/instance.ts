@@ -2,12 +2,12 @@
  * @Author: shen
  * @Date: 2022-09-26 09:17:44
  * @LastEditors: shen
- * @LastEditTime: 2022-09-30 13:35:48
+ * @LastEditTime: 2022-09-30 16:02:34
  * @Description:
  */
 import axios, { AxiosError, AxiosInstance } from 'axios'
 import { requestConfig, CODE_MESSAGE } from './config'
-import { store } from '@/store'
+import { store, setIsInvalidToken } from '@/store'
 import { Notification } from '@/utils'
 
 const instance: AxiosInstance = axios.create(requestConfig)
@@ -16,6 +16,9 @@ const errorHandler = (error: AxiosError) => {
 	const { response }: any = error
 	const errorMsg = response?.data?.msg || CODE_MESSAGE[response?.status || 500]
 	Notification(errorMsg, 'error')
+	if (response?.status === 401) {
+		store.dispatch(setIsInvalidToken(true))
+	}
 	return Promise.reject(error)
 }
 // 添加请求拦截器
