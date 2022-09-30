@@ -2,40 +2,39 @@
  * @Author: shen
  * @Date: 2022-09-26 10:50:37
  * @LastEditors: shen
- * @LastEditTime: 2022-09-29 15:44:40
+ * @LastEditTime: 2022-09-30 13:40:18
  * @Description:
  */
 import config from '@/config'
-import { getLang, getToken, setLang, setToken } from '@/utils'
+import { getLang, setLang } from '@/utils'
 import { createSlice } from '@reduxjs/toolkit'
 
 import type { PayloadAction } from '@reduxjs/toolkit'
 
 export interface AppState {
 	lang: string
-	token: string
+	authorized: boolean
 }
 
 const initialState: AppState = {
 	lang: getLang() ?? config.lang,
-	token: getToken() ?? ''
+	authorized: false
 }
 
 export const appSlice = createSlice({
 	name: 'app',
 	initialState,
 	reducers: {
-		setAppToken(state, { payload }: PayloadAction<string>) {
-			state.token = payload
-			setToken(payload)
-		},
 		setAppLang(state, { payload }: PayloadAction<string>) {
 			state.lang = payload
 			setLang(payload)
+		},
+		setAppAuthorized(state, { payload }: PayloadAction<boolean>) {
+			state.authorized = payload
 		}
 	}
 })
 
-export const { setAppToken, setAppLang } = appSlice.actions
+export const { setAppLang, setAppAuthorized } = appSlice.actions
 
 export default appSlice.reducer
