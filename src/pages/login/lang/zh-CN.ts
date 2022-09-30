@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 15:57:48
  * @LastEditors: shen
- * @LastEditTime: 2022-09-29 10:47:04
+ * @LastEditTime: 2022-09-30 10:56:14
  * @Description:
  */
 // addResourceBundle
@@ -25,7 +25,7 @@ export default {
 			username: '用户名：admin',
 			password: '密码：123456',
 			phone: '手机号：13000000000',
-			code: '密码：0000'
+			code: '验证码：0000'
 		},
 		qrcode: {
 			title: '加好友',
