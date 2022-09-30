@@ -2,10 +2,10 @@
  * @Author: shen
  * @Date: 2022-09-26 10:50:37
  * @LastEditors: shen
- * @LastEditTime: 2022-09-30 16:02:48
+ * @LastEditTime: 2022-09-30 16:24:26
  * @Description:
  */
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { getToken, setToken, removeToken, sleep } from '@/utils'
 import { login, getUserInfo } from '@/api/user'
 import { UserInfo, LoginParams } from '@/interfaces'
@@ -14,13 +14,11 @@ import { Notification } from '@/utils'
 export interface UserState {
 	info: UserInfo
 	token: string
-	isInvalidToken: boolean
 }
 
 const initialState: UserState = {
 	info: {} as UserInfo,
-	token: getToken() ?? '',
-	isInvalidToken: false
+	token: getToken() ?? ''
 }
 
 export const userSlice = createSlice({
@@ -31,9 +29,6 @@ export const userSlice = createSlice({
 			state.info = {} as UserInfo
 			state.token = ''
 			removeToken()
-		},
-		setIsInvalidToken(state, { payload }: PayloadAction<boolean>) {
-			state.isInvalidToken = payload
 		}
 	},
 	extraReducers(builder) {
@@ -61,13 +56,13 @@ export const fetchLogin = createAsyncThunk('user/fetchLogin', async (params: Log
 
 export const fetchUserInfo = createAsyncThunk('user/fetchUserInfo', async () => {
 	const { code, data } = await getUserInfo()
-	await sleep(300)
+	await sleep(2000)
 	if (code === 200) {
 		return data
 	}
 	return null
 })
 
-export const { resetUser, setIsInvalidToken } = userSlice.actions
+export const { resetUser } = userSlice.actions
 
 export default userSlice.reducer

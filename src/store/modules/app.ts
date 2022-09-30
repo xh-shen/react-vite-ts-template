@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 10:50:37
  * @LastEditors: shen
- * @LastEditTime: 2022-09-30 13:40:18
+ * @LastEditTime: 2022-09-30 16:15:56
  * @Description:
  */
 import config from '@/config'
@@ -13,12 +13,14 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 
 export interface AppState {
 	lang: string
-	authorized: boolean
+	authorized: boolean // 是否获取到授权信息
+	invalid: boolean // 是否登录失效
 }
 
 const initialState: AppState = {
 	lang: getLang() ?? config.lang,
-	authorized: false
+	authorized: false,
+	invalid: false
 }
 
 export const appSlice = createSlice({
@@ -31,10 +33,13 @@ export const appSlice = createSlice({
 		},
 		setAppAuthorized(state, { payload }: PayloadAction<boolean>) {
 			state.authorized = payload
+		},
+		setAppInvalid(state, { payload }: PayloadAction<boolean>) {
+			state.invalid = payload
 		}
 	}
 })
 
-export const { setAppLang, setAppAuthorized } = appSlice.actions
+export const { setAppLang, setAppAuthorized, setAppInvalid } = appSlice.actions
 
 export default appSlice.reducer
