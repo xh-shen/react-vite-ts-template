@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 10:25:24
  * @LastEditors: shen
- * @LastEditTime: 2022-09-29 13:35:15
+ * @LastEditTime: 2022-10-01 08:03:43
  * @Description:
  */
 export interface LoginParams {
@@ -14,7 +14,7 @@ export interface LoginResult {
 	token: string
 }
 
-export interface UserInfo {
+export interface User {
 	id: string
 	username: string
 	realName: string
