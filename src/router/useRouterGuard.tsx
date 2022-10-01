@@ -2,12 +2,21 @@
  * @Author: shen
  * @Date: 2022-09-30 08:17:25
  * @LastEditors: shen
- * @LastEditTime: 2022-09-30 16:26:24
+ * @LastEditTime: 2022-10-01 09:47:23
  * @Description:
  */
 import { useEffect, useState, useCallback } from 'react'
 import { useLocation, useNavigate, RouteObject } from 'react-router-dom'
-import { useAppSelector, useAppDispatch, resetUser, setAppAuthorized, fetchUserInfo, setAppInvalid } from '@/store'
+import {
+	useAppSelector,
+	useAppDispatch,
+	resetUser,
+	setAppAuthorized,
+	fetchUserInfo,
+	fetchAuthorizedMenu,
+	resetPermission,
+	setAppInvalid
+} from '@/store'
 import { Spin } from 'antd'
 
 const LOGIN_PATH = '/login'
@@ -25,7 +34,8 @@ export default (metaRoutes: RouteObject[], pathnames: string[]): RouteObject[] =
 
 	const getAuthorizeData = useCallback(async () => {
 		const userInfo = await dispatch(fetchUserInfo()).unwrap()
-		if (userInfo) {
+		const menuList = await dispatch(fetchAuthorizedMenu()).unwrap()
+		if (userInfo && menuList.length > 0) {
 			dispatch(setAppAuthorized(true))
 		} else {
 			dispatch(setAppInvalid(true))
@@ -84,6 +94,7 @@ export default (metaRoutes: RouteObject[], pathnames: string[]): RouteObject[] =
 			dispatch(setAppAuthorized(false))
 			dispatch(setAppInvalid(false))
 			dispatch(resetUser())
+			dispatch(resetPermission())
 			navigate({ pathname: LOGIN_PATH }, { replace: true })
 		}
 	}, [invalid])
