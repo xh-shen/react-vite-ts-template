@@ -13,7 +13,8 @@ import { setupI18n } from './locale'
 import App from './App'
 
 import 'virtual:svg-icons-register'
-import 'antd/dist/antd.css'
+// import 'antd/dist/antd.css'
+import 'antd/dist/antd.variable.min.css'
 import './styles/index.less'
 
 setupI18n()
