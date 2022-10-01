@@ -2,10 +2,10 @@
  * @Author: shen
  * @Date: 2022-09-30 08:17:25
  * @LastEditors: shen
- * @LastEditTime: 2022-10-01 09:47:23
+ * @LastEditTime: 2022-10-01 11:35:06
  * @Description:
  */
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState } from 'react'
 import { useLocation, useNavigate, RouteObject } from 'react-router-dom'
 import {
 	useAppSelector,
@@ -32,7 +32,7 @@ export default (metaRoutes: RouteObject[], pathnames: string[]): RouteObject[] =
 	const navigate = useNavigate()
 	const dispatch = useAppDispatch()
 
-	const getAuthorizeData = useCallback(async () => {
+	const getAuthorizeData = async () => {
 		const userInfo = await dispatch(fetchUserInfo()).unwrap()
 		const menuList = await dispatch(fetchAuthorizedMenu()).unwrap()
 		if (userInfo && menuList.length > 0) {
@@ -40,7 +40,7 @@ export default (metaRoutes: RouteObject[], pathnames: string[]): RouteObject[] =
 		} else {
 			dispatch(setAppInvalid(true))
 		}
-	}, [])
+	}
 
 	useEffect(() => {
 		if (pathname === '/' || WHITE_PATHS.includes(pathname)) {
