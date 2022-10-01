@@ -2,22 +2,22 @@
  * @Author: shen
  * @Date: 2022-09-26 10:50:37
  * @LastEditors: shen
- * @LastEditTime: 2022-09-30 16:24:26
+ * @LastEditTime: 2022-10-01 08:48:33
  * @Description:
  */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { getToken, setToken, removeToken, sleep } from '@/utils'
 import { login, getUserInfo } from '@/api/user'
-import { UserInfo, LoginParams } from '@/interfaces'
+import { User, LoginParams } from '@/interfaces'
 import { Notification } from '@/utils'
 
 export interface UserState {
-	info: UserInfo
+	info: User
 	token: string
 }
 
 const initialState: UserState = {
-	info: {} as UserInfo,
+	info: {} as User,
 	token: getToken() ?? ''
 }
 
@@ -26,7 +26,7 @@ export const userSlice = createSlice({
 	initialState,
 	reducers: {
 		resetUser(state) {
-			state.info = {} as UserInfo
+			state.info = {} as User
 			state.token = ''
 			removeToken()
 		}
@@ -56,7 +56,7 @@ export const fetchLogin = createAsyncThunk('user/fetchLogin', async (params: Log
 
 export const fetchUserInfo = createAsyncThunk('user/fetchUserInfo', async () => {
 	const { code, data } = await getUserInfo()
-	await sleep(2000)
+	await sleep(300)
 	if (code === 200) {
 		return data
 	}
