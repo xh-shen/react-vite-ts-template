@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-23 08:43:11
  * @LastEditors: shen
- * @LastEditTime: 2022-09-29 13:37:49
+ * @LastEditTime: 2022-10-01 08:22:29
  * @Description:
  */
 import Mock from 'mockjs'
@@ -50,7 +50,7 @@ export default [
 		method: 'get',
 		response: request => {
 			const token = getRequestToken(request)
-			if (!token) return resultError('Invalid token')
+			if (!token) return resultError('Invalid token', 401)
 			return resultSuccess<any>({
 				id: '1',
 				username: 'admin',
