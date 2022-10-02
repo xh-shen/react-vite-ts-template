@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-30 08:17:25
  * @LastEditors: shen
- * @LastEditTime: 2022-10-01 11:35:06
+ * @LastEditTime: 2022-10-02 14:56:36
  * @Description:
  */
 import { useEffect, useState } from 'react'
@@ -70,7 +70,8 @@ export default (metaRoutes: RouteObject[], pathnames: string[]): RouteObject[] =
 							size="large"
 							style={{
 								display: 'flex',
-								alignItems: 'center',
+								// alignItems: 'center',
+								paddingTop: '100px',
 								justifyContent: 'center',
 								height: '100%'
 							}}
