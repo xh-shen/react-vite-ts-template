@@ -11,19 +11,30 @@
 		"forceConsistentCasingInFileNames": true,
 		"module": "ESNext",
 		"moduleResolution": "Node",
+		"composite": true,
 		"resolveJsonModule": true,
 		"isolatedModules": true,
 		"noEmit": true,
+		"noImplicitAny": false,
 		"jsx": "react-jsx",
-		"baseUrl": "./",
-		"types": ["vite-plugin-svg-icons/client"],
+		"baseUrl": ".",
+		"types": ["vite-plugin-svg-icons/client", "vite/client"],
 		"paths": {
 			"@": ["src"],
 			"@/*": ["src/*"]
 		}
 	},
 
-	"include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx"],
-	"exclude": ["node_modules", "dist", "**/*.js"],
-	"references": [{ "path": "./tsconfig.node.json" }]
+	"include": [
+		"src/**/*.ts",
+		"src/**/*.d.ts",
+		"src/**/*.tsx",
+		"types/**/*.d.ts",
+		"types/**/*.ts",
+		"build/**/*.d.ts",
+		"build/**/*.ts",
+		"mock/**/*.ts",
+		"package.json"
+	],
+	"exclude": ["node_modules", "dist", "**/*.js"]
 }
