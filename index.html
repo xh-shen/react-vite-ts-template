@@ -4,11 +4,24 @@
 <head>
   <meta charset="UTF-8" />
   <link rel="icon" href="/favicon.ico">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Shene Admin</title>
+  <meta name="renderer" content="webkit" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+  <title>
+    <%= title %>
+  </title>
 </head>
 
 <body>
+  <script>
+    (() => {
+      var htmlRoot = document.getElementById('htmlRoot');
+      var darkMode = window.localStorage.getItem('__APP__DARK__MODE__');
+      if (htmlRoot && darkMode) {
+        htmlRoot.setAttribute('data-theme', darkMode);
+        theme = htmlRoot = null;
+      }
+    })();
+  </script>
   <div id="root">
     <style>
       html[data-theme='dark'] .app-loading {
@@ -139,13 +152,24 @@
       <div class="app-loading-wrap">
         <img src="/static/images/logo_big.png" class="app-loading-logo" alt="Logo" />
         <div class="app-loading-dots">
-          <span class="dot dot-spin"><i></i><i></i><i></i><i></i></span>
+          <span id="loading-dot" class="dot dot-spin"><i></i><i></i><i></i><i></i></span>
         </div>
-        <div class="app-loading-title">Shene Admin</div>
+        <div class="app-loading-title">
+          <%= title %>
+        </div>
       </div>
     </div>
   </div>
-  </div>
+  <script>
+    (function () {
+      var themeColor = localStorage.getItem('__APP__THEME__COLOR__') ? JSON.parse(localStorage.getItem('__APP__THEME__COLOR__')) : '<%= themeColor %>';
+      var spinDotList = document.getElementById('loading-dot').children;
+      for (var i = 0; i < spinDotList.length; i++) {
+        spinDotList[i].style.backgroundColor = themeColor;
+      }
+      themeColor = spinDotList = null
+    })();
+  </script>
   <script type="module" src="/src/main.tsx"></script>
 </body>
 
