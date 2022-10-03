@@ -1,6 +1,5 @@
 node_modules
 dist
-build
 .husky
 yarn.lock
 index.html
