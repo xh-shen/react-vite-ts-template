@@ -2,45 +2,61 @@
  * @Author: shen
  * @Date: 2022-09-20 09:48:07
  * @LastEditors: shen
- * @LastEditTime: 2022-09-27 16:49:53
+ * @LastEditTime: 2022-10-03 14:52:35
  * @Description:
  */
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import { resolve } from 'path'
-import { viteMockServe } from 'vite-plugin-mock'
-import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
-import react from '@vitejs/plugin-react'
-import eslint from 'vite-plugin-eslint'
+import { parseEnv } from './build/util'
+import { createProxy } from './build/vite/proxy'
+import { VITE_OUTPUT_DIR } from './build/constant'
+import { createPlugins } from './build/vite/plugin'
+
+import dayjs from 'dayjs'
+import pkg from './package.json'
 
 import type { ConfigEnv, UserConfig } from 'vite'
 
-// https://vitejs.dev/config/
-export default defineConfig((mode: ConfigEnv): UserConfig => {
-	console.log(mode)
+const { dependencies, devDependencies, name, version } = pkg
+const __APP_INFO__ = {
+	pkg: { dependencies, devDependencies, name, version },
+	lastBuildTime: dayjs().format('YYYY-MM-DD HH:mm:ss')
+}
+
+export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
+	const root = process.cwd()
+	const env = loadEnv(mode, root)
+	const viteEnv = parseEnv(env)
+	const { VITE_PORT, VITE_PUBLIC_PATH, VITE_PROXY, VITE_DROP_CONSOLE } = viteEnv
+	const isBuild = command === 'build'
+
 	return {
+		base: VITE_PUBLIC_PATH,
+		root,
 		resolve: {
 			alias: {
 				'@': resolve(__dirname, './src')
-			},
-			extensions: ['.js', '.ts', '.jsx', '.tsx', '.json']
+			}
 		},
 		server: {
-			host: '0.0.0.0',
-			port: 8086,
+			host: true,
 			open: true,
-			cors: true
+			port: VITE_PORT,
+			proxy: createProxy(VITE_PROXY)
 		},
-		plugins: [
-			react(),
-			eslint(),
-			viteMockServe({
-				mockPath: 'mock',
-				localEnabled: mode.command === 'serve'
-			}),
-			createSvgIconsPlugin({
-				iconDirs: [resolve(process.cwd(), 'src/icons')],
-				symbolId: 'icon-[dir]-[name]'
-			})
-		]
+		esbuild: {
+			pure: VITE_DROP_CONSOLE ? ['console.log', 'debugger'] : []
+		},
+		build: {
+			target: 'es2015',
+			cssTarget: 'chrome80',
+			outDir: VITE_OUTPUT_DIR,
+			chunkSizeWarningLimit: 2000
+		},
+		define: {
+			__INTLIFY_PROD_DEVTOOLS__: false,
+			__APP_INFO__: JSON.stringify(__APP_INFO__)
+		},
+		plugins: createPlugins(viteEnv, isBuild)
 	}
 })
