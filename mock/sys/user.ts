@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-23 08:43:11
  * @LastEditors: shen
- * @LastEditTime: 2022-10-01 08:22:29
+ * @LastEditTime: 2022-10-06 14:43:31
  * @Description:
  */
 import Mock from 'mockjs'
@@ -16,7 +16,7 @@ export default [
 		url: '/api/login',
 		method: 'post',
 		response: ({ body, headers }) => {
-			if (body.username === 'admin' || body.phone === '13000000000') {
+			if (body.username === 'shene' || body.phone === '13000000000') {
 				if (body.username) {
 					if (body.password === '123456') {
 						return resultSuccess<any>(
@@ -53,8 +53,8 @@ export default [
 			if (!token) return resultError('Invalid token', 401)
 			return resultSuccess<any>({
 				id: '1',
-				username: 'admin',
-				realName: request.headers.lang === 'zh-CN' ? '管理员' : 'Admin',
+				username: 'shene',
+				realName: request.headers.lang === 'zh-CN' ? '管理员' : 'Shene Admin',
 				phone: '13000000000',
 				avatar: 'https://q1.qlogo.cn/g?b=qq&nk=339449197&s=640',
 				roleName: request.headers.lang === 'zh-CN' ? '超级管理员' : 'Super Admin',
