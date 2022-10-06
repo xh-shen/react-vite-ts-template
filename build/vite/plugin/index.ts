@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-03 13:52:43
  * @LastEditors: shen
- * @LastEditTime: 2022-10-03 14:41:30
+ * @LastEditTime: 2022-10-06 20:46:23
  * @Description:
  */
 import { PluginOption } from 'vite'
@@ -17,7 +17,6 @@ import { configCompressPlugin } from './compress'
 import { configImageminPlugin } from './imagemin'
 
 export function createPlugins(viteEnv: ViteEnv, isBuild: boolean) {
-	console.log(viteEnv)
 	const { VITE_USE_IMAGEMIN, VITE_USE_MOCK, VITE_LEGACY, VITE_BUILD_COMPRESS, VITE_BUILD_COMPRESS_DELETE_ORIGIN_FILE } = viteEnv
 
 	const vitePlugins: (PluginOption | PluginOption[])[] = [react(), eslint()]
