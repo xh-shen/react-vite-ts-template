@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-23 16:19:32
  * @LastEditors: shen
- * @LastEditTime: 2022-09-30 13:45:38
+ * @LastEditTime: 2022-10-06 14:47:27
  * @Description:
  */
 import { useEffect, useState, useCallback } from 'react'
@@ -46,7 +46,16 @@ const AccountForm: FC = () => {
 
 	return (
 		<div className="login-form-wrapper">
-			<Form form={form} name="accountForm" autoComplete="off" onFinish={onFinish}>
+			<Form
+				form={form}
+				name="accountForm"
+				autoComplete="off"
+				initialValues={{
+					username: 'shene',
+					password: '123456'
+				}}
+				onFinish={onFinish}
+			>
 				<Form.Item name="username" rules={[{ required: true, message: t('login.rule.username') }]}>
 					<Input allowClear placeholder={t('login.placeholder.username')} />
 				</Form.Item>

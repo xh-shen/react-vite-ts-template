@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 15:57:48
  * @LastEditors: shen
- * @LastEditTime: 2022-09-30 10:56:14
+ * @LastEditTime: 2022-10-06 14:53:25
  * @Description:
  */
 // addResourceBundle
@@ -15,17 +15,17 @@ export default {
 			try: '秒后重试'
 		},
 		rule: {
-			username: '请输入用户名',
+			username: '请输入帐号',
 			password: '请输入密码',
 			phone: '请输入手机号',
 			code: '请输入验证码',
 			phoneReg: '请输入正确的手机号'
 		},
 		placeholder: {
-			username: '用户名：admin',
-			password: '密码：123456',
-			phone: '手机号：13000000000',
-			code: '验证码：0000'
+			username: '请输入帐号',
+			password: '请输入密码',
+			phone: '请输入手机号',
+			code: '请输入验证码'
 		},
 		qrcode: {
 			title: '加好友',

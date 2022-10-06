@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-23 16:19:32
  * @LastEditors: shen
- * @LastEditTime: 2022-09-30 13:46:43
+ * @LastEditTime: 2022-10-06 14:47:52
  * @Description:
  */
 import { useState, useEffect, useCallback } from 'react'
@@ -61,7 +61,16 @@ const MobileForm: FC = () => {
 
 	return (
 		<div className="login-form-wrapper">
-			<Form form={form} name="mobileForm" autoComplete="off" onFinish={onFinish}>
+			<Form
+				form={form}
+				name="mobileForm"
+				autoComplete="off"
+				initialValues={{
+					phone: '13000000000',
+					code: '0000'
+				}}
+				onFinish={onFinish}
+			>
 				<Form.Item
 					name="phone"
 					rules={[

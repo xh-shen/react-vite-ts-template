@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 15:57:51
  * @LastEditors: shen
- * @LastEditTime: 2022-09-29 10:47:35
+ * @LastEditTime: 2022-10-06 14:51:30
  * @Description:
  */
 export default {
@@ -14,17 +14,17 @@ export default {
 			try: 'seconds'
 		},
 		rule: {
-			username: 'Please input your username',
-			password: 'Please input your password',
-			phone: 'Please input your phone number',
-			code: 'Please input your verify code',
-			phoneReg: 'Please input the correct phone number'
+			username: 'Please enter your account',
+			password: 'Please enter your password',
+			phone: 'Please enter your phone number',
+			code: 'Please enter your verify code',
+			phoneReg: 'Please enter the correct phone number'
 		},
 		placeholder: {
-			username: 'Username: admin',
-			password: 'Password: 123456',
-			phone: 'Phone: 13000000000',
-			code: 'Code: 0000'
+			username: 'Enter your account',
+			password: 'Enter your password',
+			phone: 'Enter your phone number',
+			code: 'Enter your verify code'
 		},
 		qrcode: {
 			title: 'Add Friends',
