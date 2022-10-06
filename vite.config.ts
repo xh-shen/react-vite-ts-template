@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-20 09:48:07
  * @LastEditors: shen
- * @LastEditTime: 2022-10-06 14:32:00
+ * @LastEditTime: 2022-10-06 20:37:56
  * @Description:
  */
 import { defineConfig, loadEnv } from 'vite'
@@ -65,9 +65,7 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
 						namespace: VITE_APP_NAMESPACE
 					},
 					javascriptEnabled: true,
-					additionalData: `@import "@/styles/common/var.less";
-													 @import "@/styles/common/mixins.less";
-													`
+					additionalData: `@import "@/styles/global.less";`
 				}
 			}
 		},
