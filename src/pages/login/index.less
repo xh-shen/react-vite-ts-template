@@ -1,10 +1,13 @@
-.login {
+@prefix-cls: ~'@{namespace}-login';
+
+.@{prefix-cls} {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	height: 100%;
 	background: url('@/assets/images/login_bg.jpg') no-repeat fixed;
 	background-size: cover;
+
 	&-container {
 		position: relative;
 		width: 782px;
@@ -14,10 +17,12 @@
 		background-color: rgb(255 255 255);
 		box-shadow: rgb(0 0 0 / 15%) 0 2px 15px;
 	}
+
 	&-wrapper {
 		display: flex;
 		margin-top: 40px;
 	}
+
 	&-qrcode {
 		position: relative;
 		z-index: 5;
@@ -25,37 +30,46 @@
 		padding: 0 80px;
 		background-color: rgb(255 255 255);
 		border-right: 0.5px solid rgb(196 203 215);
+
 		&-wrapper {
 			position: relative;
 			padding-top: 40px;
 			text-align: center;
 		}
+
 		&-title {
 			font-size: 24px;
 			font-weight: 500;
 			color: rgb(24 24 24);
 		}
+
 		&-pic {
 			width: 200px;
 			padding: 15px;
+
 			img {
 				width: 100%;
 			}
 		}
+
 		&-tip {
 			font-size: 14px;
 			color: rgb(179 179 179);
+
 			span {
 				color: rgb(24 24 24);
 			}
 		}
 	}
+
 	&-form {
 		width: 370px;
 		height: 340px;
 		padding-left: 50px;
+
 		&-wrapper {
 			margin-top: 20px;
+
 			.ant-input-affix-wrapper,
 			.ant-input {
 				padding-right: 0;
@@ -67,11 +81,21 @@
 				box-shadow: none !important;
 			}
 		}
+
 		& &-btn {
 			margin-top: 62px;
 			margin-bottom: 10px;
 		}
+
+		&-verify {
+			height: 21px;
+			padding-left: 14px;
+			color: #999;
+			cursor: pointer;
+			border-left: 0.5px solid #c4cbd7;
+		}
 	}
+
 	&-lang {
 		position: absolute;
 		top: 5px;
@@ -79,19 +103,14 @@
 		font-size: 18px;
 		cursor: pointer;
 	}
+
 	&-copyright {
 		margin-top: 30px;
 		font-size: 12px;
 		color: rgb(179 179 179);
 		text-align: center;
 	}
-	&-verify-btn {
-		height: 21px;
-		padding-left: 14px;
-		color: #999999;
-		cursor: pointer;
-		border-left: 0.5px solid #c4cbd7;
-	}
+
 	&-tips {
 		font-size: 12px;
 		color: rgb(179 179 179);

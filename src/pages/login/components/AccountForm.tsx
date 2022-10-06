@@ -2,13 +2,13 @@
  * @Author: shen
  * @Date: 2022-09-23 16:19:32
  * @LastEditors: shen
- * @LastEditTime: 2022-10-06 14:47:27
+ * @LastEditTime: 2022-10-06 21:22:33
  * @Description:
  */
 import { useEffect, useState, useCallback } from 'react'
 import { Button, Form, Input } from 'antd'
 import { useTranslation } from 'react-i18next'
-import { useLanguage } from '@/hooks'
+import { useLanguage, usePrefixCls } from '@/hooks'
 import { useAppDispatch, fetchLogin } from '@/store'
 import { useNavigate } from 'react-router-dom'
 import type { FC } from 'react'
@@ -20,6 +20,7 @@ const AccountForm: FC = () => {
 	const [form] = Form.useForm()
 	const navigate = useNavigate()
 	const dispatch = useAppDispatch()
+	const prefixCls = usePrefixCls('login-form')
 	const { t } = useTranslation()
 
 	const onFinish = async (values: LoginParams) => {
@@ -45,7 +46,7 @@ const AccountForm: FC = () => {
 	}, [language])
 
 	return (
-		<div className="login-form-wrapper">
+		<div className={`${prefixCls}-wrapper`}>
 			<Form
 				form={form}
 				name="accountForm"
@@ -62,7 +63,7 @@ const AccountForm: FC = () => {
 				<Form.Item name="password" rules={[{ required: true, message: t('login.rule.password') }]}>
 					<Input.Password autoComplete="new-password" allowClear placeholder={t('login.placeholder.password')} />
 				</Form.Item>
-				<Form.Item className="login-form-btn">
+				<Form.Item className={`${prefixCls}-btn`}>
 					<Button type="primary" size="large" block htmlType="submit" loading={loading}>
 						{t('login.button.confirm')}
 					</Button>

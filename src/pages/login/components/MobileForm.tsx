@@ -2,14 +2,14 @@
  * @Author: shen
  * @Date: 2022-09-23 16:19:32
  * @LastEditors: shen
- * @LastEditTime: 2022-10-06 14:47:52
+ * @LastEditTime: 2022-10-06 21:23:37
  * @Description:
  */
 import { useState, useEffect, useCallback } from 'react'
 import { Button, Form, Input } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
-import { useLanguage, useCountdown } from '@/hooks'
+import { useLanguage, useCountdown, usePrefixCls } from '@/hooks'
 import { useAppDispatch, fetchLogin } from '@/store'
 import { PHONE_REGEXP } from '@/utils'
 
@@ -22,6 +22,7 @@ const MobileForm: FC = () => {
 	const [form] = Form.useForm()
 	const navigate = useNavigate()
 	const dispatch = useAppDispatch()
+	const prefixCls = usePrefixCls('login-form')
 	const { t } = useTranslation()
 	const { currentCount, start, isStart } = useCountdown(60)
 
@@ -60,7 +61,7 @@ const MobileForm: FC = () => {
 	}, [language])
 
 	return (
-		<div className="login-form-wrapper">
+		<div className={`${prefixCls}-wrapper`}>
 			<Form
 				form={form}
 				name="mobileForm"
@@ -93,13 +94,13 @@ const MobileForm: FC = () => {
 						placeholder={t('login.placeholder.code')}
 						maxLength={4}
 						suffix={
-							<span className="login-verify-btn" onClick={onCodeClick}>
+							<span className={`${prefixCls}-verify`} onClick={onCodeClick}>
 								{!isStart ? t('login.button.code') : `${currentCount} ${t('login.button.try')}`}
 							</span>
 						}
 					/>
 				</Form.Item>
-				<Form.Item className="login-form-btn">
+				<Form.Item className={`${prefixCls}-btn`}>
 					<Button type="primary" size="large" block htmlType="submit" loading={loading}>
 						{t('login.button.confirm')}
 					</Button>

@@ -2,13 +2,13 @@
  * @Author: shen
  * @Date: 2022-09-23 15:03:55
  * @LastEditors: shen
- * @LastEditTime: 2022-09-29 09:40:45
+ * @LastEditTime: 2022-10-06 21:20:49
  * @Description:
  */
 import { Tabs } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { SelectLang } from '@/components'
-import { useLanguage } from '@/hooks'
+import { useLanguage, usePrefixCls } from '@/hooks'
 import AccountForm from './components/AccountForm'
 import QrCodeForm from './components/QrCodeForm'
 import MobileForm from './components/MobileForm'
@@ -20,6 +20,7 @@ import type { FC } from 'react'
 const Login: FC = () => {
 	const { t } = useTranslation()
 	const [language, setLanguage] = useLanguage()
+	const prefixCls = usePrefixCls('login')
 
 	const items = [
 		{
@@ -35,19 +36,19 @@ const Login: FC = () => {
 	]
 
 	return (
-		<div className="login">
-			<div className="login-container">
-				<div className="login-wrapper">
+		<div className={prefixCls}>
+			<div className={`${prefixCls}-container`}>
+				<div className={`${prefixCls}-wrapper`}>
 					<QrCodeForm />
-					<div className="login-form">
+					<div className={`${prefixCls}-form`}>
 						<Tabs defaultActiveKey="account" size="large" items={items} />
-						<div className="login-tips">{t('login.tips')}</div>
+						<div className={`${prefixCls}-tips`}>{t('login.tips')}</div>
 					</div>
 				</div>
-				<div className="login-lang">
+				<div className={`${prefixCls}-lang`}>
 					<SelectLang language={language} setLanguage={setLanguage} />
 				</div>
-				<div className="login-copyright">{t('login.copyright')}</div>
+				<div className={`${prefixCls}-copyright`}>{t('login.copyright')}</div>
 			</div>
 		</div>
 	)
