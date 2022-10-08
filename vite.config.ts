@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-20 09:48:07
  * @LastEditors: shen
- * @LastEditTime: 2022-10-06 20:37:56
+ * @LastEditTime: 2022-10-08 10:49:08
  * @Description:
  */
 import { defineConfig, loadEnv } from 'vite'
@@ -61,7 +61,7 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
 			preprocessorOptions: {
 				less: {
 					modifyVars: {
-						'primary-color': VITE_APP_THEME_COLOR,
+						'default-primary-color': VITE_APP_THEME_COLOR,
 						namespace: VITE_APP_NAMESPACE
 					},
 					javascriptEnabled: true,
