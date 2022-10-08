@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-20 09:48:07
  * @LastEditors: shen
- * @LastEditTime: 2022-09-27 16:50:57
+ * @LastEditTime: 2022-10-08 08:28:58
  * @Description:
  */
 import React from 'react'
@@ -19,7 +19,9 @@ import './styles/index.less'
 
 setupI18n()
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
+
+root.render(
 	// <React.StrictMode>
 	<Provider store={store}>
 		<App />
