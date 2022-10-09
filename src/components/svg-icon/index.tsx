@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-27 16:53:41
  * @LastEditors: shen
- * @LastEditTime: 2022-09-28 08:29:50
+ * @LastEditTime: 2022-10-09 09:49:34
  * @Description:
  */
 import type { FC } from 'react'
@@ -15,7 +15,7 @@ export type SvgIconProps = {
 	color?: string
 }
 
-const SvgIcon: FC<SvgIconProps> = ({ name, prefix = 'icon', color = '#333', ...props }) => {
+const SvgIcon: FC<SvgIconProps> = ({ name, prefix = 'icon', color = '', ...props }) => {
 	const symbolId = `#${prefix}-${name}`
 
 	return (
