@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-30 08:17:25
  * @LastEditors: shen
- * @LastEditTime: 2022-10-02 14:56:36
+ * @LastEditTime: 2022-10-09 11:47:06
  * @Description:
  */
 import { useEffect, useState } from 'react'
@@ -94,9 +94,9 @@ export default (metaRoutes: RouteObject[], pathnames: string[]): RouteObject[] =
 			setRoutes(metaRoutes)
 			dispatch(setAppAuthorized(false))
 			dispatch(setAppInvalid(false))
+			navigate({ pathname: LOGIN_PATH }, { replace: true })
 			dispatch(resetUser())
 			dispatch(resetPermission())
-			navigate({ pathname: LOGIN_PATH }, { replace: true })
 		}
 	}, [invalid])
 
