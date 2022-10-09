@@ -1,0 +1,38 @@
+@ant-prefix: ant;
+
+@primary-color: ~'var(--@{ant-prefix}-primary-color)';
+
+@primary-1: ~'var(--@{ant-prefix}-primary-1)';
+@primary-2: ~'var(--@{ant-prefix}-primary-2)';
+@primary-3: ~'var(--@{ant-prefix}-primary-3)';
+@primary-4: ~'var(--@{ant-prefix}-primary-4)';
+@primary-5: ~'var(--@{ant-prefix}-primary-5)';
+@primary-6: ~'var(--@{ant-prefix}-primary-6)';
+@primary-7: ~'var(--@{ant-prefix}-primary-7)';
+
+@color-white: #fff;
+@color-black: #000;
+
+@dark: #001529;
+@light: @color-white;
+
+@text-color: fade(@color-black, 85%);
+@text-color-secondary: fade(@color-black, 45%);
+
+// header var map
+@header: {
+	background-color: @light;
+	color: @text-color;
+	height: 48px;
+	line-height: 48px;
+};
+
+@header-light: {
+	background-color: @light;
+	color: @text-color;
+};
+
+@header-dark: {
+	background-color: @dark;
+	color: @color-white;
+}; ;
