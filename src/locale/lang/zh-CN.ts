@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 14:08:22
  * @LastEditors: shen
- * @LastEditTime: 2022-09-26 16:04:55
+ * @LastEditTime: 2022-10-09 15:07:55
  * @Description:
  */
 export default {
@@ -40,5 +40,31 @@ export default {
 		personalData: '个人资料',
 		changePassword: '修改密码',
 		logout: '退出登录'
+	},
+	setting: {
+		pageStyle: {
+			title: '整体风格设置',
+			lightMenu: '亮色菜单风格',
+			darkMenu: '暗色菜单风格',
+			dark: '暗色风格'
+		},
+		themeColor: {
+			title: '主题色',
+			default: '系统默认',
+			daybreakBlue: '拂晓蓝',
+			dustRed: '薄暮',
+			volcano: '火山',
+			sunsetOrange: '日暮',
+			cyan: '明青',
+			polarGreen: '极光绿',
+			geekBlue: '极客蓝',
+			goldenPurple: '酱紫'
+		},
+		navigationMode: {
+			title: '导航模式',
+			siderMenu: '侧边菜单布局',
+			topMenu: '顶部菜单布局',
+			mixinMenu: '混合菜单布局'
+		}
 	}
 }
