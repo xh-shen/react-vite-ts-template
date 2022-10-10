@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-20 13:59:13
  * @LastEditors: shen
- * @LastEditTime: 2022-10-06 20:45:06
+ * @LastEditTime: 2022-10-10 08:42:35
  * @Description:
  */
 
@@ -35,6 +35,7 @@ module.exports = {
 				ignore: ['after-comment', 'first-nested']
 			}
 		],
+		indentation: 'tab',
 		'unit-no-unknown': [true, { ignoreUnits: ['rpx'] }],
 		'order/order': [
 			[
