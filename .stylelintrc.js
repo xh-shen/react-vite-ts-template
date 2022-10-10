@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-20 13:59:13
  * @LastEditors: shen
- * @LastEditTime: 2022-10-10 08:42:35
+ * @LastEditTime: 2022-10-10 09:05:25
  * @Description:
  */
 
@@ -14,12 +14,13 @@ module.exports = {
 	rules: {
 		'function-no-unknown': null,
 		'selector-class-pattern': null,
-		'at-rule-no-unknown': [
-			true,
-			{
-				ignoreAtRules: ['apply', 'variants', 'responsive', 'screen', 'function', 'if', 'each', 'include', 'mixin']
-			}
-		],
+		// 'at-rule-no-unknown': [
+		// 	true,
+		// 	{
+		// 		ignoreAtRules: ['apply', 'variants', 'responsive', 'screen', 'function', 'if', 'each', 'include', 'mixin']
+		// 	}
+		// ],
+		'at-rule-no-unknown': null,
 		'no-empty-source': null,
 		'string-quotes': null,
 		'named-grid-areas-no-invalid': null,

@@ -3,15 +3,15 @@
 .set-css-vars(@scope, @type: 'default') {
 	@variables: if(boolean(@type = 'default'), '@{scope}', '@{scope}-@{type}');
 	each(@@variables, {
-    @{var-prefix}-@{scope}-@{key}: @value
-  });
+		@{var-prefix}-@{scope}-@{key}: @value
+	});
 }
 
 .get-css-vars(@scope) {
 	@variables: '@{scope}';
 	each(@@variables, {
-    @{key}: ~'var(@{var-prefix}-@{scope}-@{key})';
-  });
+		@{key}: ~'var(@{var-prefix}-@{scope}-@{key})';
+	});
 }
 
 .get-css-var(@scope, @key) {
