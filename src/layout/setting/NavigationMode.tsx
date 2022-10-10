@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-09 15:11:08
  * @LastEditors: shen
- * @LastEditTime: 2022-10-09 16:50:58
+ * @LastEditTime: 2022-10-10 09:47:22
  * @Description:
  */
 import { usePrefixCls } from '@/hooks'
@@ -15,20 +15,20 @@ import { useAppDispatch, useAppSelector, setAppSettingValues } from '@/store'
 const NavigationMode: FC = () => {
 	const { t } = useTranslation()
 	const prefixCls = usePrefixCls('layout-setting-block-checkbox')
-	const pageStyle = useAppSelector(state => state.app.pageStyle)
+	const navigationMode = useAppSelector(state => state.app.navigationMode)
 	const dispatch = useAppDispatch()
 	const items = [
 		{
-			key: 'light',
-			title: t('setting.pageStyle.lightMenu')
+			key: 'side',
+			title: t('setting.navigationMode.siderMenu')
 		},
 		{
-			key: 'dark',
-			title: t('setting.pageStyle.darkMenu')
+			key: 'top',
+			title: t('setting.navigationMode.topMenu')
 		},
 		{
-			key: 'realDark',
-			title: t('setting.pageStyle.dark')
+			key: 'mix',
+			title: t('setting.navigationMode.mixinMenu')
 		}
 	]
 	return (
@@ -37,11 +37,11 @@ const NavigationMode: FC = () => {
 				<Tooltip key={item.key} placement="top" title={item.title}>
 					<div
 						className={`${prefixCls}-item ${prefixCls}-item-${item.key}`}
-						onClick={() => dispatch(setAppSettingValues({ key: 'pageStyle', value: item.key }))}
+						onClick={() => dispatch(setAppSettingValues({ key: 'navigationMode', value: item.key }))}
 					>
 						<CheckOutlined
 							className={`${prefixCls}-item-select`}
-							style={{ display: pageStyle === item.key ? 'block' : 'none' }}
+							style={{ display: navigationMode === item.key ? 'block' : 'none' }}
 						/>
 					</div>
 				</Tooltip>

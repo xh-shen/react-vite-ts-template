@@ -2,13 +2,14 @@
  * @Author: shen
  * @Date: 2022-10-09 12:40:37
  * @LastEditors: shen
- * @LastEditTime: 2022-10-09 13:56:37
+ * @LastEditTime: 2022-10-10 15:22:31
  * @Description:
  */
+import { useAppSelector } from '@/store'
 import { MailOutlined, SettingOutlined } from '@ant-design/icons'
 import type { MenuProps } from 'antd'
 import { Menu } from 'antd'
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 
 const items: MenuProps['items'] = [
 	{
@@ -96,15 +97,33 @@ const items: MenuProps['items'] = [
 	}
 ]
 
-const LayoutMenu: React.FC = () => {
+const LayoutMenu: React.FC<{ className?: string }> = ({ className }) => {
+	const pageStyle = useAppSelector(state => state.app.pageStyle)
+	const navigationMode = useAppSelector(state => state.app.navigationMode)
 	const [current, setCurrent] = useState('mail')
+
+	const theme = useMemo(() => {
+		if (!pageStyle || pageStyle === 'realDark') {
+			return 'light'
+		} else {
+			return pageStyle
+		}
+	}, [pageStyle])
+
+	const mode = useMemo(() => {
+		if (!navigationMode || navigationMode === 'side' || navigationMode === 'mix') {
+			return 'inline'
+		} else {
+			return 'horizontal'
+		}
+	}, [navigationMode])
 
 	const onClick: MenuProps['onClick'] = e => {
 		console.log('click ', e)
 		setCurrent(e.key)
 	}
 
-	return <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} />
+	return <Menu className={className} theme={theme} onClick={onClick} selectedKeys={[current]} mode={mode} items={items} />
 }
 
 export default LayoutMenu

@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-29 09:06:24
  * @LastEditors: shen
- * @LastEditTime: 2022-10-09 13:41:17
+ * @LastEditTime: 2022-10-10 13:23:16
  * @Description:
  */
 
@@ -15,16 +15,19 @@ import './index.less'
 
 import type { FC } from 'react'
 import LayoutSetting from './setting'
+import { useAppSelector } from '@/store'
 
 const BasicLayout: FC = () => {
 	const prefixCls = usePrefixCls('layout')
+	const navigationMode = useAppSelector(state => state.app.navigationMode)
 
 	return (
 		<Layout className={prefixCls}>
 			<LayoutSetting />
-			<LayoutHeader />
+			{navigationMode === 'side' ? <LayoutSider /> : <LayoutHeader />}
 			<Layout>
-				<LayoutSider />
+				{navigationMode === 'side' && <LayoutHeader />}
+				{navigationMode === 'mix' && <LayoutSider />}
 				<LayoutContent />
 			</Layout>
 		</Layout>

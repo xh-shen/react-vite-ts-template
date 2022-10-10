@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-09 15:11:08
  * @LastEditors: shen
- * @LastEditTime: 2022-10-09 15:59:59
+ * @LastEditTime: 2022-10-10 09:54:36
  * @Description:
  */
 import { usePrefixCls } from '@/hooks'
@@ -25,11 +25,11 @@ const PageStyle: FC = () => {
 		{
 			key: 'dark',
 			title: t('setting.pageStyle.darkMenu')
-		},
-		{
-			key: 'realDark',
-			title: t('setting.pageStyle.dark')
 		}
+		// {
+		// 	key: 'realDark',
+		// 	title: t('setting.pageStyle.dark')
+		// }
 	]
 	return (
 		<div className={prefixCls}>
