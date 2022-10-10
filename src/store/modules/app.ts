@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 10:50:37
  * @LastEditors: shen
- * @LastEditTime: 2022-10-09 16:50:27
+ * @LastEditTime: 2022-10-10 09:45:32
  * @Description:
  */
 import config from '@/config'
@@ -17,7 +17,7 @@ export interface AppState {
 	authorized: boolean // 是否获取到授权信息
 	invalid: boolean // 是否登录失效
 	pageStyle: 'light' | 'dark' | 'realDark'
-	navigationMode: 'side' | 'top' | 'mixin'
+	navigationMode: 'side' | 'top' | 'mix'
 }
 
 const initialState: AppState = {
