@@ -2,12 +2,14 @@
  * @Author: shen
  * @Date: 2022-09-26 14:08:22
  * @LastEditors: shen
- * @LastEditTime: 2022-10-09 15:07:55
+ * @LastEditTime: 2022-10-11 13:38:46
  * @Description:
  */
 export default {
 	app: {
-		notifyTitle: '提示'
+		notifyTitle: '提示',
+		login: '登录',
+		dashboard: '首页'
 	},
 	request: {
 		200: '服务器成功返回请求的数据。',
@@ -60,7 +62,7 @@ export default {
 			geekBlue: '极客蓝',
 			goldenPurple: '酱紫'
 		},
-		navigationMode: {
+		layout: {
 			title: '导航模式',
 			siderMenu: '侧边菜单布局',
 			topMenu: '顶部菜单布局',

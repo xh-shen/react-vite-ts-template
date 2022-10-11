@@ -2,12 +2,14 @@
  * @Author: shen
  * @Date: 2022-09-26 14:08:17
  * @LastEditors: shen
- * @LastEditTime: 2022-10-09 15:08:35
+ * @LastEditTime: 2022-10-11 13:38:23
  * @Description:
  */
 export default {
 	app: {
-		notifyTitle: 'Tips'
+		notifyTitle: 'Tips',
+		login: 'Login',
+		dashboard: 'Dashboard'
 	},
 	request: {
 		200: 'Request Success',
@@ -60,7 +62,7 @@ export default {
 			geekBlue: 'Geek Blue',
 			goldenPurple: 'Golden Purple'
 		},
-		navigationMode: {
+		layout: {
 			title: 'Navigation Mode',
 			siderMenu: 'Side Menu Layout',
 			topMenu: 'Top Menu Layout',
