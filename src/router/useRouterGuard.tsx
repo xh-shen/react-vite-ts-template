@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-30 08:17:25
  * @LastEditors: shen
- * @LastEditTime: 2022-10-09 11:47:06
+ * @LastEditTime: 2022-10-11 14:56:16
  * @Description:
  */
 import { useEffect, useState } from 'react'
@@ -18,6 +18,7 @@ import {
 	setAppInvalid
 } from '@/store'
 import { Spin } from 'antd'
+import config from '@/config'
 
 const LOGIN_PATH = '/login'
 const DASHBOARD_PATH = '/dashboard'
@@ -29,6 +30,7 @@ export default (metaRoutes: RouteObject[], pathnames: string[]): RouteObject[] =
 	const token = useAppSelector(state => state.user.token)
 	const authorized = useAppSelector(state => state.app.authorized)
 	const invalid = useAppSelector(state => state.app.invalid)
+	const menuTitles = useAppSelector(state => state.permission.menuTitles)
 	const navigate = useNavigate()
 	const dispatch = useAppDispatch()
 
@@ -82,6 +84,13 @@ export default (metaRoutes: RouteObject[], pathnames: string[]): RouteObject[] =
 			getAuthorizeData()
 		}
 	}, [pathname])
+
+	useEffect(() => {
+		if (menuTitles[pathname]) {
+			config.title
+			document.title = menuTitles[pathname] + ' - ' + config.title
+		}
+	}, [pathname, menuTitles])
 
 	useEffect(() => {
 		if (authorized) {
