@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-28 09:22:28
  * @LastEditors: shen
- * @LastEditTime: 2022-09-29 16:40:45
+ * @LastEditTime: 2022-10-11 15:14:37
  * @Description:
  */
 import { useState, useEffect } from 'react'
@@ -22,6 +22,7 @@ export const useLanguage = (): [string, (language: string) => void] => {
 			i18n.changeLanguage(language).then(() => {
 				dispatch(setAppLang(language))
 				resolve(language)
+				window.location.reload()
 			})
 		})
 	}
