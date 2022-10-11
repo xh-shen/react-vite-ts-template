@@ -2,27 +2,34 @@
  * @Author: shen
  * @Date: 2022-09-27 16:53:41
  * @LastEditors: shen
- * @LastEditTime: 2022-10-09 09:49:34
+ * @LastEditTime: 2022-10-11 08:02:25
  * @Description:
  */
-import type { FC } from 'react'
+import { usePrefixCls } from '@/hooks'
+import Icon from '@ant-design/icons'
+import type { FC, CSSProperties } from 'react'
 
 import './index.less'
 
-export type SvgIconProps = {
+export interface SvgIconProps {
 	name: string
 	prefix?: string
-	color?: string
+	spin?: boolean
+	rotate?: number
+	style?: CSSProperties
+	className?: string
 }
 
-const SvgIcon: FC<SvgIconProps> = ({ name, prefix = 'icon', color = '', ...props }) => {
+const SvgIcon: FC<SvgIconProps> = ({ name, prefix = 'icon', ...props }) => {
+	const prefixCls = usePrefixCls('svg-icon')
 	const symbolId = `#${prefix}-${name}`
-
-	return (
-		<svg {...props} aria-hidden="true" className="svg-icon">
-			<use href={symbolId} fill={color} />
+	const CustomIcon = () => (
+		<svg aria-hidden="true" className={prefixCls}>
+			<use href={symbolId} />
 		</svg>
 	)
+
+	return <Icon component={CustomIcon} {...props} />
 }
 
 export default SvgIcon
