@@ -2,20 +2,26 @@
  * @Author: shen
  * @Date: 2022-10-01 08:39:30
  * @LastEditors: shen
- * @LastEditTime: 2022-10-01 08:48:17
+ * @LastEditTime: 2022-10-11 18:02:02
  * @Description:
  */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { sleep } from '@/utils'
 import { getAuthorizedMenu } from '@/api/menu'
-import { Menu } from '@/interfaces'
+import { MenuData } from '@/interfaces'
+import { genLocalRouterTitles } from '@/router'
+import i18n from '@/locale'
 
 export interface PermissionState {
-	menu: Menu[]
+	flatmMenus: MenuData[]
+	flatmMenuKeys: string[]
+	menuTitles: Record<string, string>
 }
 
 const initialState: PermissionState = {
-	menu: []
+	flatmMenus: [],
+	flatmMenuKeys: [],
+	menuTitles: genLocalRouterTitles()
 }
 
 export const permissionSlice = createSlice({
@@ -23,12 +29,24 @@ export const permissionSlice = createSlice({
 	initialState,
 	reducers: {
 		resetPermission(state) {
-			state.menu = []
+			state.flatmMenus = []
+			state.flatmMenuKeys = []
+			state.menuTitles = genLocalRouterTitles()
 		}
 	},
 	extraReducers(builder) {
 		builder.addCase(fetchAuthorizedMenu.fulfilled, (state, { payload }) => {
-			state.menu = payload
+			state.flatmMenus = [
+				{ title: i18n.t('app.dashboard'), path: '/dashboard', icon: 'dashboard-line', pid: '0', id: 'dashboard' },
+				...payload
+			]
+			state.flatmMenuKeys = state.flatmMenus.map(menu => menu.path)
+			let tempMenuTitles: any = {}
+			state.flatmMenus.forEach(item => {
+				tempMenuTitles[item.path] = item.title
+			})
+			state.menuTitles = { ...tempMenuTitles, ...genLocalRouterTitles() }
+			tempMenuTitles = null
 		})
 	}
 })

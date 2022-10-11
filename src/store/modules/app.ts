@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 10:50:37
  * @LastEditors: shen
- * @LastEditTime: 2022-10-10 21:21:22
+ * @LastEditTime: 2022-10-11 10:32:34
  * @Description:
  */
 import config from '@/config'
@@ -17,7 +17,7 @@ export interface AppState {
 	authorized: boolean // 是否获取到授权信息
 	invalid: boolean // 是否登录失效
 	pageStyle: 'light' | 'dark' | 'realDark'
-	navigationMode: 'side' | 'top' | 'mix'
+	layout: 'side' | 'top' | 'mix'
 	siderCollapsed: boolean
 }
 
@@ -27,7 +27,7 @@ const initialState: AppState = {
 	authorized: false,
 	invalid: false,
 	pageStyle: getSettingValue('pageStyle') || 'light',
-	navigationMode: getSettingValue('navigationMode') || 'side',
+	layout: getSettingValue('layout') || 'side',
 	siderCollapsed: false
 }
 
