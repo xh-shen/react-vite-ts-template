@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 10:50:37
  * @LastEditors: shen
- * @LastEditTime: 2022-10-10 09:45:32
+ * @LastEditTime: 2022-10-10 21:21:22
  * @Description:
  */
 import config from '@/config'
@@ -18,6 +18,7 @@ export interface AppState {
 	invalid: boolean // 是否登录失效
 	pageStyle: 'light' | 'dark' | 'realDark'
 	navigationMode: 'side' | 'top' | 'mix'
+	siderCollapsed: boolean
 }
 
 const initialState: AppState = {
@@ -26,7 +27,8 @@ const initialState: AppState = {
 	authorized: false,
 	invalid: false,
 	pageStyle: getSettingValue('pageStyle') || 'light',
-	navigationMode: getSettingValue('navigationMode') || 'side'
+	navigationMode: getSettingValue('navigationMode') || 'side',
+	siderCollapsed: false
 }
 
 export const appSlice = createSlice({
@@ -47,6 +49,9 @@ export const appSlice = createSlice({
 		setAppInvalid(state, { payload }: PayloadAction<boolean>) {
 			state.invalid = payload
 		},
+		setSiderCollapsed(state, { payload }: PayloadAction<boolean>) {
+			state.siderCollapsed = payload
+		},
 		setAppSettingValues(state, { payload }: PayloadAction<Record<string, any>>) {
 			state[payload.key] = payload.value
 			const setting = getSettingValues() || {}
@@ -55,6 +60,7 @@ export const appSlice = createSlice({
 	}
 })
 
-export const { setAppLang, setAppAuthorized, setAppInvalid, setAppThemeColor, setAppSettingValues } = appSlice.actions
+export const { setAppLang, setAppAuthorized, setAppInvalid, setAppThemeColor, setAppSettingValues, setSiderCollapsed } =
+	appSlice.actions
 
 export default appSlice.reducer
