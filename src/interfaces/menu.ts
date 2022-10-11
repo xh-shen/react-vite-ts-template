@@ -2,11 +2,11 @@
  * @Author: shen
  * @Date: 2022-10-01 08:01:16
  * @LastEditors: shen
- * @LastEditTime: 2022-10-01 08:06:45
+ * @LastEditTime: 2022-10-11 15:51:48
  * @Description:
  */
 
-export interface Menu {
+export interface MenuData {
 	id: string
 	pid: string
 	path: string
