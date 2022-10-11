@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-08 09:19:47
  * @LastEditors: shen
- * @LastEditTime: 2022-10-10 15:22:01
+ * @LastEditTime: 2022-10-10 21:44:43
  * @Description:
  */
 import { useMemo } from 'react'
@@ -21,6 +21,7 @@ const LayoutSider: FC = () => {
 	const prefixCls = usePrefixCls('layout-sider')
 	const pageStyle = useAppSelector(state => state.app.pageStyle)
 	const navigationMode = useAppSelector(state => state.app.navigationMode)
+	const siderCollapsed = useAppSelector(state => state.app.siderCollapsed)
 
 	const theme = useMemo(() => {
 		if (!pageStyle || pageStyle === 'realDark') {
@@ -30,13 +31,24 @@ const LayoutSider: FC = () => {
 		}
 	}, [pageStyle])
 
-	const siderCls = classnames(prefixCls, `${prefixCls}-${theme}`)
+	const siderCls = classnames(prefixCls, `${prefixCls}-${theme}`, {
+		[`${prefixCls}-collapsed`]: siderCollapsed
+	})
 
 	return (
-		<Sider theme={theme} className={siderCls} width={208}>
+		<Sider
+			theme={theme}
+			trigger={null}
+			collapsible
+			collapsed={siderCollapsed}
+			className={siderCls}
+			width={208}
+			collapsedWidth={48}
+			breakpoint="lg"
+		>
 			{navigationMode === 'side' && (
 				<div className={`${prefixCls}-logo`}>
-					<Logo />
+					<Logo showTitle={!siderCollapsed} />
 				</div>
 			)}
 			<div style={{ flex: '1 1 0%', overflow: 'hidden auto' }}>
