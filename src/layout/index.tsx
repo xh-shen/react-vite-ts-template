@@ -19,15 +19,15 @@ import { useAppSelector } from '@/store'
 
 const BasicLayout: FC = () => {
 	const prefixCls = usePrefixCls('layout')
-	const navigationMode = useAppSelector(state => state.app.navigationMode)
+	const layout = useAppSelector(state => state.app.layout)
 
 	return (
 		<Layout className={prefixCls}>
 			<LayoutSetting />
-			{navigationMode === 'side' ? <LayoutSider /> : <LayoutHeader />}
+			{layout === 'side' ? <LayoutSider /> : <LayoutHeader />}
 			<Layout>
-				{navigationMode === 'side' && <LayoutHeader />}
-				{navigationMode === 'mix' && <LayoutSider />}
+				{layout === 'side' && <LayoutHeader />}
+				{layout === 'mix' && <LayoutSider />}
 				<LayoutContent />
 			</Layout>
 		</Layout>

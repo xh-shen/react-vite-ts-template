@@ -41,7 +41,7 @@ const LayoutSetting: FC = () => {
 						<ThemeColor />
 					</SettingBlock>
 					<Divider />
-					<SettingBlock title={t('setting.navigationMode.title')}>
+					<SettingBlock title={t('setting.layout.title')}>
 						<NavigationMode />
 					</SettingBlock>
 				</div>

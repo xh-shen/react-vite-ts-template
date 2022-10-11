@@ -15,20 +15,20 @@ import { useAppDispatch, useAppSelector, setAppSettingValues } from '@/store'
 const NavigationMode: FC = () => {
 	const { t } = useTranslation()
 	const prefixCls = usePrefixCls('layout-setting-block-checkbox')
-	const navigationMode = useAppSelector(state => state.app.navigationMode)
+	const layout = useAppSelector(state => state.app.layout)
 	const dispatch = useAppDispatch()
 	const items = [
 		{
 			key: 'side',
-			title: t('setting.navigationMode.siderMenu')
+			title: t('setting.layout.siderMenu')
 		},
 		{
 			key: 'top',
-			title: t('setting.navigationMode.topMenu')
+			title: t('setting.layout.topMenu')
 		},
 		{
 			key: 'mix',
-			title: t('setting.navigationMode.mixinMenu')
+			title: t('setting.layout.mixinMenu')
 		}
 	]
 	return (
@@ -37,12 +37,9 @@ const NavigationMode: FC = () => {
 				<Tooltip key={item.key} placement="top" title={item.title}>
 					<div
 						className={`${prefixCls}-item ${prefixCls}-item-${item.key}`}
-						onClick={() => dispatch(setAppSettingValues({ key: 'navigationMode', value: item.key }))}
+						onClick={() => dispatch(setAppSettingValues({ key: 'layout', value: item.key }))}
 					>
-						<CheckOutlined
-							className={`${prefixCls}-item-select`}
-							style={{ display: navigationMode === item.key ? 'block' : 'none' }}
-						/>
+						<CheckOutlined className={`${prefixCls}-item-select`} style={{ display: layout === item.key ? 'block' : 'none' }} />
 					</div>
 				</Tooltip>
 			))}

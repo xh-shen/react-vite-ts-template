@@ -28,24 +28,22 @@ const { Header } = Layout
 const LayoutHeader: FC = () => {
 	const prefixCls = usePrefixCls('layout-header')
 	const pageStyle = useAppSelector(state => state.app.pageStyle)
-	const navigationMode = useAppSelector(state => state.app.navigationMode)
+	const layout = useAppSelector(state => state.app.layout)
 
-	const headerCls = classnames(prefixCls, `${prefixCls}-${navigationMode}`, {
-		[`${prefixCls}-light`]:
-			(pageStyle === 'light' && navigationMode !== 'mix') || (pageStyle === 'dark' && navigationMode === 'side'),
-		[`${prefixCls}-dark`]:
-			(pageStyle === 'light' && navigationMode === 'mix') || (pageStyle === 'dark' && navigationMode !== 'side')
+	const headerCls = classnames(prefixCls, `${prefixCls}-${layout}`, {
+		[`${prefixCls}-light`]: (pageStyle === 'light' && layout !== 'mix') || (pageStyle === 'dark' && layout === 'side'),
+		[`${prefixCls}-dark`]: (pageStyle === 'light' && layout === 'mix') || (pageStyle === 'dark' && layout !== 'side')
 	})
 
 	return (
 		<Header className={headerCls}>
-			{navigationMode !== 'side' && (
+			{layout !== 'side' && (
 				<div className={`${prefixCls}-logo`}>
 					<Logo />
 				</div>
 			)}
 
-			{navigationMode === 'top' ? (
+			{layout === 'top' ? (
 				<div className={`${prefixCls}-menu`} style={{ flex: '1 1 0%' }}>
 					<LayoutMenu />
 				</div>

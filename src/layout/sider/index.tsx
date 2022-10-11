@@ -20,7 +20,7 @@ const { Sider } = Layout
 const LayoutSider: FC = () => {
 	const prefixCls = usePrefixCls('layout-sider')
 	const pageStyle = useAppSelector(state => state.app.pageStyle)
-	const navigationMode = useAppSelector(state => state.app.navigationMode)
+	const layout = useAppSelector(state => state.app.layout)
 	const siderCollapsed = useAppSelector(state => state.app.siderCollapsed)
 
 	const theme = useMemo(() => {
@@ -46,7 +46,7 @@ const LayoutSider: FC = () => {
 			collapsedWidth={48}
 			breakpoint="lg"
 		>
-			{navigationMode === 'side' && (
+			{layout === 'side' && (
 				<div className={`${prefixCls}-logo`}>
 					<Logo showTitle={!siderCollapsed} />
 				</div>
