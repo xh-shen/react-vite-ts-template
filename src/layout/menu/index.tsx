@@ -2,12 +2,12 @@
  * @Author: shen
  * @Date: 2022-10-09 12:40:37
  * @LastEditors: shen
- * @LastEditTime: 2022-10-11 17:54:50
+ * @LastEditTime: 2022-10-12 13:42:18
  * @Description:
  */
-import { AppState, useAppSelector } from '@/store'
+import { AppState, useAppDispatch, useAppSelector, setMatchMenus } from '@/store'
 import { Menu } from 'antd'
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 import { SvgIcon } from '@/components'
 import { useLocation, useNavigate } from 'react-router-dom'
 
@@ -52,11 +52,18 @@ const getNavMenuItems = (flatMenus: MenuData[], parentId: string = '0'): MenuPro
 	return items
 }
 
-console.log(getOpenKeysProps)
-
-const getMatchMenu = (pathname: string, flatmMenus: MenuData[]): MenuData[] => {
-	console.log(pathname, flatmMenus)
-	return []
+const getMatchMenu = (pathname: string, flatMenus: MenuData[]): MenuData[] => {
+	const matchMenus: MenuData[] = []
+	let current = flatMenus.find(item => item.path === pathname)
+	while (current) {
+		matchMenus.unshift(current)
+		if (current.pid !== '0') {
+			current = flatMenus.find(item => item.id === current?.pid)
+		} else {
+			current = undefined
+		}
+	}
+	return matchMenus
 }
 
 let rootSubmenuKeys: string[] = []
@@ -66,11 +73,12 @@ const LayoutMenu: FC<{ className?: string }> = ({ className }) => {
 	const { pathname } = useLocation()
 	const pageStyle = useAppSelector(state => state.app.pageStyle)
 	const layout = useAppSelector(state => state.app.layout)
-	const flatmMenus = useAppSelector(state => state.permission.flatmMenus)
-	const flatmMenuKeys = useAppSelector(state => state.permission.flatmMenuKeys)
-	const [openKeys, setOpenKeys] = useState<string[]>(['sub1'])
+	const collapsed = useAppSelector(state => state.app.siderCollapsed)
+	const flatMenus = useAppSelector(state => state.permission.flatMenus)
+	const matchMenus = useAppSelector(state => state.permission.matchMenus)
+	const [openKeys, setOpenKeys] = useState<string[]>([])
 	const [selectedKeys, setSelectedKeys] = useState<string[]>([pathname])
-	console.log(flatmMenuKeys)
+	const dispatch = useAppDispatch()
 	const theme = useMemo(() => {
 		if (!pageStyle || pageStyle === 'realDark') {
 			return 'light'
@@ -87,19 +95,37 @@ const LayoutMenu: FC<{ className?: string }> = ({ className }) => {
 		}
 	}, [layout])
 
-	const matchMenus = useMemo(() => {
-		return getMatchMenu(pathname || '/', flatmMenus || [])
-	}, [pathname, flatmMenus])
+	// const matchMenus = useMemo(() => {
+	// 	return getMatchMenu(pathname || '/', flatMenus || [])
+	// }, [pathname, flatMenus])
 
-	const matchMenuKeys = useMemo(() => Array.from(new Set(matchMenus.map(item => item.path || ''))), [matchMenus])
+	useEffect(() => {
+		const menus = getMatchMenu(pathname || '/', flatMenus || [])
+		dispatch(setMatchMenus(menus))
+	}, [pathname, flatMenus])
 
-	console.log(matchMenuKeys)
+	const matchMenuKeys = useMemo(() => {
+		const matchKeys = Array.from(new Set(matchMenus.map(item => item.path || '')))
+		matchKeys.pop()
+		return matchKeys
+	}, [matchMenus])
+
+	useEffect(() => {
+		if (matchMenuKeys && !collapsed) {
+			setOpenKeys(matchMenuKeys)
+		}
+	}, [matchMenuKeys.join('-'), collapsed])
+
+	const openKeysProps = useMemo(
+		() => getOpenKeysProps(openKeys, { layout, collapsed }),
+		[openKeys && openKeys.join(','), layout, collapsed]
+	)
 
 	const menuList = useMemo<MenuProps['items']>(() => {
-		const items = getNavMenuItems(flatmMenus) || []
+		const items = getNavMenuItems(flatMenus) || []
 		rootSubmenuKeys = items.filter(item => item).map(item => item?.key) as string[]
 		return items
-	}, [flatmMenus])
+	}, [flatMenus])
 
 	const onClick: MenuProps['onClick'] = e => {
 		if (e.key === pathname) {
@@ -120,10 +146,10 @@ const LayoutMenu: FC<{ className?: string }> = ({ className }) => {
 
 	return (
 		<Menu
+			{...openKeysProps}
 			className={className}
 			theme={theme}
 			onClick={onClick}
-			openKeys={openKeys}
 			onOpenChange={onOpenChange}
 			selectedKeys={selectedKeys}
 			mode={mode}

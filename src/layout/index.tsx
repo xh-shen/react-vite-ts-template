@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-29 09:06:24
  * @LastEditors: shen
- * @LastEditTime: 2022-10-10 13:23:16
+ * @LastEditTime: 2022-10-12 14:47:21
  * @Description:
  */
 
@@ -22,15 +22,17 @@ const BasicLayout: FC = () => {
 	const layout = useAppSelector(state => state.app.layout)
 
 	return (
-		<Layout className={prefixCls}>
-			<LayoutSetting />
-			{layout === 'side' ? <LayoutSider /> : <LayoutHeader />}
-			<Layout>
-				{layout === 'side' && <LayoutHeader />}
-				{layout === 'mix' && <LayoutSider />}
-				<LayoutContent />
+		<div className={`${prefixCls} ${prefixCls}-${layout}`}>
+			<Layout style={{ minHeight: '100%' }}>
+				<LayoutSetting />
+				{layout === 'side' ? <LayoutSider /> : <LayoutHeader />}
+				<Layout>
+					{layout === 'side' && <LayoutHeader />}
+					{layout === 'mix' && <LayoutSider />}
+					<LayoutContent />
+				</Layout>
 			</Layout>
-		</Layout>
+		</div>
 	)
 }
 
