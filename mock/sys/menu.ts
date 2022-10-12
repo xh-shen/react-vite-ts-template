@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-01 08:06:55
  * @LastEditors: shen
- * @LastEditTime: 2022-10-11 09:21:14
+ * @LastEditTime: 2022-10-12 16:46:39
  * @Description:
  */
 import { MockMethod } from 'vite-plugin-mock'
@@ -15,7 +15,7 @@ const genMenList = lang => [
 		pid: '0',
 		path: '/table',
 		icon: 'table-line',
-		title: lang === 'zh-CN' ? '表格' : 'Table'
+		title: lang === 'zh-CN' ? '表格页' : 'Table'
 	},
 	{
 		id: '2-1',
@@ -35,8 +35,8 @@ const genMenList = lang => [
 		id: '3',
 		pid: '0',
 		path: '/form',
-		icon: 'write-line',
-		title: lang === 'zh-CN' ? '表单' : 'Form'
+		icon: 'edit-line',
+		title: lang === 'zh-CN' ? '表单页' : 'Form'
 	},
 	{
 		id: '3-1',
