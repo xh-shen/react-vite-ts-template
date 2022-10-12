@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-01 08:39:30
  * @LastEditors: shen
- * @LastEditTime: 2022-10-11 18:02:02
+ * @LastEditTime: 2022-10-12 13:36:39
  * @Description:
  */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
@@ -12,15 +12,19 @@ import { MenuData } from '@/interfaces'
 import { genLocalRouterTitles } from '@/router'
 import i18n from '@/locale'
 
+import type { PayloadAction } from '@reduxjs/toolkit'
+
 export interface PermissionState {
-	flatmMenus: MenuData[]
-	flatmMenuKeys: string[]
+	flatMenus: MenuData[]
+	matchMenus: MenuData[]
+	flatMenuKeys: string[]
 	menuTitles: Record<string, string>
 }
 
 const initialState: PermissionState = {
-	flatmMenus: [],
-	flatmMenuKeys: [],
+	flatMenus: [],
+	flatMenuKeys: [],
+	matchMenus: [],
 	menuTitles: genLocalRouterTitles()
 }
 
@@ -28,21 +32,24 @@ export const permissionSlice = createSlice({
 	name: 'permission',
 	initialState,
 	reducers: {
+		setMatchMenus(state, { payload }: PayloadAction<MenuData[]>) {
+			state.matchMenus = payload
+		},
 		resetPermission(state) {
-			state.flatmMenus = []
-			state.flatmMenuKeys = []
+			state.flatMenus = []
+			state.flatMenuKeys = []
 			state.menuTitles = genLocalRouterTitles()
 		}
 	},
 	extraReducers(builder) {
 		builder.addCase(fetchAuthorizedMenu.fulfilled, (state, { payload }) => {
-			state.flatmMenus = [
+			state.flatMenus = [
 				{ title: i18n.t('app.dashboard'), path: '/dashboard', icon: 'dashboard-line', pid: '0', id: 'dashboard' },
 				...payload
 			]
-			state.flatmMenuKeys = state.flatmMenus.map(menu => menu.path)
+			state.flatMenuKeys = state.flatMenus.map(menu => menu.path)
 			let tempMenuTitles: any = {}
-			state.flatmMenus.forEach(item => {
+			state.flatMenus.forEach(item => {
 				tempMenuTitles[item.path] = item.title
 			})
 			state.menuTitles = { ...tempMenuTitles, ...genLocalRouterTitles() }
@@ -60,6 +67,6 @@ export const fetchAuthorizedMenu = createAsyncThunk('permission/fetchAuthorizedM
 	return []
 })
 
-export const { resetPermission } = permissionSlice.actions
+export const { resetPermission, setMatchMenus } = permissionSlice.actions
 
 export default permissionSlice.reducer

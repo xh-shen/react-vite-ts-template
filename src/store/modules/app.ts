@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 10:50:37
  * @LastEditors: shen
- * @LastEditTime: 2022-10-11 10:32:34
+ * @LastEditTime: 2022-10-12 15:42:14
  * @Description:
  */
 import config from '@/config'
@@ -19,6 +19,10 @@ export interface AppState {
 	pageStyle: 'light' | 'dark' | 'realDark'
 	layout: 'side' | 'top' | 'mix'
 	siderCollapsed: boolean
+	fixedHeader: boolean
+	fixSiderbar: boolean
+	siderWidth: number
+	headerHeight: number
 }
 
 const initialState: AppState = {
@@ -28,7 +32,11 @@ const initialState: AppState = {
 	invalid: false,
 	pageStyle: getSettingValue('pageStyle') || 'light',
 	layout: getSettingValue('layout') || 'side',
-	siderCollapsed: false
+	siderCollapsed: false,
+	fixedHeader: true,
+	fixSiderbar: true,
+	siderWidth: 208,
+	headerHeight: 48
 }
 
 export const appSlice = createSlice({
