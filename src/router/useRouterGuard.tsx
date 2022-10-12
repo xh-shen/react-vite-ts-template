@@ -2,11 +2,11 @@
  * @Author: shen
  * @Date: 2022-09-30 08:17:25
  * @LastEditors: shen
- * @LastEditTime: 2022-10-11 14:56:16
+ * @LastEditTime: 2022-10-12 08:57:18
  * @Description:
  */
 import { useEffect, useState } from 'react'
-import { useLocation, useNavigate, RouteObject } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import {
 	useAppSelector,
 	useAppDispatch,
@@ -18,11 +18,16 @@ import {
 	setAppInvalid
 } from '@/store'
 import { Spin } from 'antd'
+import { LOGIN_PATH, DASHBOARD_PATH, WHITE_PATHS, NOT_FOUND_PATH, ROOT_PATH, FORBIDDEN_PATH } from './constant'
 import config from '@/config'
 
-const LOGIN_PATH = '/login'
-const DASHBOARD_PATH = '/dashboard'
-const WHITE_PATHS = ['/404']
+import type { RouteObject, NavigateFunction } from 'react-router-dom'
+
+const checkRouterAuth = (pathname: string, flatMenuKeys: string[], navigate: NavigateFunction) => {
+	if (!flatMenuKeys.includes(pathname)) {
+		navigate({ pathname: FORBIDDEN_PATH }, { replace: true })
+	}
+}
 
 export default (metaRoutes: RouteObject[], pathnames: string[]): RouteObject[] => {
 	const { pathname } = useLocation()
@@ -31,6 +36,7 @@ export default (metaRoutes: RouteObject[], pathnames: string[]): RouteObject[] =
 	const authorized = useAppSelector(state => state.app.authorized)
 	const invalid = useAppSelector(state => state.app.invalid)
 	const menuTitles = useAppSelector(state => state.permission.menuTitles)
+	const flatMenuKeys = useAppSelector(state => state.permission.flatMenuKeys)
 	const navigate = useNavigate()
 	const dispatch = useAppDispatch()
 
@@ -38,6 +44,7 @@ export default (metaRoutes: RouteObject[], pathnames: string[]): RouteObject[] =
 		const userInfo = await dispatch(fetchUserInfo()).unwrap()
 		const menuList = await dispatch(fetchAuthorizedMenu()).unwrap()
 		if (userInfo && menuList.length > 0) {
+			setRoutes(metaRoutes)
 			dispatch(setAppAuthorized(true))
 		} else {
 			dispatch(setAppInvalid(true))
@@ -45,12 +52,12 @@ export default (metaRoutes: RouteObject[], pathnames: string[]): RouteObject[] =
 	}
 
 	useEffect(() => {
-		if (pathname === '/' || WHITE_PATHS.includes(pathname)) {
+		if (pathname === ROOT_PATH || WHITE_PATHS.includes(pathname)) {
 			return
 		}
 
 		if (!pathnames.includes(pathname)) {
-			navigate({ pathname: '/404' }, { replace: true })
+			navigate({ pathname: NOT_FOUND_PATH }, { replace: true })
 			return
 		}
 
@@ -82,19 +89,24 @@ export default (metaRoutes: RouteObject[], pathnames: string[]): RouteObject[] =
 				}
 			])
 			getAuthorizeData()
+			return
+		}
+
+		if (token && authorized) {
+			checkRouterAuth(pathname, flatMenuKeys, navigate)
+			return
 		}
 	}, [pathname])
 
 	useEffect(() => {
 		if (menuTitles[pathname]) {
-			config.title
 			document.title = menuTitles[pathname] + ' - ' + config.title
 		}
 	}, [pathname, menuTitles])
 
 	useEffect(() => {
 		if (authorized) {
-			setRoutes(metaRoutes)
+			checkRouterAuth(pathname, flatMenuKeys, navigate)
 		}
 	}, [authorized])
 

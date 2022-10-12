@@ -1,12 +1,15 @@
-import React, { Suspense } from 'react'
+/*
+ * @Author: shen
+ * @Date: 2022-09-29 13:45:06
+ * @LastEditors: shen
+ * @LastEditTime: 2022-10-12 16:04:06
+ * @Description:
+ */
+import { Suspense } from 'react'
 import { Spin } from 'antd'
 
-/**
- * @description 路由懒加载
- * @param {Element} Comp 需要访问的组件
- * @returns element
- */
-const lazyLoad = (Comp: React.LazyExoticComponent<any>): React.ReactNode => {
+import type { LazyExoticComponent, ReactNode } from 'react'
+const lazyLoad = (Comp: LazyExoticComponent<any>): ReactNode => {
 	return (
 		<Suspense
 			fallback={
@@ -16,7 +19,7 @@ const lazyLoad = (Comp: React.LazyExoticComponent<any>): React.ReactNode => {
 						display: 'flex',
 						alignItems: 'center',
 						justifyContent: 'center',
-						height: '100%'
+						minHeight: '100%'
 					}}
 				/>
 			}
