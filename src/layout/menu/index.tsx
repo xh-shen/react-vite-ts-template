@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-09 12:40:37
  * @LastEditors: shen
- * @LastEditTime: 2022-10-12 13:42:18
+ * @LastEditTime: 2022-10-13 21:44:16
  * @Description:
  */
 import { AppState, useAppDispatch, useAppSelector, setMatchMenus } from '@/store'
@@ -10,6 +10,7 @@ import { Menu } from 'antd'
 import { useMemo, useState, useEffect } from 'react'
 import { SvgIcon } from '@/components'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { useAppSetting } from '@/hooks'
 
 import type { MenuProps } from 'antd'
 import type { FC } from 'react'
@@ -71,9 +72,8 @@ let rootSubmenuKeys: string[] = []
 const LayoutMenu: FC<{ className?: string }> = ({ className }) => {
 	const navigate = useNavigate()
 	const { pathname } = useLocation()
-	const pageStyle = useAppSelector(state => state.app.pageStyle)
-	const layout = useAppSelector(state => state.app.layout)
-	const collapsed = useAppSelector(state => state.app.siderCollapsed)
+	const { pageStyle, layout, siderCollapsed: collapsed } = useAppSetting()
+
 	const flatMenus = useAppSelector(state => state.permission.flatMenus)
 	const matchMenus = useAppSelector(state => state.permission.matchMenus)
 	const [openKeys, setOpenKeys] = useState<string[]>([])

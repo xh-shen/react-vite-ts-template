@@ -2,16 +2,16 @@
  * @Author: shen
  * @Date: 2022-10-10 21:05:47
  * @LastEditors: shen
- * @LastEditTime: 2022-10-10 22:29:06
+ * @LastEditTime: 2022-10-13 21:45:30
  * @Description:
  */
 import { SvgIcon } from '@/components'
-import { usePrefixCls } from '@/hooks'
-import { useAppDispatch, useAppSelector, setSiderCollapsed } from '@/store'
+import { useAppSetting, usePrefixCls } from '@/hooks'
+import { useAppDispatch, setSiderCollapsed } from '@/store'
 import type { FC } from 'react'
 const MenuTrigger: FC = () => {
 	const prefixCls = usePrefixCls('layout-header-collapsed')
-	const siderCollapsed = useAppSelector(state => state.app.siderCollapsed)
+	const { siderCollapsed } = useAppSetting()
 	const dispatch = useAppDispatch()
 	return (
 		<span className={prefixCls} onClick={() => dispatch(setSiderCollapsed(!siderCollapsed))}>

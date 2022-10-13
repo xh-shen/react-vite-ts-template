@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-09 13:39:01
  * @LastEditors: shen
- * @LastEditTime: 2022-10-13 16:48:22
+ * @LastEditTime: 2022-10-13 20:56:03
  * @Description:
  */
 import { usePrefixCls, useAppSetting } from '@/hooks'
@@ -16,6 +16,7 @@ import BlockCheckbox from './BlockCheckbox'
 import InterfaceFunction from './InterfaceFunction'
 
 import type { FC, ReactNode, ReactElement } from 'react'
+import InterfaceDisplay from './InterfaceDisplay'
 export type SettingItemProps = {
 	title: ReactNode
 	action: ReactElement
@@ -86,7 +87,9 @@ const LayoutSetting: FC = () => {
 						<InterfaceFunction />
 					</SettingBlock>
 					<Divider />
-					<SettingBlock title={t('setting.interfaceDisplay.title')}></SettingBlock>
+					<SettingBlock title={t('setting.interfaceDisplay.title')}>
+						<InterfaceDisplay />
+					</SettingBlock>
 				</div>
 			</Drawer>
 		</>

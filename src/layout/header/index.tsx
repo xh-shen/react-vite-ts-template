@@ -2,14 +2,13 @@
  * @Author: shen
  * @Date: 2022-10-08 09:03:57
  * @LastEditors: shen
- * @LastEditTime: 2022-10-13 15:47:37
+ * @LastEditTime: 2022-10-13 21:46:45
  * @Description:
  */
 import { useMemo } from 'react'
 import { Layout } from 'antd'
-import { usePrefixCls } from '@/hooks'
+import { usePrefixCls, useAppSetting } from '@/hooks'
 import { Space } from 'antd'
-import { useAppSelector } from '@/store'
 import classNames from 'classnames'
 import Logo from '../logo'
 import Language from './Language'
@@ -19,21 +18,15 @@ import Search from './Search'
 import Question from './Question'
 import Fullscreen from './Fullscreen'
 import LayoutMenu from '../menu'
-
-import type { FC } from 'react'
 import MenuTrigger from './MenuTrigger'
 import Breadcrumb from './Breadcrumb'
 
+import type { FC } from 'react'
 const { Header } = Layout
 
 const LayoutHeader: FC = () => {
 	const prefixCls = usePrefixCls('layout-header')
-	const pageStyle = useAppSelector(state => state.app.pageStyle)
-	const layout = useAppSelector(state => state.app.layout)
-	const headerHeight = useAppSelector(state => state.app.headerHeight)
-	const fixedHeader = useAppSelector(state => state.app.fixedHeader)
-	const siderWidth = useAppSelector(state => state.app.siderWidth)
-	const collapsed = useAppSelector(state => state.app.siderCollapsed)
+	const { pageStyle, layout, siderCollapsed: collapsed, fixedHeader, siderWidth, headerHeight } = useAppSetting()
 
 	const needFixedHeader = useMemo(() => fixedHeader || layout === 'mix', [fixedHeader, layout])
 

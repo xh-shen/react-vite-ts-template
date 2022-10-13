@@ -2,29 +2,23 @@
  * @Author: shen
  * @Date: 2022-10-08 09:19:47
  * @LastEditors: shen
- * @LastEditTime: 2022-10-13 09:53:44
+ * @LastEditTime: 2022-10-13 21:44:34
  * @Description:
  */
 import { useMemo } from 'react'
 import { Layout } from 'antd'
-import { usePrefixCls } from '@/hooks'
-import { useAppSelector } from '@/store'
+import { useAppSetting, usePrefixCls } from '@/hooks'
 import LayoutMenu from '../menu'
 import Logo from '../logo'
+import classnames from 'classnames'
 
 import type { FC } from 'react'
-import classnames from 'classnames'
 
 const { Sider } = Layout
 
 const LayoutSider: FC = () => {
 	const prefixCls = usePrefixCls('layout-sider')
-	const pageStyle = useAppSelector(state => state.app.pageStyle)
-	const layout = useAppSelector(state => state.app.layout)
-	const collapsed = useAppSelector(state => state.app.siderCollapsed)
-	const fixSiderbar = useAppSelector(state => state.app.fixSiderbar)
-	const siderWidth = useAppSelector(state => state.app.siderWidth)
-	const headerHeight = useAppSelector(state => state.app.headerHeight)
+	const { pageStyle, layout, siderCollapsed: collapsed, fixSiderbar, siderWidth, headerHeight } = useAppSetting()
 
 	const theme = useMemo(() => {
 		if (!pageStyle || pageStyle === 'realDark') {
