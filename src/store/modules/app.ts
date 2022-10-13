@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 10:50:37
  * @LastEditors: shen
- * @LastEditTime: 2022-10-12 15:42:14
+ * @LastEditTime: 2022-10-13 14:28:47
  * @Description:
  */
 import config from '@/config'
@@ -11,13 +11,16 @@ import { createSlice } from '@reduxjs/toolkit'
 
 import type { PayloadAction } from '@reduxjs/toolkit'
 
+export type PageStyleType = 'light' | 'dark' | 'realDark'
+export type LayoutType = 'side' | 'top' | 'mix'
+
 export interface AppState {
 	lang: string
 	themeColor: string
 	authorized: boolean // 是否获取到授权信息
 	invalid: boolean // 是否登录失效
-	pageStyle: 'light' | 'dark' | 'realDark'
-	layout: 'side' | 'top' | 'mix'
+	pageStyle: PageStyleType
+	layout: LayoutType
 	siderCollapsed: boolean
 	fixedHeader: boolean
 	fixSiderbar: boolean
@@ -30,13 +33,13 @@ const initialState: AppState = {
 	themeColor: getThemeColor() ?? config.themeColor,
 	authorized: false,
 	invalid: false,
-	pageStyle: getSettingValue('pageStyle') || 'light',
-	layout: getSettingValue('layout') || 'side',
-	siderCollapsed: false,
-	fixedHeader: true,
-	fixSiderbar: true,
-	siderWidth: 208,
-	headerHeight: 48
+	pageStyle: getSettingValue<PageStyleType>('pageStyle') ?? 'light',
+	layout: getSettingValue<LayoutType>('layout') ?? 'side',
+	siderCollapsed: getSettingValue<boolean>('siderCollapsed') ?? false,
+	fixedHeader: getSettingValue<boolean>('fixedHeader') ?? true,
+	fixSiderbar: getSettingValue<boolean>('fixSiderbar') ?? true,
+	siderWidth: getSettingValue<number>('siderWidth') ?? 208,
+	headerHeight: getSettingValue<number>('headerHeight') ?? 48
 }
 
 export const appSlice = createSlice({
