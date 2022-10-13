@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 14:08:22
  * @LastEditors: shen
- * @LastEditTime: 2022-10-13 16:53:38
+ * @LastEditTime: 2022-10-13 20:55:30
  * @Description:
  */
 export default {
@@ -79,7 +79,7 @@ export default {
 		interfaceDisplay: {
 			title: '界面显示',
 			colorWeak: '色弱模式',
-			colorGray: '灰色模式'
+			grayMode: '灰色模式'
 		}
 	}
 }
