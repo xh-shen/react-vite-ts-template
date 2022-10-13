@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-03 14:01:33
  * @LastEditors: shen
- * @LastEditTime: 2022-10-03 14:20:55
+ * @LastEditTime: 2022-10-13 21:16:42
  * @Description:
  */
 import type { PluginOption } from 'vite'
@@ -11,8 +11,7 @@ import pkg from '../../../package.json'
 import { GLOB_CONFIG_FILE_NAME } from '../../constant'
 
 export function configHtmlPlugin(env: ViteEnv, isBuild: boolean) {
-	const { VITE_APP_TITLE, VITE_PUBLIC_PATH, VITE_APP_THEME_COLOR } = env
-
+	const { VITE_APP_TITLE, VITE_PUBLIC_PATH, VITE_APP_THEME_COLOR, VITE_APP_COLOR_WEAK, VITE_APP_GRAY_MODE } = env
 	const path = VITE_PUBLIC_PATH.endsWith('/') ? VITE_PUBLIC_PATH : `${VITE_PUBLIC_PATH}/`
 
 	const getAppConfigSrc = () => {
@@ -24,7 +23,9 @@ export function configHtmlPlugin(env: ViteEnv, isBuild: boolean) {
 		inject: {
 			data: {
 				title: VITE_APP_TITLE,
-				themeColor: VITE_APP_THEME_COLOR
+				themeColor: VITE_APP_THEME_COLOR,
+				colorWeak: VITE_APP_COLOR_WEAK,
+				grayMode: VITE_APP_GRAY_MODE
 			},
 			tags: isBuild
 				? [
