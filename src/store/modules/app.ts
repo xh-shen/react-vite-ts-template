@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 10:50:37
  * @LastEditors: shen
- * @LastEditTime: 2022-10-13 14:28:47
+ * @LastEditTime: 2022-10-13 21:20:15
  * @Description:
  */
 import config from '@/config'
@@ -26,6 +26,8 @@ export interface AppState {
 	fixSiderbar: boolean
 	siderWidth: number
 	headerHeight: number
+	colorWeak: boolean
+	grayMode: boolean
 }
 
 const initialState: AppState = {
@@ -39,7 +41,9 @@ const initialState: AppState = {
 	fixedHeader: getSettingValue<boolean>('fixedHeader') ?? true,
 	fixSiderbar: getSettingValue<boolean>('fixSiderbar') ?? true,
 	siderWidth: getSettingValue<number>('siderWidth') ?? 208,
-	headerHeight: getSettingValue<number>('headerHeight') ?? 48
+	headerHeight: getSettingValue<number>('headerHeight') ?? 48,
+	colorWeak: getSettingValue<boolean>('colorWeak') ?? config.colorWeak,
+	grayMode: getSettingValue<boolean>('grayMode') ?? config.grayMode
 }
 
 export const appSlice = createSlice({
