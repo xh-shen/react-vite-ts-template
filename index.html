@@ -20,6 +20,17 @@
         htmlRoot.setAttribute('data-theme', darkMode);
         theme = htmlRoot = null;
       }
+
+      var appSetting = window.localStorage.getItem('__APP__SETTING__');
+      appSetting = appSetting ? JSON.parse(appSetting) : {}
+      var colorWeak = appSetting.colorWeak == undefined ? JSON.parse('<%= colorWeak %>') : appSetting.colorWeak
+      if (colorWeak) {
+        document.body.classList.add("color-weak");
+      }
+      var grayMode = appSetting.grayMode == undefined ? JSON.parse('<%= grayMode %>') : appSetting.grayMode
+      if (grayMode) {
+        document.body.classList.add("gray-mode");
+      }
     })();
   </script>
   <div id="root">
@@ -30,6 +41,15 @@
 
       html[data-theme='dark'] .app-loading .app-loading-title {
         color: rgb(255 255 255 / 85%);
+      }
+
+      .color-weak {
+        filter: invert(80%);
+      }
+
+      .gray-mode {
+        filter: grayscale(100%);
+        filter: progid:dximagetransform.microsoft.basicimage(grayscale=1);
       }
 
       .app-loading {
