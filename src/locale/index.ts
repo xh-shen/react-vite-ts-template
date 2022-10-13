@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 14:03:51
  * @LastEditors: shen
- * @LastEditTime: 2022-10-13 08:42:15
+ * @LastEditTime: 2022-10-13 09:04:27
  * @Description:
  */
 import i18n from 'i18next'
@@ -11,11 +11,11 @@ import { store } from '@/store'
 
 const resources = import.meta.glob('./lang/*.ts', { eager: true })
 
-const transformResources = () => {
+const transformResources = (lang: string) => {
 	const data: Record<string, any> = {}
 	Object.keys(resources).forEach((key: string) => {
 		const lng = key.match(/.*\/.*\/(.*)\..*/)?.[1]
-		if (lng) {
+		if (lng === lang) {
 			data[lng] = {
 				translation: (resources[key] as any).default
 			}
@@ -27,7 +27,7 @@ const transformResources = () => {
 export function setupI18n() {
 	const state = store.getState()
 	i18n.use(initReactI18next).init({
-		resources: transformResources(),
+		resources: transformResources(state.app.lang),
 		fallbackLng: state.app.lang,
 		debug: false,
 		interpolation: {
