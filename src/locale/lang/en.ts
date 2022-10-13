@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 14:08:17
  * @LastEditors: shen
- * @LastEditTime: 2022-10-11 13:38:23
+ * @LastEditTime: 2022-10-13 16:53:05
  * @Description:
  */
 export default {
@@ -67,6 +67,19 @@ export default {
 			siderMenu: 'Side Menu Layout',
 			topMenu: 'Top Menu Layout',
 			mixinMenu: 'Mix Menu Layout'
+		},
+		interface: {
+			title: 'Interface Function',
+			fixedHeader: 'Fixed Header',
+			fixedSidebar: 'Fixed Sidebar',
+			fixedSidebarReason: 'Works on Side Menu Layout',
+			siderWidth: 'Sidebar Width',
+			collapseSidebar: 'Collapse Sidebar'
+		},
+		interfaceDisplay: {
+			title: 'Interface Display',
+			colorWeak: 'Weak Mode',
+			colorGray: 'Gray Mode'
 		}
 	}
 }

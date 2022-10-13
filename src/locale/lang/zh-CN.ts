@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 14:08:22
  * @LastEditors: shen
- * @LastEditTime: 2022-10-11 13:38:46
+ * @LastEditTime: 2022-10-13 16:53:38
  * @Description:
  */
 export default {
@@ -67,6 +67,19 @@ export default {
 			siderMenu: '侧边菜单布局',
 			topMenu: '顶部菜单布局',
 			mixinMenu: '混合菜单布局'
+		},
+		interfaceFunction: {
+			title: '界面功能',
+			fixedHeader: '固定 Header',
+			fixedSidebar: '固定侧边菜单',
+			fixedSidebarReason: '侧边菜单布局时可配置',
+			siderWidth: '侧边菜单宽度',
+			collapseSidebar: '折叠侧边菜单'
+		},
+		interfaceDisplay: {
+			title: '界面显示',
+			colorWeak: '色弱模式',
+			colorGray: '灰色模式'
 		}
 	}
 }
