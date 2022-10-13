@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 14:03:51
  * @LastEditors: shen
- * @LastEditTime: 2022-09-26 17:29:50
+ * @LastEditTime: 2022-10-13 08:42:15
  * @Description:
  */
 import i18n from 'i18next'
@@ -37,10 +37,11 @@ export function setupI18n() {
 }
 
 export function addResourceBundles(bundles: Record<string, any>, pageKey?: string) {
+	const state = store.getState()
 	setTimeout(() => {
 		Object.keys(bundles).forEach((key: string) => {
 			const lng = key.match(/.*\/(.*)\..*/)?.[1]
-			if (lng && lng !== 'index') {
+			if (lng === state.app.lang) {
 				const resources = (bundles[key] as any).default ?? {}
 				const _pageKey = pageKey || Object.keys(resources)[0]
 				const res = i18n.getResource(lng, 'translation', _pageKey)
