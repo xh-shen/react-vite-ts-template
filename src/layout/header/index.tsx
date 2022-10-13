@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-08 09:03:57
  * @LastEditors: shen
- * @LastEditTime: 2022-10-12 16:05:10
+ * @LastEditTime: 2022-10-13 15:47:37
  * @Description:
  */
 import { useMemo } from 'react'
@@ -71,7 +71,7 @@ const LayoutHeader: FC = () => {
 				}}
 			>
 				{layout !== 'side' && (
-					<div className={`${prefixCls}-logo`}>
+					<div className={`${prefixCls}-logo`} style={{ width: siderWidth + 'px' }}>
 						<Logo />
 					</div>
 				)}

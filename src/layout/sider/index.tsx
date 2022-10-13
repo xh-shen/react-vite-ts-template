@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-08 09:19:47
  * @LastEditors: shen
- * @LastEditTime: 2022-10-12 16:46:15
+ * @LastEditTime: 2022-10-13 09:53:44
  * @Description:
  */
 import { useMemo } from 'react'
@@ -75,6 +75,9 @@ const LayoutSider: FC = () => {
 				)}
 				<div style={{ flex: '1 1 0%', overflow: 'hidden auto' }}>
 					<LayoutMenu className={`${prefixCls}-menu`} />
+				</div>
+				<div className={`${prefixCls}-resize-handle`}>
+					<div className={`${prefixCls}-resize-handle-line`}></div>
 				</div>
 			</Sider>
 		</>
