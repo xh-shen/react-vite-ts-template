@@ -3,3 +3,14 @@ body,
 #root {
 	height: 100%;
 }
+
+body {
+	&.color-weak {
+		filter: invert(80%);
+	}
+
+	&.gray-mode {
+		filter: grayscale(100%);
+		filter: progid:dximagetransform.microsoft.basicimage(grayscale=1);
+	}
+}
