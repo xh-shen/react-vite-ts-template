@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 14:08:17
  * @LastEditors: shen
- * @LastEditTime: 2022-10-13 16:53:05
+ * @LastEditTime: 2022-10-13 21:40:21
  * @Description:
  */
 export default {
@@ -45,7 +45,7 @@ export default {
 	},
 	setting: {
 		pageStyle: {
-			title: 'Page style setting',
+			title: 'Page Style Setting',
 			lightMenu: 'Light Menu style',
 			darkMenu: 'Dark Menu style',
 			dark: 'Dark style'
@@ -68,7 +68,7 @@ export default {
 			topMenu: 'Top Menu Layout',
 			mixinMenu: 'Mix Menu Layout'
 		},
-		interface: {
+		interfaceFunction: {
 			title: 'Interface Function',
 			fixedHeader: 'Fixed Header',
 			fixedSidebar: 'Fixed Sidebar',
@@ -79,7 +79,7 @@ export default {
 		interfaceDisplay: {
 			title: 'Interface Display',
 			colorWeak: 'Weak Mode',
-			colorGray: 'Gray Mode'
+			grayMode: 'Gray Mode'
 		}
 	}
 }
