@@ -2,15 +2,15 @@
  * @Author: shen
  * @Date: 2022-10-09 15:47:20
  * @LastEditors: shen
- * @LastEditTime: 2022-10-09 15:54:11
+ * @LastEditTime: 2022-10-13 14:24:38
  * @Description:
  */
 import { SETTING_KEY } from './constant'
 import { local } from './storage'
 
-export const getSettingValue = (key: string) => {
+export const getSettingValue = <T>(key: string): T | null => {
 	const setting = local.get<Record<string, any>>(SETTING_KEY) || {}
-	return setting[key] || ''
+	return (setting[key] as T) || null
 }
 
 export const getSettingValues = () => {
