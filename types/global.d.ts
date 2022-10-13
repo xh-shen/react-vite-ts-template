@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-03 10:13:10
  * @LastEditors: shen
- * @LastEditTime: 2022-10-03 14:59:36
+ * @LastEditTime: 2022-10-13 21:30:02
  * @Description:
  */
 
@@ -23,6 +23,10 @@ declare type DeepPartial<T> = {
 }
 declare type TimeoutHandle = ReturnType<typeof setTimeout>
 declare type IntervalHandle = ReturnType<typeof setInterval>
+
+declare type WithFalse<T> = T | false
+
+declare type Arrayable<T> = T | T[]
 
 declare interface ChangeEvent extends Event {
 	target: HTMLInputElement
@@ -50,4 +54,7 @@ declare interface ViteEnv {
 	VITE_APP_LANGUAGE: 'en' | 'zh-CN'
 	VITE_API_URL_PREFIX: string
 	VITE_UPLOAD_URL_PREFIX: string
+	VITE_APP_COLOR_WEAK: boolean
+	VITE_APP_GRAY_MODE: boolean
+	VITE_APP_NAMESPACE: string
 }
