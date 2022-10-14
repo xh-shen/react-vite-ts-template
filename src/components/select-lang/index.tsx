@@ -2,25 +2,12 @@
  * @Author: shen
  * @Date: 2022-09-28 08:27:06
  * @LastEditors: shen
- * @LastEditTime: 2022-10-09 11:48:09
+ * @LastEditTime: 2022-10-14 08:38:15
  * @Description:
  */
 import { Dropdown, Menu } from 'antd'
 import SvgIcon from '../svg-icon'
 import type { FC } from 'react'
-
-// const list = [
-// 	{
-// 		lang: 'zh-cn',
-// 		label: '简体中文',
-// 		icon: '🇨🇳'
-// 	},
-// 	{
-// 		lang: 'en',
-// 		label: 'English',
-// 		icon: '🇺🇸'
-// 	}
-// ]
 
 export interface SelectLangProps {
 	className?: string
@@ -30,28 +17,31 @@ export interface SelectLangProps {
 }
 
 const SelectLang: FC<SelectLangProps> = ({ className, language, setLanguage, onChange }) => {
-	const onItemClick = async (language: string) => {
-		await setLanguage(language)
-		onChange?.(language)
+	const onItemClick = async (key: string) => {
+		if (key === language) {
+			return
+		}
+		await setLanguage(key)
+		onChange?.(key)
 	}
-
+	console.log(language)
 	const menu = (
 		<Menu
+			selectable
 			style={{ minWidth: 160 }}
+			defaultSelectedKeys={[language]}
 			items={[
 				{
-					key: '1',
+					key: 'zh-CN',
 					label: <span style={{ marginLeft: 8 }}>简体中文</span>,
 					icon: '🇨🇳',
-					onClick: () => onItemClick('zh-CN'),
-					disabled: language === 'zh-CN'
+					onClick: () => onItemClick('zh-CN')
 				},
 				{
-					key: '2',
+					key: 'en',
 					label: <span style={{ marginLeft: 8 }}>English</span>,
 					icon: '🇺🇸',
-					onClick: () => onItemClick('en'),
-					disabled: language === 'en'
+					onClick: () => onItemClick('en')
 				}
 			]}
 		/>
