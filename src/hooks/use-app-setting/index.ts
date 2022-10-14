@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-13 14:05:42
  * @LastEditors: shen
- * @LastEditTime: 2022-10-13 20:54:22
+ * @LastEditTime: 2022-10-14 10:13:34
  * @Description:
  */
 
@@ -19,6 +19,9 @@ export const useAppSetting = () => {
 	const siderCollapsed = useAppSelector(state => state.app.siderCollapsed)
 	const grayMode = useAppSelector(state => state.app.grayMode)
 	const colorWeak = useAppSelector(state => state.app.colorWeak)
+	const collapsePosition = useAppSelector(state => state.app.collapsePosition)
+	const dragSidebar = useAppSelector(state => state.app.dragSidebar)
+
 	const dispatch = useAppDispatch()
 
 	const setSettingValue = <T = any>(key: string, value: T) => {
@@ -43,6 +46,8 @@ export const useAppSetting = () => {
 		headerHeight,
 		colorWeak,
 		grayMode,
+		collapsePosition,
+		dragSidebar,
 		setSettingValue
 	}
 }
