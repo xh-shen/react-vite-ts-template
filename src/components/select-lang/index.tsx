@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-28 08:27:06
  * @LastEditors: shen
- * @LastEditTime: 2022-10-14 08:38:15
+ * @LastEditTime: 2022-10-14 16:40:52
  * @Description:
  */
 import { Dropdown, Menu } from 'antd'
@@ -24,7 +24,6 @@ const SelectLang: FC<SelectLangProps> = ({ className, language, setLanguage, onC
 		await setLanguage(key)
 		onChange?.(key)
 	}
-	console.log(language)
 	const menu = (
 		<Menu
 			selectable

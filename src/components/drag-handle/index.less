@@ -1,0 +1,30 @@
+@prefix-cls: ~'@{namespace}-drag-handle';
+
+.@{prefix-cls} {
+	position: absolute;
+	top: 0;
+	height: 100%;
+	bottom: 0;
+	left: auto;
+	right: -5px;
+	cursor: col-resize;
+	touch-action: none;
+	user-select: auto;
+	width: 5px;
+	z-index: 10;
+
+	&-line {
+		display: block;
+		width: 3px;
+		height: 100%;
+		background-color: @primary-color;
+		opacity: 0;
+	}
+
+	&:hover,
+	&-draging {
+		.@{prefix-cls}-line {
+			opacity: 1;
+		}
+	}
+}
