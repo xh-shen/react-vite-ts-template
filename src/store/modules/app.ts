@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 10:50:37
  * @LastEditors: shen
- * @LastEditTime: 2022-10-13 21:20:15
+ * @LastEditTime: 2022-10-14 13:34:15
  * @Description:
  */
 import config from '@/config'
@@ -13,6 +13,7 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 
 export type PageStyleType = 'light' | 'dark' | 'realDark'
 export type LayoutType = 'side' | 'top' | 'mix'
+export type CollapsePositionType = 'top' | 'bottom' | 'none'
 
 export interface AppState {
 	lang: string
@@ -28,6 +29,8 @@ export interface AppState {
 	headerHeight: number
 	colorWeak: boolean
 	grayMode: boolean
+	dragSidebar: boolean
+	collapsePosition: CollapsePositionType
 }
 
 const initialState: AppState = {
@@ -43,7 +46,9 @@ const initialState: AppState = {
 	siderWidth: getSettingValue<number>('siderWidth') ?? 208,
 	headerHeight: getSettingValue<number>('headerHeight') ?? 48,
 	colorWeak: getSettingValue<boolean>('colorWeak') ?? config.colorWeak,
-	grayMode: getSettingValue<boolean>('grayMode') ?? config.grayMode
+	grayMode: getSettingValue<boolean>('grayMode') ?? config.grayMode,
+	dragSidebar: getSettingValue<boolean>('dragSidebar') ?? false,
+	collapsePosition: getSettingValue<CollapsePositionType>('collapsePosition') ?? 'top'
 }
 
 export const appSlice = createSlice({
