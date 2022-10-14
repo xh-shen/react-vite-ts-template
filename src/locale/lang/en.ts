@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 14:08:17
  * @LastEditors: shen
- * @LastEditTime: 2022-10-13 21:40:21
+ * @LastEditTime: 2022-10-14 10:11:51
  * @Description:
  */
 export default {
@@ -74,7 +74,12 @@ export default {
 			fixedSidebar: 'Fixed Sidebar',
 			fixedSidebarReason: 'Works on Side Menu Layout',
 			siderWidth: 'Sidebar Width',
-			collapseSidebar: 'Collapse Sidebar'
+			dragSidebar: 'Drag Sidebar',
+			collapseSidebar: 'Collapse Sidebar',
+			collapsePosition: 'Collapse Button',
+			collapsePositionTop: 'Top',
+			collapsePositionBottom: 'Bottom',
+			collapsePositionNone: 'None'
 		},
 		interfaceDisplay: {
 			title: 'Interface Display',

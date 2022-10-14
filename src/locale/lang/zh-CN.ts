@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 14:08:22
  * @LastEditors: shen
- * @LastEditTime: 2022-10-13 20:55:30
+ * @LastEditTime: 2022-10-14 10:11:35
  * @Description:
  */
 export default {
@@ -74,7 +74,12 @@ export default {
 			fixedSidebar: '固定侧边菜单',
 			fixedSidebarReason: '侧边菜单布局时可配置',
 			siderWidth: '侧边菜单宽度',
-			collapseSidebar: '折叠侧边菜单'
+			dragSidebar: '拖拽侧边菜单',
+			collapseSidebar: '折叠侧边菜单',
+			collapsePosition: '折叠按钮',
+			collapsePositionTop: '顶部',
+			collapsePositionBottom: '底部',
+			collapsePositionNone: '不显示'
 		},
 		interfaceDisplay: {
 			title: '界面显示',
