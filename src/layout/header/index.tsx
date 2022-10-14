@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-08 09:03:57
  * @LastEditors: shen
- * @LastEditTime: 2022-10-13 21:46:45
+ * @LastEditTime: 2022-10-14 09:27:49
  * @Description:
  */
 import { useMemo } from 'react'
@@ -26,7 +26,15 @@ const { Header } = Layout
 
 const LayoutHeader: FC = () => {
 	const prefixCls = usePrefixCls('layout-header')
-	const { pageStyle, layout, siderCollapsed: collapsed, fixedHeader, siderWidth, headerHeight } = useAppSetting()
+	const {
+		pageStyle,
+		layout,
+		siderCollapsed: collapsed,
+		fixedHeader,
+		siderWidth,
+		headerHeight,
+		collapsePosition
+	} = useAppSetting()
 
 	const needFixedHeader = useMemo(() => fixedHeader || layout === 'mix', [fixedHeader, layout])
 
@@ -75,7 +83,7 @@ const LayoutHeader: FC = () => {
 					</div>
 				) : (
 					<div className={`${prefixCls}-left`} style={{ flex: '1 1 0%' }}>
-						<MenuTrigger />
+						{collapsePosition === 'top' && <MenuTrigger />}
 						<Breadcrumb />
 					</div>
 				)}

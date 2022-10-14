@@ -91,7 +91,7 @@
 			cursor: pointer;
 			font-size: 16px;
 			transition: color 0.2s;
-			padding: 0 10px;
+			padding-left: 10px;
 
 			&:hover {
 				color: @primary-color;
@@ -126,6 +126,10 @@
 		}
 	}
 
+	&-breadcrumb {
+		margin-left: 10px;
+	}
+
 	&-sider {
 		z-index: 100;
 		box-shadow: 2px 0 8px 0 rgb(29 35 41 / 5%);
@@ -136,8 +140,8 @@
 			left: 0;
 			z-index: 100;
 			height: 100%;
-			overflow: auto;
-			overflow-x: hidden;
+			// overflow: auto;
+			// overflow-x: hidden;
 			box-shadow: 2px 0 8px 0 rgb(29 35 41 / 5%);
 		}
 
@@ -152,7 +156,6 @@
 			& > a {
 				display: flex;
 				align-items: center;
-				justify-content: center;
 				min-height: 32px;
 				width: 100%;
 			}
@@ -237,6 +240,10 @@
 					box-shadow: inset 0 0 5px rgb(0 21 41 / 5%);
 				}
 			}
+
+			.@{prefix-cls}-sider-collapsed-button {
+				border-top: 1px solid rgb(0 0 0 / 6%);
+			}
 		}
 
 		&-collapsed {
@@ -245,25 +252,13 @@
 			}
 		}
 
-		&-resize-handle {
-			position: absolute;
-			top: 0;
-			height: 100%;
-			bottom: 0;
-			left: auto;
-			right: 0;
-			cursor: col-resize;
-			touch-action: none;
-			user-select: auto;
-			width: 2px;
-			z-index: 10;
+		&-links {
+			width: 100%;
+		}
 
-			&-line {
-				display: block;
-				width: 2px;
-				height: 100%;
-				background-color: @primary-color;
-				opacity: 0;
+		&-collapsed-button {
+			.anticon {
+				font-size: 16px;
 			}
 		}
 	}
@@ -318,8 +313,14 @@
 	}
 
 	&-setting {
-		.ant-list-item span {
-			flex: 1 1;
+		.@{ant-prefix}-list-item {
+			&-action > li {
+				text-align: left;
+			}
+
+			span {
+				flex: 1 1;
+			}
 		}
 
 		&-handle {

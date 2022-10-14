@@ -2,23 +2,38 @@
  * @Author: shen
  * @Date: 2022-10-08 09:19:47
  * @LastEditors: shen
- * @LastEditTime: 2022-10-13 21:44:34
+ * @LastEditTime: 2022-10-14 16:16:29
  * @Description:
  */
 import { useMemo } from 'react'
-import { Layout } from 'antd'
+import { Layout, Menu } from 'antd'
 import { useAppSetting, usePrefixCls } from '@/hooks'
 import LayoutMenu from '../menu'
 import Logo from '../logo'
 import classnames from 'classnames'
 
 import type { FC } from 'react'
+import { DragHandle, SvgIcon } from '@/components'
+import { useAppDispatch, setSiderCollapsed } from '@/store'
 
 const { Sider } = Layout
 
+export const collapsedButtonRender = (collapsed?: boolean) => <SvgIcon name={collapsed ? 'menu-unfold-line' : 'menu-fold-line'} />
+
 const LayoutSider: FC = () => {
 	const prefixCls = usePrefixCls('layout-sider')
-	const { pageStyle, layout, siderCollapsed: collapsed, fixSiderbar, siderWidth, headerHeight } = useAppSetting()
+	const dispatch = useAppDispatch()
+	const {
+		pageStyle,
+		layout,
+		siderCollapsed: collapsed,
+		fixSiderbar,
+		siderWidth,
+		headerHeight,
+		dragSidebar,
+		collapsePosition,
+		setSettingValue
+	} = useAppSetting()
 
 	const theme = useMemo(() => {
 		if (!pageStyle || pageStyle === 'realDark') {
@@ -58,7 +73,7 @@ const LayoutSider: FC = () => {
 				collapsedWidth={48}
 				breakpoint="lg"
 				style={{
-					overflow: 'hidden',
+					// overflow: 'hidden',
 					paddingTop: layout === 'mix' ? headerHeight : undefined
 				}}
 			>
@@ -67,12 +82,34 @@ const LayoutSider: FC = () => {
 						<Logo showTitle={!collapsed} />
 					</div>
 				)}
-				<div style={{ flex: '1 1 0%', overflow: 'hidden auto' }}>
+				<div style={{ flex: '1 1 0%', overflowY: 'auto' }}>
 					<LayoutMenu className={`${prefixCls}-menu`} />
 				</div>
-				<div className={`${prefixCls}-resize-handle`}>
-					<div className={`${prefixCls}-resize-handle-line`}></div>
-				</div>
+				{collapsePosition === 'bottom' && (
+					<div className={`${prefixCls}-links`}>
+						<Menu
+							theme={theme}
+							inlineIndent={16}
+							className={`${prefixCls}-link-menu`}
+							selectedKeys={[]}
+							openKeys={[]}
+							mode="inline"
+							items={[
+								{
+									className: `${prefixCls}-collapsed-button`,
+									key: 'collapsed',
+									//@ts-ignore
+									title: false,
+									onClick: () => dispatch(setSiderCollapsed(!collapsed)),
+									label: collapsedButtonRender(collapsed)
+								}
+							]}
+						/>
+					</div>
+				)}
+				{dragSidebar && !collapsed && (
+					<DragHandle width={siderWidth} minWidth={120} maxWidth={500} onStop={value => setSettingValue('siderWidth', value)} />
+				)}
 			</Sider>
 		</>
 	)

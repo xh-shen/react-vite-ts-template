@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-09 13:39:01
  * @LastEditors: shen
- * @LastEditTime: 2022-10-13 20:56:03
+ * @LastEditTime: 2022-10-14 08:25:25
  * @Description:
  */
 import { usePrefixCls, useAppSetting } from '@/hooks'
@@ -35,7 +35,7 @@ const LayoutSetting: FC = () => {
 			<div className={`${prefixCls}-handle`} onClick={() => setOpen(true)}>
 				<SettingOutlined />
 			</div>
-			<Drawer closable={false} open={open} width={330} onClose={() => setOpen(false)}>
+			<Drawer closable={false} open={open} width={300} onClose={() => setOpen(false)}>
 				<div className={prefixCls}>
 					<SettingBlock title={t('setting.pageStyle.title')}>
 						<BlockCheckbox

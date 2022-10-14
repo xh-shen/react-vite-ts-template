@@ -2,11 +2,11 @@
  * @Author: shen
  * @Date: 2022-10-13 11:05:18
  * @LastEditors: shen
- * @LastEditTime: 2022-10-13 16:27:27
+ * @LastEditTime: 2022-10-14 10:13:24
  * @Description:
  */
 import { cloneElement } from 'react'
-import { List, Switch, Tooltip, InputNumber } from 'antd'
+import { List, Switch, Tooltip, InputNumber, Select } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useAppSetting } from '@/hooks'
 
@@ -28,7 +28,8 @@ export const renderLayoutSettingItem = (item: SettingItemProps) => {
 
 const InterfaceFunction: FC = () => {
 	const { t } = useTranslation()
-	const { layout, fixSiderbar, fixedHeader, siderCollapsed, siderWidth, setSettingValue } = useAppSetting()
+	const { layout, fixSiderbar, fixedHeader, siderCollapsed, siderWidth, collapsePosition, dragSidebar, setSettingValue } =
+		useAppSetting()
 
 	return (
 		<List
@@ -72,6 +73,39 @@ const InterfaceFunction: FC = () => {
 								setSettingValue('siderCollapsed', checked)
 							}}
 						/>
+					)
+				},
+				{
+					title: t('setting.interfaceFunction.dragSidebar'),
+					disabled: layout === 'top',
+					disabledReason: t('setting.interfaceFunction.dragSidebar'),
+					action: (
+						<Switch
+							size="small"
+							checked={!!dragSidebar}
+							onChange={checked => {
+								setSettingValue('dragSidebar', checked)
+							}}
+						/>
+					)
+				},
+				{
+					title: t('setting.interfaceFunction.collapsePosition'),
+					disabled: layout === 'top',
+					disabledReason: t('setting.interfaceFunction.fixedSidebarReason'),
+					action: (
+						<Select
+							size="small"
+							defaultValue={collapsePosition}
+							style={{ width: 80 }}
+							onChange={value => {
+								setSettingValue('collapsePosition', value)
+							}}
+						>
+							<Select.Option value="none">{t('setting.interfaceFunction.collapsePositionNone')}</Select.Option>
+							<Select.Option value="top">{t('setting.interfaceFunction.collapsePositionTop')}</Select.Option>
+							<Select.Option value="bottom">{t('setting.interfaceFunction.collapsePositionBottom')}</Select.Option>
+						</Select>
 					)
 				},
 				{
