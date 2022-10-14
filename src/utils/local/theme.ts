@@ -2,11 +2,11 @@
  * @Author: shen
  * @Date: 2022-10-01 10:32:28
  * @LastEditors: shen
- * @LastEditTime: 2022-10-01 10:32:36
+ * @LastEditTime: 2022-10-14 10:46:41
  * @Description:
  */
-import { local } from './storage'
-import { THEME_COLOR_KEY } from './constant'
+import { local } from '../storage'
+import { THEME_COLOR_KEY } from '../constant'
 
 export const getThemeColor = () => {
 	return local.get<string>(THEME_COLOR_KEY)

@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-13 20:22:30
  * @LastEditors: shen
- * @LastEditTime: 2022-10-13 20:45:55
+ * @LastEditTime: 2022-10-14 14:33:44
  * @Description:
  */
 import { isObject } from './validate'
@@ -10,6 +10,27 @@ import { entriesOf, keysOf } from './objects'
 import { CSSProperties } from 'react'
 import { camelCase } from 'lodash-es'
 
+export const on = function (
+	element: HTMLElement | Document | Window,
+	event: string,
+	handler: EventListenerOrEventListenerObject,
+	useCapture = false
+): void {
+	if (element && event && handler) {
+		element.addEventListener(event, handler, useCapture)
+	}
+}
+
+export const off = function (
+	element: HTMLElement | Document | Window,
+	event: string,
+	handler: EventListenerOrEventListenerObject,
+	useCapture = false
+): void {
+	if (element && event && handler) {
+		element.removeEventListener(event, handler, useCapture)
+	}
+}
 export const classNameToArray = (cls = '') => cls.split(' ').filter(item => !!item.trim())
 
 export const hasClass = (el: Element, cls: string): boolean => {
