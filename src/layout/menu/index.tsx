@@ -2,12 +2,12 @@
  * @Author: shen
  * @Date: 2022-10-09 12:40:37
  * @LastEditors: shen
- * @LastEditTime: 2022-10-13 21:44:16
+ * @LastEditTime: 2022-10-15 21:44:21
  * @Description:
  */
 import { AppState, useAppDispatch, useAppSelector, setMatchMenus } from '@/store'
 import { Menu } from 'antd'
-import { useMemo, useState, useEffect } from 'react'
+import { useMemo, useState, useEffect, useRef } from 'react'
 import { SvgIcon } from '@/components'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useAppSetting } from '@/hooks'
@@ -71,9 +71,9 @@ let rootSubmenuKeys: string[] = []
 
 const LayoutMenu: FC<{ className?: string }> = ({ className }) => {
 	const navigate = useNavigate()
+	const openKeysCache = useRef<string[]>([])
 	const { pathname } = useLocation()
-	const { pageStyle, layout, siderCollapsed: collapsed } = useAppSetting()
-
+	const { pageStyle, layout, siderCollapsed: collapsed, accordionMenu } = useAppSetting()
 	const flatMenus = useAppSelector(state => state.permission.flatMenus)
 	const matchMenus = useAppSelector(state => state.permission.matchMenus)
 	const [openKeys, setOpenKeys] = useState<string[]>([])
@@ -95,10 +95,6 @@ const LayoutMenu: FC<{ className?: string }> = ({ className }) => {
 		}
 	}, [layout])
 
-	// const matchMenus = useMemo(() => {
-	// 	return getMatchMenu(pathname || '/', flatMenus || [])
-	// }, [pathname, flatMenus])
-
 	useEffect(() => {
 		const menus = getMatchMenu(pathname || '/', flatMenus || [])
 		dispatch(setMatchMenus(menus))
@@ -111,10 +107,22 @@ const LayoutMenu: FC<{ className?: string }> = ({ className }) => {
 	}, [matchMenus])
 
 	useEffect(() => {
-		if (matchMenuKeys && !collapsed) {
+		if (matchMenuKeys && !openKeysCache.current.length) {
 			setOpenKeys(matchMenuKeys)
 		}
-	}, [matchMenuKeys.join('-'), collapsed])
+	}, [matchMenuKeys.join('-')])
+
+	useEffect(() => {
+		if (!!openKeysCache.current.length && !collapsed) {
+			setOpenKeys(openKeysCache.current)
+		}
+	}, [collapsed])
+
+	useEffect(() => {
+		if (accordionMenu && !collapsed && matchMenuKeys) {
+			setOpenKeys(matchMenuKeys)
+		}
+	}, [accordionMenu])
 
 	const openKeysProps = useMemo(
 		() => getOpenKeysProps(openKeys, { layout, collapsed }),
@@ -136,12 +144,17 @@ const LayoutMenu: FC<{ className?: string }> = ({ className }) => {
 	}
 
 	const onOpenChange: MenuProps['onOpenChange'] = keys => {
-		const latestOpenKey = keys.find(key => openKeys.indexOf(key) === -1)
-		if (rootSubmenuKeys.indexOf(latestOpenKey!) === -1) {
-			setOpenKeys(keys)
+		if (!accordionMenu) {
+			openKeysCache.current = keys
 		} else {
-			setOpenKeys(latestOpenKey ? [latestOpenKey] : [])
+			const latestOpenKey = keys.find(key => openKeys.indexOf(key) === -1)
+			if (rootSubmenuKeys.indexOf(latestOpenKey!) === -1) {
+				openKeysCache.current = keys
+			} else {
+				openKeysCache.current = latestOpenKey ? [latestOpenKey] : []
+			}
 		}
+		setOpenKeys(openKeysCache.current)
 	}
 
 	return (

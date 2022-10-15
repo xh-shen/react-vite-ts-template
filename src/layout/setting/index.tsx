@@ -2,21 +2,21 @@
  * @Author: shen
  * @Date: 2022-10-09 13:39:01
  * @LastEditors: shen
- * @LastEditTime: 2022-10-14 08:25:25
+ * @LastEditTime: 2022-10-15 22:18:16
  * @Description:
  */
 import { usePrefixCls, useAppSetting } from '@/hooks'
-import { SettingOutlined } from '@ant-design/icons'
-import { Drawer, Divider } from 'antd'
+import { NotificationOutlined, SettingOutlined, ReloadOutlined } from '@ant-design/icons'
+import { Drawer, Divider, Alert, Button, message } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useState } from 'react'
 import SettingBlock from './Block'
 import ThemeColor from './ThemeColor'
 import BlockCheckbox from './BlockCheckbox'
 import InterfaceFunction from './InterfaceFunction'
+import InterfaceDisplay from './InterfaceDisplay'
 
 import type { FC, ReactNode, ReactElement } from 'react'
-import InterfaceDisplay from './InterfaceDisplay'
 export type SettingItemProps = {
 	title: ReactNode
 	action: ReactElement
@@ -28,7 +28,7 @@ const LayoutSetting: FC = () => {
 	const { t } = useTranslation()
 	const [open, setOpen] = useState(false)
 	const prefixCls = usePrefixCls('layout-setting')
-	const { pageStyle, layout, setSettingValue } = useAppSetting()
+	const { pageStyle, layout, setSettingValue, resetSettingValues } = useAppSetting()
 
 	return (
 		<>
@@ -90,6 +90,25 @@ const LayoutSetting: FC = () => {
 					<SettingBlock title={t('setting.interfaceDisplay.title')}>
 						<InterfaceDisplay />
 					</SettingBlock>
+					<Divider />
+					<Alert
+						type="warning"
+						message={t('setting.hint')}
+						icon={<NotificationOutlined />}
+						showIcon
+						style={{ marginBottom: 16 }}
+					/>
+					<Button
+						block
+						icon={<ReloadOutlined />}
+						style={{ marginBottom: 24 }}
+						onClick={() => {
+							resetSettingValues()
+							message.success(t('setting.resetHint'))
+						}}
+					>
+						{t('setting.reset')}
+					</Button>
 				</div>
 			</Drawer>
 		</>

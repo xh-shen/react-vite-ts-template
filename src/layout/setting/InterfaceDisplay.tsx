@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-13 11:05:18
  * @LastEditors: shen
- * @LastEditTime: 2022-10-13 20:55:45
+ * @LastEditTime: 2022-10-15 22:29:44
  * @Description:
  */
 import { cloneElement } from 'react'
@@ -28,12 +28,94 @@ export const renderLayoutSettingItem = (item: SettingItemProps) => {
 
 const InterfaceDisplay: FC = () => {
 	const { t } = useTranslation()
-	const { colorWeak, grayMode, setSettingValue } = useAppSetting()
+	const {
+		colorWeak,
+		grayMode,
+		showBreadcrumbs,
+		showHeader,
+		showLogo,
+		showSiderbar,
+		fullContent,
+		showCollapseButton,
+		setSettingValue
+	} = useAppSetting()
 
 	return (
 		<List
 			split={false}
 			dataSource={[
+				{
+					title: t('setting.interfaceDisplay.header'),
+					action: (
+						<Switch
+							size="small"
+							checked={!!showHeader}
+							onChange={checked => {
+								setSettingValue('showHeader', checked)
+							}}
+						/>
+					)
+				},
+				{
+					title: t('setting.interfaceDisplay.siderbar'),
+					action: (
+						<Switch
+							size="small"
+							checked={!!showSiderbar}
+							onChange={checked => {
+								setSettingValue('showSiderbar', checked)
+							}}
+						/>
+					)
+				},
+				{
+					title: t('setting.interfaceDisplay.breadcrumbs'),
+					action: (
+						<Switch
+							size="small"
+							checked={!!showBreadcrumbs}
+							onChange={checked => {
+								setSettingValue('showBreadcrumbs', checked)
+							}}
+						/>
+					)
+				},
+				{
+					title: t('setting.interfaceDisplay.logo'),
+					action: (
+						<Switch
+							size="small"
+							checked={!!showLogo}
+							onChange={checked => {
+								setSettingValue('showLogo', checked)
+							}}
+						/>
+					)
+				},
+				{
+					title: t('setting.interfaceFunction.collapsePosition'),
+					action: (
+						<Switch
+							size="small"
+							checked={!!showCollapseButton}
+							onChange={checked => {
+								setSettingValue('showCollapseButton', checked)
+							}}
+						/>
+					)
+				},
+				{
+					title: t('setting.interfaceDisplay.fullContent'),
+					action: (
+						<Switch
+							size="small"
+							checked={!!fullContent}
+							onChange={checked => {
+								setSettingValue('fullContent', checked)
+							}}
+						/>
+					)
+				},
 				{
 					title: t('setting.interfaceDisplay.grayMode'),
 					action: (

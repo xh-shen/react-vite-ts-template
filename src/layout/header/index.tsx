@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-08 09:03:57
  * @LastEditors: shen
- * @LastEditTime: 2022-10-14 09:27:49
+ * @LastEditTime: 2022-10-15 22:33:12
  * @Description:
  */
 import { useMemo } from 'react'
@@ -33,6 +33,10 @@ const LayoutHeader: FC = () => {
 		fixedHeader,
 		siderWidth,
 		headerHeight,
+		showSiderbar,
+		showLogo,
+		showBreadcrumbs,
+		showCollapseButton,
 		collapsePosition
 	} = useAppSetting()
 
@@ -46,8 +50,8 @@ const LayoutHeader: FC = () => {
 	})
 
 	const width = useMemo(() => {
-		return layout === 'side' && needFixedHeader ? `calc(100% - ${collapsed ? 48 : siderWidth}px)` : '100%'
-	}, [collapsed, siderWidth, layout, needFixedHeader])
+		return layout === 'side' && needFixedHeader && showSiderbar ? `calc(100% - ${collapsed ? 48 : siderWidth}px)` : '100%'
+	}, [collapsed, siderWidth, layout, needFixedHeader, showSiderbar])
 
 	return (
 		<>
@@ -71,7 +75,7 @@ const LayoutHeader: FC = () => {
 					right: needFixedHeader ? 0 : undefined
 				}}
 			>
-				{layout !== 'side' && (
+				{layout !== 'side' && showLogo && (
 					<div className={`${prefixCls}-logo`} style={{ width: siderWidth + 'px' }}>
 						<Logo />
 					</div>
@@ -83,8 +87,8 @@ const LayoutHeader: FC = () => {
 					</div>
 				) : (
 					<div className={`${prefixCls}-left`} style={{ flex: '1 1 0%' }}>
-						{collapsePosition === 'top' && <MenuTrigger />}
-						<Breadcrumb />
+						{showCollapseButton && collapsePosition === 'top' && <MenuTrigger />}
+						{showBreadcrumbs && <Breadcrumb />}
 					</div>
 				)}
 

@@ -2,29 +2,24 @@
  * @Author: shen
  * @Date: 2022-10-09 16:20:39
  * @LastEditors: shen
- * @LastEditTime: 2022-10-09 16:40:03
+ * @LastEditTime: 2022-10-15 19:30:25
  * @Description:
  */
-import { usePrefixCls } from '@/hooks'
+import { useAppSetting, usePrefixCls } from '@/hooks'
 import { Tooltip, Divider } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { CheckOutlined } from '@ant-design/icons'
-import { FC } from 'react'
-import { useAppDispatch, useAppSelector, setAppThemeColor } from '@/store'
 import config from '@/config'
+
+import type { FC } from 'react'
 
 const ThemeColor: FC = () => {
 	const { t } = useTranslation()
 	const prefixCls = usePrefixCls('layout-setting-theme-color')
-	const themeColor = useAppSelector(state => state.app.themeColor)
-	const dispatch = useAppDispatch()
+
+	const { themeColor, setSettingValue } = useAppSetting()
 
 	const items = [
-		// {
-		// 	key: 'default',
-		// 	title: t('setting.themeColor.default'),
-		// 	color: config.themeColor
-		// },
 		{
 			key: 'daybreakBlue',
 			title: t('setting.themeColor.daybreakBlue'),
@@ -71,7 +66,7 @@ const ThemeColor: FC = () => {
 			<Tooltip placement="top" title={t('setting.themeColor.default')}>
 				<div
 					className={`${prefixCls}-item`}
-					onClick={() => dispatch(setAppThemeColor(config.themeColor))}
+					onClick={() => setSettingValue('themeColor', config.themeColor)}
 					style={{ backgroundColor: config.themeColor, marginRight: 0 }}
 				>
 					<CheckOutlined
@@ -85,7 +80,7 @@ const ThemeColor: FC = () => {
 				<Tooltip key={item.key} placement="top" title={item.title}>
 					<div
 						className={`${prefixCls}-item`}
-						onClick={() => dispatch(setAppThemeColor(item.color))}
+						onClick={() => setSettingValue('themeColor', item.color)}
 						style={{ backgroundColor: item.color }}
 					>
 						<CheckOutlined

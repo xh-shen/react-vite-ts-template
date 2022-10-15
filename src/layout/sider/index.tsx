@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-08 09:19:47
  * @LastEditors: shen
- * @LastEditTime: 2022-10-14 16:16:29
+ * @LastEditTime: 2022-10-15 22:32:55
  * @Description:
  */
 import { useMemo } from 'react'
@@ -32,6 +32,9 @@ const LayoutSider: FC = () => {
 		headerHeight,
 		dragSidebar,
 		collapsePosition,
+		showLogo,
+		showHeader,
+		showCollapseButton,
 		setSettingValue
 	} = useAppSetting()
 
@@ -74,10 +77,10 @@ const LayoutSider: FC = () => {
 				breakpoint="lg"
 				style={{
 					// overflow: 'hidden',
-					paddingTop: layout === 'mix' ? headerHeight : undefined
+					paddingTop: layout === 'mix' && showHeader ? headerHeight : undefined
 				}}
 			>
-				{layout === 'side' && (
+				{layout === 'side' && showLogo && (
 					<div className={`${prefixCls}-logo`}>
 						<Logo showTitle={!collapsed} />
 					</div>
@@ -85,7 +88,7 @@ const LayoutSider: FC = () => {
 				<div style={{ flex: '1 1 0%', overflowY: 'auto' }}>
 					<LayoutMenu className={`${prefixCls}-menu`} />
 				</div>
-				{collapsePosition === 'bottom' && (
+				{showCollapseButton && collapsePosition === 'bottom' && (
 					<div className={`${prefixCls}-links`}>
 						<Menu
 							theme={theme}

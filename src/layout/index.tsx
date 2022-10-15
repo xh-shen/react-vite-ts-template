@@ -2,33 +2,33 @@
  * @Author: shen
  * @Date: 2022-09-29 09:06:24
  * @LastEditors: shen
- * @LastEditTime: 2022-10-12 14:47:21
+ * @LastEditTime: 2022-10-15 17:53:36
  * @Description:
  */
 
 import { Layout } from 'antd'
-import { usePrefixCls } from '@/hooks'
+import { useAppSetting, usePrefixCls } from '@/hooks'
+import LayoutSetting from './setting'
 import LayoutHeader from './header'
 import LayoutSider from './sider'
 import LayoutContent from './content'
 import './index.less'
 
 import type { FC } from 'react'
-import LayoutSetting from './setting'
-import { useAppSelector } from '@/store'
 
 const BasicLayout: FC = () => {
 	const prefixCls = usePrefixCls('layout')
-	const layout = useAppSelector(state => state.app.layout)
+	const { layout, showHeader, showSiderbar, fullContent } = useAppSetting()
 
 	return (
 		<div className={`${prefixCls} ${prefixCls}-${layout}`}>
 			<Layout style={{ minHeight: '100%' }}>
 				<LayoutSetting />
-				{layout === 'side' ? <LayoutSider /> : <LayoutHeader />}
+				{layout === 'side' && showSiderbar && !fullContent && <LayoutSider />}
+				{layout !== 'side' && showHeader && !fullContent && <LayoutHeader />}
 				<Layout>
-					{layout === 'side' && <LayoutHeader />}
-					{layout === 'mix' && <LayoutSider />}
+					{layout === 'side' && showHeader && !fullContent && <LayoutHeader />}
+					{layout === 'mix' && showSiderbar && !fullContent && <LayoutSider />}
 					<LayoutContent />
 				</Layout>
 			</Layout>

@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-13 11:05:18
  * @LastEditors: shen
- * @LastEditTime: 2022-10-14 10:13:24
+ * @LastEditTime: 2022-10-15 22:32:13
  * @Description:
  */
 import { cloneElement } from 'react'
@@ -28,8 +28,17 @@ export const renderLayoutSettingItem = (item: SettingItemProps) => {
 
 const InterfaceFunction: FC = () => {
 	const { t } = useTranslation()
-	const { layout, fixSiderbar, fixedHeader, siderCollapsed, siderWidth, collapsePosition, dragSidebar, setSettingValue } =
-		useAppSetting()
+	const {
+		layout,
+		fixSiderbar,
+		fixedHeader,
+		siderCollapsed,
+		siderWidth,
+		collapsePosition,
+		dragSidebar,
+		accordionMenu,
+		setSettingValue
+	} = useAppSetting()
 
 	return (
 		<List
@@ -50,7 +59,7 @@ const InterfaceFunction: FC = () => {
 				{
 					title: t('setting.interfaceFunction.fixedSidebar'),
 					disabled: layout === 'top',
-					disabledReason: t('setting.interfaceFunction.fixedSidebarReason'),
+					disabledReason: t('setting.interfaceFunction.sidebarReason'),
 					action: (
 						<Switch
 							size="small"
@@ -64,7 +73,7 @@ const InterfaceFunction: FC = () => {
 				{
 					title: t('setting.interfaceFunction.collapseSidebar'),
 					disabled: layout === 'top',
-					disabledReason: t('setting.interfaceFunction.fixedSidebarReason'),
+					disabledReason: t('setting.interfaceFunction.sidebarReason'),
 					action: (
 						<Switch
 							size="small"
@@ -77,8 +86,8 @@ const InterfaceFunction: FC = () => {
 				},
 				{
 					title: t('setting.interfaceFunction.dragSidebar'),
-					disabled: layout === 'top',
-					disabledReason: t('setting.interfaceFunction.dragSidebar'),
+					disabled: layout === 'top' || !!siderCollapsed,
+					disabledReason: t('setting.interfaceFunction.dragSidebarReason'),
 					action: (
 						<Switch
 							size="small"
@@ -90,19 +99,32 @@ const InterfaceFunction: FC = () => {
 					)
 				},
 				{
+					title: t('setting.interfaceFunction.accordionMenu'),
+					disabled: layout === 'top' || !!siderCollapsed,
+					disabledReason: t('setting.interfaceFunction.dragSidebarReason'),
+					action: (
+						<Switch
+							size="small"
+							checked={!!accordionMenu}
+							onChange={checked => {
+								setSettingValue('accordionMenu', checked)
+							}}
+						/>
+					)
+				},
+				{
 					title: t('setting.interfaceFunction.collapsePosition'),
 					disabled: layout === 'top',
-					disabledReason: t('setting.interfaceFunction.fixedSidebarReason'),
+					disabledReason: t('setting.interfaceFunction.sidebarReason'),
 					action: (
 						<Select
 							size="small"
-							defaultValue={collapsePosition}
+							value={collapsePosition}
 							style={{ width: 80 }}
 							onChange={value => {
 								setSettingValue('collapsePosition', value)
 							}}
 						>
-							<Select.Option value="none">{t('setting.interfaceFunction.collapsePositionNone')}</Select.Option>
 							<Select.Option value="top">{t('setting.interfaceFunction.collapsePositionTop')}</Select.Option>
 							<Select.Option value="bottom">{t('setting.interfaceFunction.collapsePositionBottom')}</Select.Option>
 						</Select>
@@ -110,11 +132,11 @@ const InterfaceFunction: FC = () => {
 				},
 				{
 					title: t('setting.interfaceFunction.siderWidth'),
-					disabled: layout === 'top',
-					disabledReason: t('setting.interfaceFunction.fixedSidebarReason'),
+					disabled: layout === 'top' || !!siderCollapsed,
+					disabledReason: t('setting.interfaceFunction.dragSidebarReason'),
 					action: (
 						<InputNumber
-							defaultValue={siderWidth}
+							value={siderWidth}
 							min={120}
 							style={{ width: 80 }}
 							size="small"
