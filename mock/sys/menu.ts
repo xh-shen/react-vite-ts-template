@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-01 08:06:55
  * @LastEditors: shen
- * @LastEditTime: 2022-10-12 16:46:39
+ * @LastEditTime: 2022-10-15 19:09:02
  * @Description:
  */
 import { MockMethod } from 'vite-plugin-mock'
@@ -58,6 +58,49 @@ const genMenList = lang => [
 		path: '/form/hight',
 		icon: '',
 		title: lang === 'zh-CN' ? '高级表单' : 'Hight Form'
+	},
+	{
+		id: '30',
+		pid: '0',
+		path: '/menu',
+		icon: 'menu-line',
+		title: lang === 'zh-CN' ? '多级菜单' : 'MultiMenu'
+	},
+	{
+		id: '31',
+		pid: '30',
+		path: '/menu/menu1',
+		title: lang === 'zh-CN' ? '菜单1' : 'Menu1'
+	},
+	{
+		id: '32',
+		pid: '31',
+		path: '/menu/menu1/menu1-1',
+		title: lang === 'zh-CN' ? '菜单1-1' : 'Menu1-1'
+	},
+	{
+		id: '33',
+		pid: '32',
+		path: '/menu/menu1/menu1-1/menu1-1-1',
+		title: lang === 'zh-CN' ? '菜单1-1-1' : 'Menu1-1-1'
+	},
+	{
+		id: '34',
+		pid: '32',
+		path: '/menu/menu1/menu1-1/menu1-1-2',
+		title: lang === 'zh-CN' ? '菜单1-1-2' : 'Menu1-1-2'
+	},
+	{
+		id: '35',
+		pid: '31',
+		path: '/menu/menu1/menu1-2',
+		title: lang === 'zh-CN' ? '菜单1-2' : 'Menu1-2'
+	},
+	{
+		id: '36',
+		pid: '30',
+		path: '/menu/menu2',
+		title: lang === 'zh-CN' ? '菜单2' : 'Menu2'
 	}
 ]
 
