@@ -2,14 +2,15 @@
  * @Author: shen
  * @Date: 2022-10-13 14:05:42
  * @LastEditors: shen
- * @LastEditTime: 2022-10-14 10:13:34
+ * @LastEditTime: 2022-10-15 22:28:50
  * @Description:
  */
 
-import { useAppSelector, useAppDispatch, setAppSettingValues } from '@/store'
+import { useAppSelector, useAppDispatch, setAppSettingValues, resetAppSetting } from '@/store'
 import { addClass, removeClass } from '@/utils'
 
 export const useAppSetting = () => {
+	const themeColor = useAppSelector(state => state.app.themeColor)
 	const layout = useAppSelector(state => state.app.layout)
 	const pageStyle = useAppSelector(state => state.app.pageStyle)
 	const siderWidth = useAppSelector(state => state.app.siderWidth)
@@ -21,6 +22,14 @@ export const useAppSetting = () => {
 	const colorWeak = useAppSelector(state => state.app.colorWeak)
 	const collapsePosition = useAppSelector(state => state.app.collapsePosition)
 	const dragSidebar = useAppSelector(state => state.app.dragSidebar)
+	const showHeader = useAppSelector(state => state.app.showHeader)
+	const showSiderbar = useAppSelector(state => state.app.showSiderbar)
+	const showBreadcrumbs = useAppSelector(state => state.app.showBreadcrumbs)
+	const showLogo = useAppSelector(state => state.app.showLogo)
+	const showFooter = useAppSelector(state => state.app.showFooter)
+	const showCollapseButton = useAppSelector(state => state.app.showCollapseButton)
+	const fullContent = useAppSelector(state => state.app.fullContent)
+	const accordionMenu = useAppSelector(state => state.app.accordionMenu)
 
 	const dispatch = useAppDispatch()
 
@@ -36,7 +45,12 @@ export const useAppSetting = () => {
 		dispatch(setAppSettingValues({ key, value }))
 	}
 
+	const resetSettingValues = () => {
+		dispatch(resetAppSetting())
+	}
+
 	return {
+		themeColor,
 		siderWidth,
 		pageStyle,
 		layout,
@@ -48,6 +62,15 @@ export const useAppSetting = () => {
 		grayMode,
 		collapsePosition,
 		dragSidebar,
-		setSettingValue
+		showHeader,
+		showSiderbar,
+		showBreadcrumbs,
+		showLogo,
+		showFooter,
+		showCollapseButton,
+		fullContent,
+		accordionMenu,
+		setSettingValue,
+		resetSettingValues
 	}
 }
