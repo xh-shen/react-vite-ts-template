@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-03 10:13:10
  * @LastEditors: shen
- * @LastEditTime: 2022-10-13 21:30:02
+ * @LastEditTime: 2022-10-15 20:14:35
  * @Description:
  */
 
@@ -37,6 +37,10 @@ declare interface WheelEvent {
 }
 declare interface ImportMetaEnv extends ViteEnv {
 	__: unknown
+}
+
+interface Window {
+	APP_DEFAULT_SETTING: Record<string, any>
 }
 
 declare interface ViteEnv {
