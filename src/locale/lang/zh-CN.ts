@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 14:08:22
  * @LastEditors: shen
- * @LastEditTime: 2022-10-14 10:11:35
+ * @LastEditTime: 2022-10-15 22:35:17
  * @Description:
  */
 export default {
@@ -44,6 +44,9 @@ export default {
 		logout: '退出登录'
 	},
 	setting: {
+		hint: '配置栏修改后会缓存到本地，如需清除，请手动重置配置',
+		reset: '重置配置',
+		resetHint: '重置配置成功',
 		pageStyle: {
 			title: '整体风格设置',
 			lightMenu: '亮色菜单风格',
@@ -70,11 +73,13 @@ export default {
 		},
 		interfaceFunction: {
 			title: '界面功能',
-			fixedHeader: '固定 Header',
+			fixedHeader: '固定顶栏',
 			fixedSidebar: '固定侧边菜单',
-			fixedSidebarReason: '侧边菜单布局时可配置',
+			sidebarReason: '侧边菜单布局时可配置',
 			siderWidth: '侧边菜单宽度',
+			accordionMenu: '手风琴菜单',
 			dragSidebar: '拖拽侧边菜单',
+			dragSidebarReason: '侧边菜单布局且未折叠时可配置',
 			collapseSidebar: '折叠侧边菜单',
 			collapsePosition: '折叠按钮',
 			collapsePositionTop: '顶部',
@@ -83,6 +88,12 @@ export default {
 		},
 		interfaceDisplay: {
 			title: '界面显示',
+			header: '顶栏',
+			siderbar: '侧边菜单',
+			breadcrumbs: '面包屑',
+			logo: 'Logo',
+			footer: '页脚',
+			fullContent: '全屏内容',
 			colorWeak: '色弱模式',
 			grayMode: '灰色模式'
 		}

@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 14:08:17
  * @LastEditors: shen
- * @LastEditTime: 2022-10-14 10:11:51
+ * @LastEditTime: 2022-10-15 22:18:03
  * @Description:
  */
 export default {
@@ -44,6 +44,9 @@ export default {
 		logout: 'Logout'
 	},
 	setting: {
+		hint: 'Setting panel cache to local, please manually reset setting',
+		reset: 'Reset Setting',
+		resetHint: 'Reset Setting Success',
 		pageStyle: {
 			title: 'Page Style Setting',
 			lightMenu: 'Light Menu style',
@@ -72,9 +75,11 @@ export default {
 			title: 'Interface Function',
 			fixedHeader: 'Fixed Header',
 			fixedSidebar: 'Fixed Sidebar',
-			fixedSidebarReason: 'Works on Side Menu Layout',
+			sidebarReason: 'Works on Side Menu Layout',
 			siderWidth: 'Sidebar Width',
+			accordionMenu: 'Menu Accordion',
 			dragSidebar: 'Drag Sidebar',
+			dragSidebarReason: 'Works on Side Menu Layout and Unfolded',
 			collapseSidebar: 'Collapse Sidebar',
 			collapsePosition: 'Collapse Button',
 			collapsePositionTop: 'Top',
@@ -83,6 +88,12 @@ export default {
 		},
 		interfaceDisplay: {
 			title: 'Interface Display',
+			header: 'Header',
+			siderbar: 'Sidebar',
+			breadcrumbs: 'Breadcrumbs',
+			logo: 'Logo',
+			footer: 'Footer',
+			fullContent: 'Full content',
 			colorWeak: 'Weak Mode',
 			grayMode: 'Gray Mode'
 		}
