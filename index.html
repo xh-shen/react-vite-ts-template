@@ -9,6 +9,7 @@
   <title>
     <%= title %>
   </title>
+  <script src="/defaultSetting.js"></script>
 </head>
 
 <body>
@@ -23,11 +24,11 @@
 
       var appSetting = window.localStorage.getItem('__APP__SETTING__');
       appSetting = appSetting ? JSON.parse(appSetting) : {}
-      var colorWeak = appSetting.colorWeak == undefined ? JSON.parse('<%= colorWeak %>') : appSetting.colorWeak
+      var colorWeak = appSetting.colorWeak == undefined ? window.APP_DEFAULT_SETTING.colorWeak || JSON.parse('<%= colorWeak %>') : appSetting.colorWeak
       if (colorWeak) {
         document.body.classList.add("color-weak");
       }
-      var grayMode = appSetting.grayMode == undefined ? JSON.parse('<%= grayMode %>') : appSetting.grayMode
+      var grayMode = appSetting.grayMode == undefined ? window.APP_DEFAULT_SETTING.grayMode || JSON.parse('<%= grayMode %>') : appSetting.grayMode
       if (grayMode) {
         document.body.classList.add("gray-mode");
       }
@@ -182,7 +183,9 @@
   </div>
   <script>
     (function () {
-      var themeColor = localStorage.getItem('__APP__THEME__COLOR__') ? JSON.parse(localStorage.getItem('__APP__THEME__COLOR__')) : '<%= themeColor %>';
+      var appSetting = window.localStorage.getItem('__APP__SETTING__');
+      appSetting = appSetting ? JSON.parse(appSetting) : {}
+      var themeColor = !appSetting.themeColor ? window.APP_DEFAULT_SETTING.themeColor || '<%= themeColor %>' : appSetting.themeColor
       var spinDotList = document.getElementById('loading-dot').children;
       for (var i = 0; i < spinDotList.length; i++) {
         spinDotList[i].style.backgroundColor = themeColor;
