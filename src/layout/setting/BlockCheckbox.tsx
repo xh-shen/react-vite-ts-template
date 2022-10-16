@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-09 15:11:08
  * @LastEditors: shen
- * @LastEditTime: 2022-10-13 15:22:03
+ * @LastEditTime: 2022-10-16 11:48:32
  * @Description:
  */
 import { useMemo } from 'react'
@@ -24,10 +24,17 @@ export type BlockCheckboxProps = {
 const BlockCheckbox: FC<BlockCheckboxProps> = ({ list, value, prefixCls, onChange }) => {
 	const baseClassName = `${prefixCls}-block-checkbox`
 
+	const onSelect = (key: string) => {
+		if (value === key) {
+			return
+		}
+		onChange(key)
+	}
+
 	const dom = useMemo(() => {
 		const domList = (list || []).map(item => (
 			<Tooltip title={item.title} key={item.key}>
-				<div className={`${baseClassName}-item ${baseClassName}-item-${item.key}`} onClick={() => onChange(item.key)}>
+				<div className={`${baseClassName}-item ${baseClassName}-item-${item.key}`} onClick={() => onSelect(item.key)}>
 					<CheckOutlined
 						className={`${baseClassName}-item-select`}
 						style={{

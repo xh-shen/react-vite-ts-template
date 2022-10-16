@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" id="rootHtml">
+<html lang="en">
 
 <head>
   <meta charset="UTF-8" />
@@ -15,15 +15,13 @@
 <body>
   <script>
     (() => {
-      var htmlRoot = document.getElementById('htmlRoot');
-      var darkMode = window.localStorage.getItem('__APP__DARK__MODE__');
-      if (htmlRoot && darkMode) {
-        htmlRoot.setAttribute('data-theme', darkMode);
-        theme = htmlRoot = null;
-      }
-
       var appSetting = window.localStorage.getItem('__APP__SETTING__');
       appSetting = appSetting ? JSON.parse(appSetting) : {}
+
+      var darkMode = appSetting.pageStyle == undefined ? window.APP_DEFAULT_SETTING.pageStyle === 'realDark' || JSON.parse('<%= darkMode %>') : appSetting.pageStyle === 'realDark'
+      if (darkMode) {
+        document.body.classList.add("dark-mode");
+      }
       var colorWeak = appSetting.colorWeak == undefined ? window.APP_DEFAULT_SETTING.colorWeak || JSON.parse('<%= colorWeak %>') : appSetting.colorWeak
       if (colorWeak) {
         document.body.classList.add("color-weak");
@@ -36,11 +34,11 @@
   </script>
   <div id="root">
     <style>
-      html[data-theme='dark'] .app-loading {
-        background-color: #2c344a;
+      .dark-mode {
+        background-color: rgb(36, 37, 37);
       }
 
-      html[data-theme='dark'] .app-loading .app-loading-title {
+      .dark-mode .app-loading .app-loading-title {
         color: rgb(255 255 255 / 85%);
       }
 
@@ -60,7 +58,6 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        background-color: #f4f7f9;
       }
 
       .app-loading .app-loading-wrap {

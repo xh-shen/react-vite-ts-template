@@ -2304,6 +2304,11 @@ dargs@^7.0.0:
   resolved "https://registry.npmmirror.com/dargs/-/dargs-7.0.0.tgz#04015c41de0bcb69ec84050f3d9be0caf8d6d5cc"
   integrity sha512-2iy1EkLdlBzQGvbweYRFxmFath8+K7+AKB0TlhHWkNuH+TmovaMH/Wp7V7R4u7f4SnX3OgLsU9t1NI9ioDnUpg==
 
+darkreader@^4.9.58:
+  version "4.9.58"
+  resolved "https://registry.yarnpkg.com/darkreader/-/darkreader-4.9.58.tgz#6544d6cb51fa643dc7995d128d32b357e1650e49"
+  integrity sha512-D/JGoJqW3m2AWBLhO+Pev+eThfs+CwRT4bcLb/1zKjql2yVwG0lx8C2XRDdSVGHw4y11n26W7syWoBpUfuhMqQ==
+
 date-fns@2.x:
   version "2.29.3"
   resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.29.3.tgz#27402d2fc67eb442b511b70bbdf98e6411cd68a8"

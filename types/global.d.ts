@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-03 10:13:10
  * @LastEditors: shen
- * @LastEditTime: 2022-10-15 20:14:35
+ * @LastEditTime: 2022-10-16 11:59:50
  * @Description:
  */
 
@@ -61,4 +61,5 @@ declare interface ViteEnv {
 	VITE_APP_COLOR_WEAK: boolean
 	VITE_APP_GRAY_MODE: boolean
 	VITE_APP_NAMESPACE: string
+	VITE_APP_DARK_MODE: boolean
 }

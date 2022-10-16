@@ -2,12 +2,13 @@
  * @Author: shen
  * @Date: 2022-10-13 14:05:42
  * @LastEditors: shen
- * @LastEditTime: 2022-10-15 22:28:50
+ * @LastEditTime: 2022-10-16 11:25:32
  * @Description:
  */
 
 import { useAppSelector, useAppDispatch, setAppSettingValues, resetAppSetting } from '@/store'
 import { addClass, removeClass } from '@/utils'
+import { disable as darkreaderDisable, enable as darkreaderEnable, setFetchMethod as setFetch } from 'darkreader'
 
 export const useAppSetting = () => {
 	const themeColor = useAppSelector(state => state.app.themeColor)
@@ -40,6 +41,30 @@ export const useAppSetting = () => {
 
 		if (key === 'grayMode') {
 			value ? addClass(document.body, 'gray-mode') : removeClass(document.body, 'gray-mode')
+		}
+
+		if (key === 'pageStyle') {
+			if (value === 'realDark') {
+				const defaultTheme = {
+					brightness: 100,
+					contrast: 90,
+					sepia: 10
+				}
+
+				const defaultFixes = {
+					invert: [],
+					css: '',
+					ignoreInlineStyle: ['.react-switch-handle'],
+					ignoreImageAnalysis: [],
+					disableStyleSheetsProxy: true
+				}
+				if (window.MutationObserver && window.fetch) {
+					setFetch(window.fetch)
+					darkreaderEnable(defaultTheme, defaultFixes)
+				}
+			} else {
+				if (window.MutationObserver) darkreaderDisable()
+			}
 		}
 
 		dispatch(setAppSettingValues({ key, value }))

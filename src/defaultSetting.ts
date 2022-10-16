@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-15 19:20:51
  * @LastEditors: shen
- * @LastEditTime: 2022-10-16 08:09:26
+ * @LastEditTime: 2022-10-16 12:01:56
  * @Description:
  */
 import config from './config'
@@ -37,7 +37,7 @@ const defaultSetting: AppSetting = {
 	themeColor: config.themeColor, // 获取于环境变量，如需修改请修改.env文件中 VITE_APP_THEME_COLOR
 	colorWeak: config.colorWeak, // 获取于环境变量，如需修改请修改.env文件中 VITE_APP_COLOR_WEAK
 	grayMode: config.grayMode, // 获取于环境变量，如需修改请修改.env文件中 VITE_APP_GRAY_MODE
-	pageStyle: 'light',
+	pageStyle: config.darkMode ? 'realDark' : 'light',
 	layout: 'side',
 	siderCollapsed: false,
 	fixedHeader: true,

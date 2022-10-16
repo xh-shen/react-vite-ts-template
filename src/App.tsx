@@ -2,21 +2,20 @@
  * @Author: shen
  * @Date: 2022-09-20 09:48:07
  * @LastEditors: shen
- * @LastEditTime: 2022-10-01 11:35:59
+ * @LastEditTime: 2022-10-16 11:52:46
  * @Description:
  */
 import { useEffect } from 'react'
 import { BrowserRouter } from 'react-router-dom'
 import { ConfigProvider } from 'antd'
-import { useAntdLanguage } from './hooks'
-import { useAppSelector } from './store'
+import { useAntdLanguage, useAppSetting, useDarkreader } from './hooks'
 import Router from './router'
 
 import type { FC } from 'react'
 const App: FC = () => {
 	const antdLanguage = useAntdLanguage()
-	const themeColor = useAppSelector(state => state.app.themeColor)
-
+	const { themeColor, pageStyle } = useAppSetting()
+	useDarkreader(pageStyle === 'realDark')
 	useEffect(() => {
 		ConfigProvider.config({
 			theme: { primaryColor: themeColor }

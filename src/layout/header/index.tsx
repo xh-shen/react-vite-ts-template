@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-08 09:03:57
  * @LastEditors: shen
- * @LastEditTime: 2022-10-16 08:21:03
+ * @LastEditTime: 2022-10-16 08:37:42
  * @Description:
  */
 import { useMemo } from 'react'
@@ -42,11 +42,17 @@ const LayoutHeader: FC = () => {
 
 	const needFixedHeader = useMemo(() => fixedHeader || layout === 'mix', [fixedHeader, layout])
 
+	const headerTheme = useMemo(() => {
+		if (pageStyle === 'light' || pageStyle === 'realDark' || (layout === 'mix' && pageStyle === 'dark')) {
+			return 'light'
+		}
+		return 'dark'
+	}, [layout, pageStyle])
+
 	const className = classNames(prefixCls, `${prefixCls}-${layout}`, {
 		[`${prefixCls}-fixed`]: needFixedHeader,
 		[`${prefixCls}-fixed-action`]: !collapsed,
-		[`${prefixCls}-light`]: pageStyle === 'light' || pageStyle === 'realDark' || (layout === 'mix' && pageStyle === 'dark'),
-		[`${prefixCls}-dark`]: pageStyle === 'layoutDark' || (layout === 'top' && pageStyle === 'dark')
+		[`${prefixCls}-${headerTheme}`]: true
 	})
 
 	const width = useMemo(() => {

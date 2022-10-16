@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 09:18:17
  * @LastEditors: shen
- * @LastEditTime: 2022-10-13 21:28:55
+ * @LastEditTime: 2022-10-16 12:01:10
  * @Description:
  */
 import { parseEnv } from '@/utils'
@@ -16,6 +16,7 @@ interface Config {
 	namespace: string
 	colorWeak: boolean
 	grayMode: boolean
+	darkMode: boolean
 }
 
 const {
@@ -25,7 +26,8 @@ const {
 	VITE_API_URL_PREFIX,
 	VITE_APP_NAMESPACE,
 	VITE_APP_COLOR_WEAK,
-	VITE_APP_GRAY_MODE
+	VITE_APP_GRAY_MODE,
+	VITE_APP_DARK_MODE
 } = parseEnv(import.meta.env)
 
 const config: Config = {
@@ -36,6 +38,7 @@ const config: Config = {
 	namespace: VITE_APP_NAMESPACE || 'shene',
 	colorWeak: VITE_APP_COLOR_WEAK || false,
 	grayMode: VITE_APP_GRAY_MODE || false,
+	darkMode: VITE_APP_DARK_MODE || false,
 	timeout: 5000
 }
 
