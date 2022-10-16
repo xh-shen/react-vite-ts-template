@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-15 19:20:51
  * @LastEditors: shen
- * @LastEditTime: 2022-10-16 14:51:19
+ * @LastEditTime: 2022-10-16 15:21:38
  * @Description:
  */
 import config from './config'
@@ -30,10 +30,12 @@ export interface AppSetting {
 	showBreadcrumbIcon: boolean
 	showLogo: boolean
 	showFooter: boolean
+	showTabs: boolean
 	showCollapseButton: boolean
 	fullContent: boolean
 	accordionMenu: boolean
 }
+
 const defaultSetting: AppSetting = {
 	themeColor: config.themeColor, // 获取于环境变量，如需修改请修改.env文件中 VITE_APP_THEME_COLOR
 	colorWeak: config.colorWeak, // 获取于环境变量，如需修改请修改.env文件中 VITE_APP_COLOR_WEAK
@@ -52,6 +54,7 @@ const defaultSetting: AppSetting = {
 	showBreadcrumbs: true,
 	showLogo: true,
 	showFooter: true,
+	showTabs: true,
 	showCollapseButton: true,
 	showBreadcrumbIcon: true,
 	fullContent: false,
