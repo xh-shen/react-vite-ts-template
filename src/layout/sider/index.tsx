@@ -2,19 +2,18 @@
  * @Author: shen
  * @Date: 2022-10-08 09:19:47
  * @LastEditors: shen
- * @LastEditTime: 2022-10-16 08:12:06
+ * @LastEditTime: 2022-10-16 15:35:32
  * @Description:
  */
 import { useMemo } from 'react'
 import { Layout, Menu } from 'antd'
 import { useAppSetting, usePrefixCls } from '@/hooks'
+import { DragHandle, SvgIcon } from '@/components'
+import classNames from 'classnames'
 import LayoutMenu from '../menu'
 import Logo from '../logo'
-import classnames from 'classnames'
 
 import type { FC } from 'react'
-import { DragHandle, SvgIcon } from '@/components'
-import { useAppDispatch, setSiderCollapsed } from '@/store'
 
 const { Sider } = Layout
 
@@ -22,7 +21,6 @@ export const collapsedButtonRender = (collapsed?: boolean) => <SvgIcon name={col
 
 const LayoutSider: FC = () => {
 	const prefixCls = usePrefixCls('layout-sider')
-	const dispatch = useAppDispatch()
 	const {
 		pageStyle,
 		layout,
@@ -46,7 +44,7 @@ const LayoutSider: FC = () => {
 		}
 	}, [pageStyle])
 
-	const siderCls = classnames(prefixCls, `${prefixCls}-${theme}`, {
+	const siderCls = classNames(prefixCls, `${prefixCls}-${theme}`, {
 		[`${prefixCls}-collapsed`]: collapsed,
 		[`${prefixCls}-fixed`]: fixSiderbar,
 		[`${prefixCls}-layout-${layout}`]: layout
@@ -77,7 +75,7 @@ const LayoutSider: FC = () => {
 				breakpoint="lg"
 				style={{
 					// overflow: 'hidden',
-					paddingTop: layout === 'mix' && showHeader ? headerHeight : undefined
+					paddingTop: layout === 'mix' && showHeader && fixSiderbar ? headerHeight : undefined
 				}}
 			>
 				{layout === 'side' && showLogo && (
@@ -103,7 +101,7 @@ const LayoutSider: FC = () => {
 									key: 'collapsed',
 									//@ts-ignore
 									title: false,
-									onClick: () => dispatch(setSiderCollapsed(!collapsed)),
+									onClick: () => setSettingValue('siderCollapsed', !collapsed, false),
 									label: collapsedButtonRender(collapsed)
 								}
 							]}
