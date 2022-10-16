@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-08 09:03:57
  * @LastEditors: shen
- * @LastEditTime: 2022-10-16 08:37:42
+ * @LastEditTime: 2022-10-16 14:59:56
  * @Description:
  */
 import { useMemo } from 'react'
@@ -43,7 +43,12 @@ const LayoutHeader: FC = () => {
 	const needFixedHeader = useMemo(() => fixedHeader || layout === 'mix', [fixedHeader, layout])
 
 	const headerTheme = useMemo(() => {
-		if (pageStyle === 'light' || pageStyle === 'realDark' || (layout === 'mix' && pageStyle === 'dark')) {
+		if (
+			pageStyle === 'light' ||
+			pageStyle === 'realDark' ||
+			(layout === 'mix' && pageStyle === 'dark') ||
+			(layout === 'side' && pageStyle === 'dark')
+		) {
 			return 'light'
 		}
 		return 'dark'
