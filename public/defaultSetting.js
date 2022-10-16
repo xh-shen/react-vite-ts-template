@@ -4,7 +4,7 @@
  * @Author: shen
  * @Date: 2022-10-15 19:52:38
  * @LastEditors: shen
- * @LastEditTime: 2022-10-16 15:50:43
+ * @LastEditTime: 2022-10-16 17:15:16
  * @Description: 
  */
 (function(win){
@@ -22,6 +22,7 @@
     // fixSiderbar: true,
     // siderWidth: 208,
     // headerHeight: 48,
+    // footerHeight: 48,
     // dragSidebar: false,
     // collapsePosition: 'top',
     // showHeader: true,

@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-29 09:06:24
  * @LastEditors: shen
- * @LastEditTime: 2022-10-15 17:53:36
+ * @LastEditTime: 2022-10-16 17:01:29
  * @Description:
  */
 
@@ -12,13 +12,14 @@ import LayoutSetting from './setting'
 import LayoutHeader from './header'
 import LayoutSider from './sider'
 import LayoutContent from './content'
+import LayoutFooter from './footer'
 import './index.less'
 
 import type { FC } from 'react'
 
 const BasicLayout: FC = () => {
 	const prefixCls = usePrefixCls('layout')
-	const { layout, showHeader, showSiderbar, fullContent } = useAppSetting()
+	const { layout, showHeader, showSiderbar, showFooter, fullContent } = useAppSetting()
 
 	return (
 		<div className={`${prefixCls} ${prefixCls}-${layout}`}>
@@ -29,7 +30,10 @@ const BasicLayout: FC = () => {
 				<Layout>
 					{layout === 'side' && showHeader && !fullContent && <LayoutHeader />}
 					{layout === 'mix' && showSiderbar && !fullContent && <LayoutSider />}
-					<LayoutContent />
+					<Layout>
+						<LayoutContent />
+						{showFooter && <LayoutFooter />}
+					</Layout>
 				</Layout>
 			</Layout>
 		</div>

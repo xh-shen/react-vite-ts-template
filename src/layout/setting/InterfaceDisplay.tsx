@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-13 11:05:18
  * @LastEditors: shen
- * @LastEditTime: 2022-10-16 14:54:07
+ * @LastEditTime: 2022-10-16 17:12:40
  * @Description:
  */
 import { cloneElement } from 'react'
@@ -34,6 +34,7 @@ const InterfaceDisplay: FC = () => {
 		showBreadcrumbs,
 		showBreadcrumbIcon,
 		showHeader,
+		showFooter,
 		showLogo,
 		showSiderbar,
 		fullContent,
@@ -65,6 +66,18 @@ const InterfaceDisplay: FC = () => {
 							checked={!!showSiderbar}
 							onChange={checked => {
 								setSettingValue('showSiderbar', checked)
+							}}
+						/>
+					)
+				},
+				{
+					title: t('setting.interfaceDisplay.footer'),
+					action: (
+						<Switch
+							size="small"
+							checked={!!showFooter}
+							onChange={checked => {
+								setSettingValue('showFooter', checked)
 							}}
 						/>
 					)

@@ -2,14 +2,15 @@
  * @Author: shen
  * @Date: 2022-09-26 14:08:17
  * @LastEditors: shen
- * @LastEditTime: 2022-10-16 14:52:58
+ * @LastEditTime: 2022-10-16 17:10:01
  * @Description:
  */
 export default {
 	app: {
 		notifyTitle: 'Tips',
 		login: 'Login',
-		dashboard: 'Dashboard'
+		dashboard: 'Dashboard',
+		copyright: '© 2022 shene development if you have any questions please scan the QQ code and ask friends'
 	},
 	request: {
 		200: 'Request Success',
