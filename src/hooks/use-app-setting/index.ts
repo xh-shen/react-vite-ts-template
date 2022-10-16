@@ -2,13 +2,14 @@
  * @Author: shen
  * @Date: 2022-10-13 14:05:42
  * @LastEditors: shen
- * @LastEditTime: 2022-10-16 14:53:22
+ * @LastEditTime: 2022-10-16 15:31:40
  * @Description:
  */
-
-import { useAppSelector, useAppDispatch, setAppSettingValues, resetAppSetting } from '@/store'
 import { addClass, removeClass } from '@/utils'
+import { useAppSelector, useAppDispatch, setAppSettingValues, resetAppSetting } from '@/store'
 import { disable as darkreaderDisable, enable as darkreaderEnable, setFetchMethod as setFetch } from 'darkreader'
+
+import type { AppSetting } from '@/defaultSetting'
 
 export const useAppSetting = () => {
 	const themeColor = useAppSelector(state => state.app.themeColor)
@@ -35,7 +36,7 @@ export const useAppSetting = () => {
 
 	const dispatch = useAppDispatch()
 
-	const setSettingValue = <T = any>(key: string, value: T) => {
+	const setSettingValue = <T = any>(key: keyof AppSetting, value: T, cache: boolean = true) => {
 		if (key === 'colorWeak') {
 			value ? addClass(document.body, 'color-weak') : removeClass(document.body, 'color-weak')
 		}
@@ -68,7 +69,7 @@ export const useAppSetting = () => {
 			}
 		}
 
-		dispatch(setAppSettingValues({ key, value }))
+		dispatch(setAppSettingValues({ key, value, cache }))
 	}
 
 	const resetSettingValues = () => {

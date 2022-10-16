@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 10:50:37
  * @LastEditors: shen
- * @LastEditTime: 2022-10-16 14:51:58
+ * @LastEditTime: 2022-10-16 15:49:24
  * @Description:
  */
 import { getLang, setLang, getSettingValues, setSettingValues, getSettingValue, removeSettingValues } from '@/utils'
@@ -16,6 +16,12 @@ export interface AppState extends AppSetting {
 	lang: string
 	authorized: boolean // 是否获取到授权信息
 	invalid: boolean // 是否登录失效
+}
+
+type SettingValuePayload = {
+	key: keyof AppSetting
+	value: any
+	cache: boolean
 }
 
 const initialState: AppState = {
@@ -40,6 +46,7 @@ const initialState: AppState = {
 	showBreadcrumbIcon: getSettingValue<boolean>('showBreadcrumbIcon') ?? defaultSetting.showBreadcrumbIcon,
 	showLogo: getSettingValue<boolean>('showLogo') ?? defaultSetting.showLogo,
 	showFooter: getSettingValue<boolean>('showFooter') ?? defaultSetting.showFooter,
+	showTabs: getSettingValue<boolean>('showTabs') ?? defaultSetting.showTabs,
 	showCollapseButton: getSettingValue<boolean>('showCollapseButton') ?? defaultSetting.showCollapseButton,
 	fullContent: getSettingValue<boolean>('fullContent') ?? defaultSetting.fullContent,
 	accordionMenu: getSettingValue<boolean>('accordionMenu') ?? defaultSetting.accordionMenu
@@ -59,13 +66,12 @@ export const appSlice = createSlice({
 		setAppInvalid(state, { payload }: PayloadAction<boolean>) {
 			state.invalid = payload
 		},
-		setSiderCollapsed(state, { payload }: PayloadAction<boolean>) {
-			state.siderCollapsed = payload
-		},
-		setAppSettingValues(state, { payload }: PayloadAction<Record<string, any>>) {
-			state[payload.key] = payload.value
-			const setting = getSettingValues() || {}
-			setSettingValues({ ...setting, [payload.key]: payload.value })
+		setAppSettingValues(state, { payload }: PayloadAction<SettingValuePayload>) {
+			state[payload.key as string] = payload.value
+			if (payload.cache) {
+				const setting = getSettingValues() || {}
+				setSettingValues({ ...setting, [payload.key]: payload.value })
+			}
 		},
 		resetAppSetting(state) {
 			for (const key in defaultSetting) {
@@ -76,7 +82,6 @@ export const appSlice = createSlice({
 	}
 })
 
-export const { setAppLang, setAppAuthorized, setAppInvalid, setAppSettingValues, setSiderCollapsed, resetAppSetting } =
-	appSlice.actions
+export const { setAppLang, setAppAuthorized, setAppInvalid, setAppSettingValues, resetAppSetting } = appSlice.actions
 
 export default appSlice.reducer
