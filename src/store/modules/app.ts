@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 10:50:37
  * @LastEditors: shen
- * @LastEditTime: 2022-10-15 22:29:15
+ * @LastEditTime: 2022-10-16 14:51:58
  * @Description:
  */
 import { getLang, setLang, getSettingValues, setSettingValues, getSettingValue, removeSettingValues } from '@/utils'
@@ -37,6 +37,7 @@ const initialState: AppState = {
 	showHeader: getSettingValue<boolean>('showHeader') ?? defaultSetting.showHeader,
 	showSiderbar: getSettingValue<boolean>('showSiderbar') ?? defaultSetting.showSiderbar,
 	showBreadcrumbs: getSettingValue<boolean>('showBreadcrumbs') ?? defaultSetting.showBreadcrumbs,
+	showBreadcrumbIcon: getSettingValue<boolean>('showBreadcrumbIcon') ?? defaultSetting.showBreadcrumbIcon,
 	showLogo: getSettingValue<boolean>('showLogo') ?? defaultSetting.showLogo,
 	showFooter: getSettingValue<boolean>('showFooter') ?? defaultSetting.showFooter,
 	showCollapseButton: getSettingValue<boolean>('showCollapseButton') ?? defaultSetting.showCollapseButton,

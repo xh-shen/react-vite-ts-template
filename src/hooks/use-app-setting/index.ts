@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-13 14:05:42
  * @LastEditors: shen
- * @LastEditTime: 2022-10-16 11:25:32
+ * @LastEditTime: 2022-10-16 14:53:22
  * @Description:
  */
 
@@ -26,6 +26,7 @@ export const useAppSetting = () => {
 	const showHeader = useAppSelector(state => state.app.showHeader)
 	const showSiderbar = useAppSelector(state => state.app.showSiderbar)
 	const showBreadcrumbs = useAppSelector(state => state.app.showBreadcrumbs)
+	const showBreadcrumbIcon = useAppSelector(state => state.app.showBreadcrumbIcon)
 	const showLogo = useAppSelector(state => state.app.showLogo)
 	const showFooter = useAppSelector(state => state.app.showFooter)
 	const showCollapseButton = useAppSelector(state => state.app.showCollapseButton)
@@ -90,6 +91,7 @@ export const useAppSetting = () => {
 		showHeader,
 		showSiderbar,
 		showBreadcrumbs,
+		showBreadcrumbIcon,
 		showLogo,
 		showFooter,
 		showCollapseButton,

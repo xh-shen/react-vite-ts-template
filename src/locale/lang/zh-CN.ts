@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 14:08:22
  * @LastEditors: shen
- * @LastEditTime: 2022-10-16 08:06:01
+ * @LastEditTime: 2022-10-16 14:52:46
  * @Description:
  */
 export default {
@@ -92,6 +92,7 @@ export default {
 			header: '顶栏',
 			siderbar: '侧边菜单',
 			breadcrumbs: '面包屑',
+			breadcrumbIcon: '面包屑图标',
 			logo: 'Logo',
 			footer: '页脚',
 			fullContent: '全屏内容',

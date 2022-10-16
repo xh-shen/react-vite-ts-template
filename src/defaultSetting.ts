@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-15 19:20:51
  * @LastEditors: shen
- * @LastEditTime: 2022-10-16 12:01:56
+ * @LastEditTime: 2022-10-16 14:51:19
  * @Description:
  */
 import config from './config'
@@ -27,6 +27,7 @@ export interface AppSetting {
 	showHeader: boolean
 	showSiderbar: boolean
 	showBreadcrumbs: boolean
+	showBreadcrumbIcon: boolean
 	showLogo: boolean
 	showFooter: boolean
 	showCollapseButton: boolean
@@ -52,6 +53,7 @@ const defaultSetting: AppSetting = {
 	showLogo: true,
 	showFooter: true,
 	showCollapseButton: true,
+	showBreadcrumbIcon: true,
 	fullContent: false,
 	accordionMenu: true
 }

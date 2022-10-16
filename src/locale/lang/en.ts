@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 14:08:17
  * @LastEditors: shen
- * @LastEditTime: 2022-10-16 08:06:35
+ * @LastEditTime: 2022-10-16 14:52:58
  * @Description:
  */
 export default {
@@ -92,6 +92,7 @@ export default {
 			header: 'Header',
 			siderbar: 'Sidebar',
 			breadcrumbs: 'Breadcrumbs',
+			breadcrumbIcon: 'Breadcrumb Icon',
 			logo: 'Logo',
 			footer: 'Footer',
 			fullContent: 'Full content',

@@ -4,7 +4,7 @@
  * @Author: shen
  * @Date: 2022-10-15 19:52:38
  * @LastEditors: shen
- * @LastEditTime: 2022-10-15 22:29:19
+ * @LastEditTime: 2022-10-16 14:53:34
  * @Description: 
  */
 (function(win){
@@ -27,6 +27,7 @@
     // showHeader: true,
     // showSiderbar: true,
     // showBreadcrumbs: true,
+    // showBreadcrumbIcon: true,
     // showLogo: true,
     // showFooter: true,
     // showCollapseButton: true,

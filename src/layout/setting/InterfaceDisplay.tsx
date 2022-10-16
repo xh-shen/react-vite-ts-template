@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-13 11:05:18
  * @LastEditors: shen
- * @LastEditTime: 2022-10-15 22:29:44
+ * @LastEditTime: 2022-10-16 14:54:07
  * @Description:
  */
 import { cloneElement } from 'react'
@@ -32,6 +32,7 @@ const InterfaceDisplay: FC = () => {
 		colorWeak,
 		grayMode,
 		showBreadcrumbs,
+		showBreadcrumbIcon,
 		showHeader,
 		showLogo,
 		showSiderbar,
@@ -76,6 +77,18 @@ const InterfaceDisplay: FC = () => {
 							checked={!!showBreadcrumbs}
 							onChange={checked => {
 								setSettingValue('showBreadcrumbs', checked)
+							}}
+						/>
+					)
+				},
+				{
+					title: t('setting.interfaceDisplay.breadcrumbIcon'),
+					action: (
+						<Switch
+							size="small"
+							checked={!!showBreadcrumbIcon}
+							onChange={checked => {
+								setSettingValue('showBreadcrumbIcon', checked)
 							}}
 						/>
 					)
