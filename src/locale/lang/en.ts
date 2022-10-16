@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 14:08:17
  * @LastEditors: shen
- * @LastEditTime: 2022-10-15 22:18:03
+ * @LastEditTime: 2022-10-16 08:06:35
  * @Description:
  */
 export default {
@@ -51,6 +51,7 @@ export default {
 			title: 'Page Style Setting',
 			lightMenu: 'Light Menu style',
 			darkMenu: 'Dark Menu style',
+			darkLayout: 'Dark Layout style',
 			dark: 'Dark style'
 		},
 		themeColor: {

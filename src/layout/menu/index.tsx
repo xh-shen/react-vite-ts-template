@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-09 12:40:37
  * @LastEditors: shen
- * @LastEditTime: 2022-10-15 21:44:21
+ * @LastEditTime: 2022-10-16 08:12:36
  * @Description:
  */
 import { AppState, useAppDispatch, useAppSelector, setMatchMenus } from '@/store'
@@ -80,10 +80,10 @@ const LayoutMenu: FC<{ className?: string }> = ({ className }) => {
 	const [selectedKeys, setSelectedKeys] = useState<string[]>([pathname])
 	const dispatch = useAppDispatch()
 	const theme = useMemo(() => {
-		if (!pageStyle || pageStyle === 'realDark') {
-			return 'light'
+		if (pageStyle === 'layoutDark' || pageStyle === 'dark') {
+			return 'dark'
 		} else {
-			return pageStyle
+			return 'light'
 		}
 	}, [pageStyle])
 

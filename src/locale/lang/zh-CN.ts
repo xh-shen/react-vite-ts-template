@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 14:08:22
  * @LastEditors: shen
- * @LastEditTime: 2022-10-15 22:35:17
+ * @LastEditTime: 2022-10-16 08:06:01
  * @Description:
  */
 export default {
@@ -51,6 +51,7 @@ export default {
 			title: '整体风格设置',
 			lightMenu: '亮色菜单风格',
 			darkMenu: '暗色菜单风格',
+			darkLayout: '暗色布局风格',
 			dark: '暗色风格'
 		},
 		themeColor: {

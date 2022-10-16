@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-08 09:19:47
  * @LastEditors: shen
- * @LastEditTime: 2022-10-15 22:32:55
+ * @LastEditTime: 2022-10-16 08:12:06
  * @Description:
  */
 import { useMemo } from 'react'
@@ -39,10 +39,10 @@ const LayoutSider: FC = () => {
 	} = useAppSetting()
 
 	const theme = useMemo(() => {
-		if (!pageStyle || pageStyle === 'realDark') {
-			return 'light'
+		if (pageStyle === 'layoutDark' || pageStyle === 'dark') {
+			return 'dark'
 		} else {
-			return pageStyle
+			return 'light'
 		}
 	}, [pageStyle])
 

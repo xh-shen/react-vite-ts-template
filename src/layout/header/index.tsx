@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-08 09:03:57
  * @LastEditors: shen
- * @LastEditTime: 2022-10-15 22:33:12
+ * @LastEditTime: 2022-10-16 08:21:03
  * @Description:
  */
 import { useMemo } from 'react'
@@ -45,8 +45,8 @@ const LayoutHeader: FC = () => {
 	const className = classNames(prefixCls, `${prefixCls}-${layout}`, {
 		[`${prefixCls}-fixed`]: needFixedHeader,
 		[`${prefixCls}-fixed-action`]: !collapsed,
-		[`${prefixCls}-light`]: (pageStyle === 'light' && layout !== 'mix') || (pageStyle === 'dark' && layout === 'side'),
-		[`${prefixCls}-dark`]: (pageStyle === 'light' && layout === 'mix') || (pageStyle === 'dark' && layout !== 'side')
+		[`${prefixCls}-light`]: pageStyle === 'light' || pageStyle === 'realDark' || (layout === 'mix' && pageStyle === 'dark'),
+		[`${prefixCls}-dark`]: pageStyle === 'layoutDark' || (layout === 'top' && pageStyle === 'dark')
 	})
 
 	const width = useMemo(() => {

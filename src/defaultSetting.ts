@@ -2,12 +2,12 @@
  * @Author: shen
  * @Date: 2022-10-15 19:20:51
  * @LastEditors: shen
- * @LastEditTime: 2022-10-15 22:29:25
+ * @LastEditTime: 2022-10-16 08:09:26
  * @Description:
  */
 import config from './config'
 
-export type PageStyleType = 'light' | 'dark' | 'realDark'
+export type PageStyleType = 'light' | 'dark' | 'layoutDark' | 'realDark'
 export type LayoutType = 'side' | 'top' | 'mix'
 export type CollapsePositionType = 'top' | 'bottom'
 

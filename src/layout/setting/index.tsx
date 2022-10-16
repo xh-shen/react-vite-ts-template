@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-09 13:39:01
  * @LastEditors: shen
- * @LastEditTime: 2022-10-15 22:18:16
+ * @LastEditTime: 2022-10-16 08:22:34
  * @Description:
  */
 import { usePrefixCls, useAppSetting } from '@/hooks'
@@ -47,11 +47,15 @@ const LayoutSetting: FC = () => {
 								{
 									key: 'dark',
 									title: t('setting.pageStyle.darkMenu')
+								},
+								{
+									key: 'layoutDark',
+									title: t('setting.pageStyle.darkLayout')
+								},
+								{
+									key: 'realDark',
+									title: t('setting.pageStyle.dark')
 								}
-								// {
-								// 	key: 'realDark',
-								// 	title: t('setting.pageStyle.dark')
-								// }
 							]}
 							value={pageStyle}
 							prefixCls={prefixCls}
