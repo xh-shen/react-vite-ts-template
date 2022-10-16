@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-09 12:40:37
  * @LastEditors: shen
- * @LastEditTime: 2022-10-16 08:12:36
+ * @LastEditTime: 2022-10-16 15:43:36
  * @Description:
  */
 import { AppState, useAppDispatch, useAppSelector, setMatchMenus } from '@/store'
@@ -108,6 +108,7 @@ const LayoutMenu: FC<{ className?: string }> = ({ className }) => {
 
 	useEffect(() => {
 		if (matchMenuKeys && !openKeysCache.current.length) {
+			openKeysCache.current = matchMenuKeys
 			setOpenKeys(matchMenuKeys)
 		}
 	}, [matchMenuKeys.join('-')])
@@ -144,17 +145,21 @@ const LayoutMenu: FC<{ className?: string }> = ({ className }) => {
 	}
 
 	const onOpenChange: MenuProps['onOpenChange'] = keys => {
+		let newOpenKeus: string[] = []
 		if (!accordionMenu) {
-			openKeysCache.current = keys
+			newOpenKeus = keys
 		} else {
 			const latestOpenKey = keys.find(key => openKeys.indexOf(key) === -1)
 			if (rootSubmenuKeys.indexOf(latestOpenKey!) === -1) {
-				openKeysCache.current = keys
+				newOpenKeus = keys
 			} else {
-				openKeysCache.current = latestOpenKey ? [latestOpenKey] : []
+				newOpenKeus = latestOpenKey ? [latestOpenKey] : []
 			}
 		}
-		setOpenKeys(openKeysCache.current)
+		if (!collapsed) {
+			openKeysCache.current = newOpenKeus
+		}
+		setOpenKeys(newOpenKeus)
 	}
 
 	return (
