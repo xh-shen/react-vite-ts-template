@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-05-29 08:04:18
  * @LastEditors: shen
- * @LastEditTime: 2022-10-09 15:47:37
+ * @LastEditTime: 2022-10-17 08:44:19
  * @Description:
  */
 export const TOKEN_KEY = `__APP__TOKEN__`
@@ -10,6 +10,7 @@ export const USER_INFO_KEY = `__APP__USER_INFO__`
 export const THEME_COLOR_KEY = `__APP__THEME__COLOR__`
 export const LANG_KEY = `__APP__LANG__`
 export const SETTING_KEY = `__APP__SETTING__`
+export const TABS_KEY = `__APP__TABS__`
 
 export const PHONE_REGEXP =
 	/^(((13[0-9]{1})|(14[0-9]{1})|(15[0-9]{1})|(16[0-9]{1})|(18[0-9]{1})|(17[0-9]{1})|(19[0-9]{1}))+\d{8})$/

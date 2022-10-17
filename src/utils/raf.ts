@@ -2,38 +2,53 @@
  * @Author: shen
  * @Date: 2022-04-11 10:25:17
  * @LastEditors: shen
- * @LastEditTime: 2022-10-14 14:31:41
+ * @LastEditTime: 2022-10-17 16:14:45
  * @Description:
  */
-import { getRequestAnimationFrame, cancelRequestAnimationFrame } from './getRequestAnimationFrame'
+let raf = (callback: FrameRequestCallback) => +setTimeout(callback, 16)
+let caf = (num: number) => clearTimeout(num)
 
-export type RafFrame = {
-	id: number
+if (typeof window !== 'undefined' && 'requestAnimationFrame' in window) {
+	raf = (callback: FrameRequestCallback) => window.requestAnimationFrame(callback)
+	caf = (handle: number) => window.cancelAnimationFrame(handle)
 }
 
-const requestAnimationFrame = getRequestAnimationFrame()
+let rafUUID = 0
+const rafIds = new Map<number, number>()
 
-export function raf(
-	callback: () => void,
-	delayFrames = 1
-): {
-	id: number
-} {
-	let df = delayFrames
-	const frame = {
-		id: requestAnimationFrame(function cb() {
-			df -= 1
-			if (df <= 0) {
-				callback()
-			} else {
-				frame.id = requestAnimationFrame(cb)
-			}
-		})
+function cleanup(id: number) {
+	rafIds.delete(id)
+}
+
+export default function wrapperRaf(callback: () => void, times = 1): number {
+	rafUUID += 1
+	const id = rafUUID
+
+	function callRef(leftTimes: number) {
+		if (leftTimes === 0) {
+			// Clean up
+			cleanup(id)
+
+			// Trigger
+			callback()
+		} else {
+			// Next raf
+			const realId = raf(() => {
+				callRef(leftTimes - 1)
+			})
+
+			// Bind real raf id
+			rafIds.set(id, realId)
+		}
 	}
-	return frame
-}
-raf.cancel = (frame?: { id: number }) => {
-	frame && cancelRequestAnimationFrame(frame.id)
+
+	callRef(times)
+
+	return id
 }
 
-export default raf
+wrapperRaf.cancel = (id: number) => {
+	const realId = rafIds.get(id) as number
+	cleanup(realId)
+	return caf(realId)
+}
