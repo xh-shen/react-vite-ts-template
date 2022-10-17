@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-15 19:20:51
  * @LastEditors: shen
- * @LastEditTime: 2022-10-16 17:15:11
+ * @LastEditTime: 2022-10-17 09:33:54
  * @Description:
  */
 import config from './config'
@@ -21,6 +21,7 @@ export interface AppSetting {
 	siderWidth: number
 	headerHeight: number
 	footerHeight: number
+	tabsHeight: number
 	colorWeak: boolean
 	grayMode: boolean
 	dragSidebar: boolean
@@ -49,6 +50,7 @@ const defaultSetting: AppSetting = {
 	siderWidth: 208,
 	headerHeight: 48,
 	footerHeight: 48,
+	tabsHeight: 32,
 	dragSidebar: false,
 	collapsePosition: 'top',
 	showHeader: true,

@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-13 14:05:42
  * @LastEditors: shen
- * @LastEditTime: 2022-10-16 17:04:53
+ * @LastEditTime: 2022-10-17 09:34:51
  * @Description:
  */
 import { addClass, removeClass } from '@/utils'
@@ -20,6 +20,7 @@ export const useAppSetting = () => {
 	const fixSiderbar = useAppSelector(state => state.app.fixSiderbar)
 	const headerHeight = useAppSelector(state => state.app.headerHeight)
 	const footerHeight = useAppSelector(state => state.app.footerHeight)
+	const tabsHeight = useAppSelector(state => state.app.tabsHeight)
 	const siderCollapsed = useAppSelector(state => state.app.siderCollapsed)
 	const grayMode = useAppSelector(state => state.app.grayMode)
 	const colorWeak = useAppSelector(state => state.app.colorWeak)
@@ -31,6 +32,7 @@ export const useAppSetting = () => {
 	const showBreadcrumbIcon = useAppSelector(state => state.app.showBreadcrumbIcon)
 	const showLogo = useAppSelector(state => state.app.showLogo)
 	const showFooter = useAppSelector(state => state.app.showFooter)
+	const showTabs = useAppSelector(state => state.app.showTabs)
 	const showCollapseButton = useAppSelector(state => state.app.showCollapseButton)
 	const fullContent = useAppSelector(state => state.app.fullContent)
 	const accordionMenu = useAppSelector(state => state.app.accordionMenu)
@@ -87,6 +89,7 @@ export const useAppSetting = () => {
 		siderCollapsed,
 		headerHeight,
 		footerHeight,
+		tabsHeight,
 		colorWeak,
 		grayMode,
 		collapsePosition,
@@ -100,6 +103,7 @@ export const useAppSetting = () => {
 		showCollapseButton,
 		fullContent,
 		accordionMenu,
+		showTabs,
 		setSettingValue,
 		resetSettingValues
 	}
