@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 10:50:37
  * @LastEditors: shen
- * @LastEditTime: 2022-10-16 17:04:32
+ * @LastEditTime: 2022-10-17 09:34:37
  * @Description:
  */
 import { getLang, setLang, getSettingValues, setSettingValues, getSettingValue, removeSettingValues } from '@/utils'
@@ -37,6 +37,7 @@ const initialState: AppState = {
 	siderWidth: getSettingValue<number>('siderWidth') ?? defaultSetting.siderWidth,
 	headerHeight: getSettingValue<number>('headerHeight') ?? defaultSetting.headerHeight,
 	footerHeight: getSettingValue<number>('footerHeight') ?? defaultSetting.footerHeight,
+	tabsHeight: getSettingValue<number>('tabsHeight') ?? defaultSetting.tabsHeight,
 	colorWeak: getSettingValue<boolean>('colorWeak') ?? defaultSetting.colorWeak,
 	grayMode: getSettingValue<boolean>('grayMode') ?? defaultSetting.grayMode,
 	dragSidebar: getSettingValue<boolean>('dragSidebar') ?? defaultSetting.dragSidebar,
