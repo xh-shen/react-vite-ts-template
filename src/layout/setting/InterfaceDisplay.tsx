@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-13 11:05:18
  * @LastEditors: shen
- * @LastEditTime: 2022-10-16 17:12:40
+ * @LastEditTime: 2022-10-17 08:00:29
  * @Description:
  */
 import { cloneElement } from 'react'
@@ -39,6 +39,7 @@ const InterfaceDisplay: FC = () => {
 		showSiderbar,
 		fullContent,
 		showCollapseButton,
+		showTabs,
 		setSettingValue
 	} = useAppSetting()
 
@@ -78,6 +79,18 @@ const InterfaceDisplay: FC = () => {
 							checked={!!showFooter}
 							onChange={checked => {
 								setSettingValue('showFooter', checked)
+							}}
+						/>
+					)
+				},
+				{
+					title: t('setting.interfaceDisplay.tabs'),
+					action: (
+						<Switch
+							size="small"
+							checked={!!showTabs}
+							onChange={checked => {
+								setSettingValue('showTabs', checked)
 							}}
 						/>
 					)

@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-09 12:40:37
  * @LastEditors: shen
- * @LastEditTime: 2022-10-16 15:43:36
+ * @LastEditTime: 2022-10-17 11:02:40
  * @Description:
  */
 import { AppState, useAppDispatch, useAppSelector, setMatchMenus } from '@/store'
@@ -68,7 +68,7 @@ const getMatchMenu = (pathname: string, flatMenus: MenuData[]): MenuData[] => {
 }
 
 let rootSubmenuKeys: string[] = []
-
+let isMenuTrigger = false
 const LayoutMenu: FC<{ className?: string }> = ({ className }) => {
 	const navigate = useNavigate()
 	const openKeysCache = useRef<string[]>([])
@@ -111,6 +111,14 @@ const LayoutMenu: FC<{ className?: string }> = ({ className }) => {
 			openKeysCache.current = matchMenuKeys
 			setOpenKeys(matchMenuKeys)
 		}
+		if (!isMenuTrigger && !!openKeysCache.current.length) {
+			if (accordionMenu) {
+				openKeysCache.current = matchMenuKeys
+			} else {
+				openKeysCache.current = Array.from(new Set([...openKeysCache.current, ...matchMenuKeys]))
+			}
+			setOpenKeys(openKeysCache.current)
+		}
 	}, [matchMenuKeys.join('-')])
 
 	useEffect(() => {
@@ -120,8 +128,13 @@ const LayoutMenu: FC<{ className?: string }> = ({ className }) => {
 	}, [collapsed])
 
 	useEffect(() => {
+		setSelectedKeys([pathname])
+	}, [pathname])
+
+	useEffect(() => {
 		if (accordionMenu && !collapsed && matchMenuKeys) {
-			setOpenKeys(matchMenuKeys)
+			openKeysCache.current = matchMenuKeys
+			setOpenKeys(openKeysCache.current)
 		}
 	}, [accordionMenu])
 
@@ -140,8 +153,9 @@ const LayoutMenu: FC<{ className?: string }> = ({ className }) => {
 		if (e.key === pathname) {
 			return
 		}
-		setSelectedKeys([e.key])
+		isMenuTrigger = true
 		navigate(e.key)
+		setTimeout(() => (isMenuTrigger = false))
 	}
 
 	const onOpenChange: MenuProps['onOpenChange'] = keys => {
