@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 14:08:17
  * @LastEditors: shen
- * @LastEditTime: 2022-10-16 17:10:01
+ * @LastEditTime: 2022-10-17 14:15:25
  * @Description:
  */
 export default {
@@ -27,9 +27,11 @@ export default {
 	},
 	tabs: {
 		more: 'More',
-		closeCurrent: 'Current',
-		closeOther: 'Other',
-		closeAll: 'All'
+		closeCurrent: 'Close Current',
+		closeLeft: 'Close Left',
+		closeRight: 'Close Right',
+		closeOther: 'Close Other',
+		closeAll: 'Close All'
 	},
 	header: {
 		componentSize: 'Component Size',
@@ -96,6 +98,7 @@ export default {
 			breadcrumbIcon: 'Breadcrumb Icon',
 			logo: 'Logo',
 			footer: 'Footer',
+			tabs: 'Tabs',
 			fullContent: 'Full content',
 			colorWeak: 'Weak Mode',
 			grayMode: 'Gray Mode'

@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 14:08:22
  * @LastEditors: shen
- * @LastEditTime: 2022-10-16 17:09:45
+ * @LastEditTime: 2022-10-17 14:20:38
  * @Description:
  */
 export default {
@@ -27,9 +27,11 @@ export default {
 	},
 	tabs: {
 		more: '更多',
-		closeCurrent: '关闭当前',
-		closeOther: '关闭其它',
-		closeAll: '关闭所有'
+		closeCurrent: '关闭标签页',
+		closeLeft: '关闭左侧标签页',
+		closeRight: '关闭右侧标签页',
+		closeOther: '关闭其它标签页',
+		closeAll: '关闭所有标签页'
 	},
 	header: {
 		componentSize: '组件大小',
@@ -96,6 +98,7 @@ export default {
 			breadcrumbIcon: '面包屑图标',
 			logo: 'Logo',
 			footer: '页脚',
+			tabs: '标签页',
 			fullContent: '全屏内容',
 			colorWeak: '色弱模式',
 			grayMode: '灰色模式'
