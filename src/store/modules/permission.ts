@@ -2,16 +2,14 @@
  * @Author: shen
  * @Date: 2022-10-01 08:39:30
  * @LastEditors: shen
- * @LastEditTime: 2022-10-12 13:36:39
+ * @LastEditTime: 2022-10-17 08:23:00
  * @Description:
  */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { sleep } from '@/utils'
+import { genDashboardMenu, sleep } from '@/utils'
 import { getAuthorizedMenu } from '@/api/menu'
 import { MenuData } from '@/interfaces'
 import { genLocalRouterTitles } from '@/router'
-import i18n from '@/locale'
-
 import type { PayloadAction } from '@reduxjs/toolkit'
 
 export interface PermissionState {
@@ -43,10 +41,7 @@ export const permissionSlice = createSlice({
 	},
 	extraReducers(builder) {
 		builder.addCase(fetchAuthorizedMenu.fulfilled, (state, { payload }) => {
-			state.flatMenus = [
-				{ title: i18n.t('app.dashboard'), path: '/dashboard', icon: 'dashboard-line', pid: '0', id: 'dashboard' },
-				...payload
-			]
+			state.flatMenus = [genDashboardMenu(), ...payload]
 			state.flatMenuKeys = state.flatMenus.map(menu => menu.path)
 			let tempMenuTitles: any = {}
 			state.flatMenus.forEach(item => {
