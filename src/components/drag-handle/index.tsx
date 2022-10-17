@@ -2,12 +2,13 @@
  * @Author: shen
  * @Date: 2022-10-14 10:20:49
  * @LastEditors: shen
- * @LastEditTime: 2022-10-14 16:53:37
+ * @LastEditTime: 2022-10-17 16:15:26
  * @Description:
  */
 import { useState, useRef, useEffect } from 'react'
 import { usePrefixCls } from '@/hooks'
-import { on, off, raf, RafFrame } from '@/utils'
+import { on, off } from '@/utils'
+import raf from '@/utils/raf'
 import classNames from 'classnames'
 import './index.less'
 
@@ -41,7 +42,7 @@ const DragHandle: FC<DragHandleProps> = ({ width, minWidth, maxWidth, onStop }) 
 
 	let startX = 0
 	let finalValue = 0
-	let rafFrame: RafFrame
+	let rafFrame
 	const handleMouseDown = (e: MouseEvent) => {
 		if (e.ctrlKey || e.button === 2) {
 			return
