@@ -1,16 +1,17 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /*
  * @Author: shen
  * @Date: 2022-10-16 15:04:32
  * @LastEditors: shen
- * @LastEditTime: 2022-10-17 16:58:15
+ * @LastEditTime: 2022-10-18 18:21:51
  * @Description:
  */
 import { Tag, Dropdown, Menu } from 'antd'
-import { useAppSetting, usePrefixCls } from '@/hooks'
-import { FC, useEffect, WheelEvent } from 'react'
+import { useAppSetting, usePrefixCls, useRaf, useRafState, useSyncState } from '@/hooks'
+import { FC, useEffect, WheelEvent, useRef, useState, useMemo } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { genDashboardMenu } from '@/utils'
+import { genDashboardMenu, on, off, stringify } from '@/utils'
 import {
 	addTabsItem,
 	delTabsItem,
@@ -25,21 +26,182 @@ import {
 } from '@/store'
 import { DASHBOARD_PATH } from '@/router/constant'
 import { SvgIcon } from '@/components'
-import { MenuOutlined } from '@ant-design/icons'
+import { MenuOutlined, EllipsisOutlined } from '@ant-design/icons'
+import ResizeObserver from 'rc-resize-observer'
+import useRefs from './useRefs'
+import useOffsets, { TabSizeMap } from './useOffsets'
+import useVisibleRange from './useVisibleRange'
+import classNames from 'classnames'
+
+const getWidth = (refObj: React.RefObject<HTMLElement>): number => {
+	const { offsetWidth = 0 } = refObj.current || {}
+	return offsetWidth
+}
 
 const LayoutTabs: FC = () => {
 	const { t } = useTranslation()
 	const { pathname } = useLocation()
+	const containerRef = useRef<HTMLDivElement>(null)
+	const tabsWrapperRef = useRef<HTMLDivElement>(null)
+	const tabListRef = useRef<HTMLDivElement>(null)
+	const operationsRef = useRef<HTMLDivElement>(null)
+	const [getBtnRef, removeBtnRef] = useRefs<HTMLDivElement>()
+	const whelEventsRef = useRef<(e: WheelEvent) => void>()
 	const { themeColor, tabsHeight, fullContent, setSettingValue } = useAppSetting()
+
+	const [transformLeft, setTransformLeft] = useSyncState(0, (next, prev) => {
+		// console.log(next, prev)
+	})
+	const [containerWidth, setContainerWidth] = useState<number>(0)
+	const [tabContentWidth, setTabContentWidth] = useState<number>(0)
+	const [operationWidth, setOperationWidth] = useState<number>(0)
+
 	const prefixCls = usePrefixCls('layout-tabs')
 	const dashboardMenu = genDashboardMenu()
 	const lang = useAppSelector(state => state.app.lang)
 	const tabsLang = useAppSelector(state => state.tabs.tabsLang)
 	const flatMenus = useAppSelector(state => state.permission.flatMenus)
 	const visitedList = useAppSelector(state => state.tabs.visitedList)
+
+	const tabs = useMemo(
+		() => [
+			{ key: dashboardMenu.path, label: dashboardMenu.title },
+			...visitedList.map(item => ({ key: item.path, label: item.title }))
+		],
+		[visitedList.map(tab => tab.path).join('_')]
+	)
+
+	const [tabSizes, setTabSizes] = useRafState<TabSizeMap>(new Map())
+	const tabOffsets = useOffsets(tabs, tabSizes, tabContentWidth)
 	const dispatch = useAppDispatch()
 	const navigate = useNavigate()
 
+	// ========================== Util =========================
+	const needScroll = containerWidth < tabContentWidth
+	const visibleTabContentValue = needScroll ? containerWidth - operationWidth : containerWidth
+
+	let transformMin = Math.min(0, visibleTabContentValue - tabContentWidth)
+	let transformMax = 0
+
+	function alignInRange(value: number): number {
+		if (value < transformMin) {
+			return transformMin
+		}
+		if (value > transformMax) {
+			return transformMax
+		}
+		return value
+	}
+
+	const touchMovingRef = useRef<number>()
+	const [lockAnimation, setLockAnimation] = useState<number>()
+
+	function doLockAnimation() {
+		setLockAnimation(Date.now())
+	}
+
+	function clearTouchMoving() {
+		window.clearTimeout(touchMovingRef.current)
+	}
+
+	const onMoveOffset = (offsetX): boolean => {
+		function doMove(setState: React.Dispatch<React.SetStateAction<number>>, offset: number) {
+			setState(value => {
+				const newValue = alignInRange(value + offset)
+				return newValue
+			})
+		}
+		if (containerWidth >= tabContentWidth) {
+			return false
+		}
+		doMove(setTransformLeft, offsetX)
+
+		clearTouchMoving()
+		doLockAnimation()
+		return true
+	}
+
+	whelEventsRef.current = (e: WheelEvent) => {
+		const { deltaX, deltaY } = e
+		let mixed: number = 0
+		const absX = Math.abs(deltaX)
+		const absY = Math.abs(deltaY)
+		if (absX >= absY) {
+			mixed = deltaX
+		}
+
+		if (onMoveOffset(-mixed)) {
+			e.preventDefault()
+		}
+	}
+
+	useEffect(() => {
+		clearTouchMoving()
+		if (lockAnimation) {
+			touchMovingRef.current = window.setTimeout(() => {
+				setLockAnimation(0)
+			}, 100)
+		}
+
+		return clearTouchMoving
+	}, [lockAnimation])
+
+	const onListHolderResize = useRaf(() => {
+		const containerWidth = getWidth(containerRef)
+		setContainerWidth(containerWidth)
+		const newOperationWidth = getWidth(operationsRef)
+		setOperationWidth(newOperationWidth)
+		const tabContentFullWidth = getWidth(tabListRef)
+		setTabContentWidth(tabContentFullWidth)
+		setTabSizes(() => {
+			const newSizes: TabSizeMap = new Map()
+			tabs.forEach(({ key }) => {
+				const btnNode = getBtnRef(key).current
+				if (btnNode) {
+					newSizes.set(key, {
+						width: btnNode.offsetWidth,
+						left: btnNode.offsetLeft
+					})
+				}
+			})
+			return newSizes
+		})
+	})
+
+	const [visibleStart, visibleEnd] = useVisibleRange(
+		tabOffsets,
+		visibleTabContentValue,
+		transformLeft,
+		tabContentWidth,
+		operationWidth,
+		tabs
+	)
+
+	// ========================= Scroll ========================
+	const scrollToTab = (key = pathname) => {
+		const tabOffset = tabOffsets.get(key) || {
+			width: 0,
+			left: 0,
+			right: 0
+		}
+		let newTransform = transformLeft
+		if (tabOffset.left < -transformLeft) {
+			newTransform = -tabOffset.left
+		} else if (tabOffset.left + tabOffset.width > -transformLeft + visibleTabContentValue) {
+			newTransform = -(tabOffset.left + tabOffset.width - visibleTabContentValue)
+		}
+		setTransformLeft(alignInRange(newTransform))
+	}
+
+	// ======================== Dropdown =======================
+	const startHiddenTabs = tabs.slice(0, visibleStart)
+	const endHiddenTabs = tabs.slice(visibleEnd + 1)
+	const hiddenTabs = [...startHiddenTabs, ...endHiddenTabs]
+
+	const operationsClass = classNames(`${prefixCls}-nav-operations`, {
+		[`${prefixCls}-nav-operations-hidden`]: !hiddenTabs.length
+	})
+	// =================close===================
 	const handleClose = key => {
 		const index = visitedList.findIndex(item => item.path === key)
 		if (key === pathname) {
@@ -65,39 +227,6 @@ const LayoutTabs: FC = () => {
 		navigate(dashboardMenu.path)
 		dispatch(delTabsAllItems())
 	}
-
-	const onMoveOffset = (offsetX): boolean => {
-		console.log(offsetX)
-		return true
-	}
-
-	const handleWheel = (e: WheelEvent<HTMLDivElement>) => {
-		const { deltaX, deltaY } = e
-
-		let mixed: number = 0
-		const absX = Math.abs(deltaX)
-		const absY = Math.abs(deltaY)
-		if (absX >= absY) {
-			mixed = absX
-		}
-		onMoveOffset(-mixed)
-	}
-
-	const renderTag = item => {
-		return (
-			<Tag
-				className={`${prefixCls}-tag ${item.path === pathname ? 'active' : ''}`}
-				key={item.path}
-				closable={item.path !== DASHBOARD_PATH}
-				color={item.path === pathname ? themeColor : undefined}
-				onClick={() => navigate(item.path)}
-				onClose={() => handleClose(item.path)}
-			>
-				{item.title}
-			</Tag>
-		)
-	}
-
 	const menu = (
 		<Menu
 			items={[
@@ -141,6 +270,36 @@ const LayoutTabs: FC = () => {
 		/>
 	)
 
+	const renderTag = item => {
+		return (
+			<Tag
+				ref={getBtnRef(item.path)}
+				className={`${prefixCls}-nav-tag ${item.path === pathname ? 'active' : ''}`}
+				key={item.path}
+				closable={item.path !== DASHBOARD_PATH}
+				color={item.path === pathname ? themeColor : undefined}
+				onClick={() => navigate(item.path)}
+				onClose={() => handleClose(item.path)}
+			>
+				{item.title}
+			</Tag>
+		)
+	}
+
+	const updateTabsList = () => {
+		if (tabsLang && tabsLang !== lang && visitedList.length > 0) {
+			const newVisitedList = visitedList.map(item => {
+				const menu = flatMenus.find(m => m.path === item.path)
+				return {
+					title: menu?.title ?? 'unknown',
+					path: item.path
+				}
+			})
+			dispatch(setVisitedList({ list: newVisitedList, lang }))
+		}
+		dispatch(setTabsLang(lang))
+	}
+
 	useEffect(() => {
 		if (pathname === DASHBOARD_PATH) {
 			return
@@ -155,29 +314,46 @@ const LayoutTabs: FC = () => {
 	}, [pathname])
 
 	useEffect(() => {
-		if (tabsLang && tabsLang !== lang && visitedList.length > 0) {
-			const newVisitedList = visitedList.map(item => {
-				const menu = flatMenus.find(m => m.path === item.path)
-				return {
-					title: menu?.title ?? 'unknown',
-					path: item.path
-				}
-			})
-			dispatch(setVisitedList({ list: newVisitedList, lang }))
+		scrollToTab(pathname)
+	}, [pathname, stringify(tabOffsets)])
+
+	useEffect(() => {
+		updateTabsList()
+		function onProxyWheel(e: WheelEvent) {
+			whelEventsRef.current?.(e)
 		}
-		dispatch(setTabsLang(lang))
+		on(tabsWrapperRef.current!, 'wheel', onProxyWheel as any)
+		return () => off(tabsWrapperRef.current!, 'wheel', onProxyWheel as any)
 	}, [])
 
 	return (
 		<div className={prefixCls} style={{ height: tabsHeight + 'px' }}>
-			<div className={`${prefixCls}-content`} onWheel={handleWheel}>
-				<div className={`${prefixCls}-list`}>
-					{renderTag(dashboardMenu)}
-					{visitedList.map(item => renderTag(item))}
+			<ResizeObserver onResize={onListHolderResize}>
+				<div className={`${prefixCls}-nav`} ref={containerRef}>
+					<div className={`${prefixCls}-nav-wrap`} ref={tabsWrapperRef}>
+						<ResizeObserver onResize={onListHolderResize}>
+							<div
+								className={`${prefixCls}-nav-list`}
+								ref={tabListRef}
+								style={{
+									transform: `translateX(${transformLeft}px)`,
+									transition: lockAnimation ? 'none' : undefined
+								}}
+							>
+								{renderTag(dashboardMenu)}
+								{visitedList.map(item => renderTag(item))}
+							</div>
+						</ResizeObserver>
+					</div>
+					<div className={operationsClass} ref={operationsRef}>
+						<Dropdown overlay={<Menu onClick={e => navigate(e.key)} items={hiddenTabs} />} placement="bottomRight">
+							<EllipsisOutlined />
+						</Dropdown>
+					</div>
 				</div>
-			</div>
+			</ResizeObserver>
 
-			<div className={`${prefixCls}-actions`}>
+			<div className={`${prefixCls}-actions `}>
 				<Dropdown overlay={menu} placement="bottom" trigger={['click']}>
 					<MenuOutlined />
 				</Dropdown>
