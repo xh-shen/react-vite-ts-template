@@ -2,10 +2,19 @@
  * @Author: shen
  * @Date: 2022-09-26 10:50:37
  * @LastEditors: shen
- * @LastEditTime: 2022-10-17 09:34:37
+ * @LastEditTime: 2022-10-18 08:27:57
  * @Description:
  */
-import { getLang, setLang, getSettingValues, setSettingValues, getSettingValue, removeSettingValues } from '@/utils'
+import {
+	getLang,
+	setLang,
+	getSettingValues,
+	setSettingValues,
+	getSettingValue,
+	removeSettingValues,
+	addClass,
+	removeClass
+} from '@/utils'
 import { createSlice } from '@reduxjs/toolkit'
 import defaultSetting from '@/defaultSetting'
 import config from '@/config'
@@ -78,6 +87,13 @@ export const appSlice = createSlice({
 		resetAppSetting(state) {
 			for (const key in defaultSetting) {
 				state[key] = defaultSetting[key]
+				if (key === 'colorWeak') {
+					defaultSetting[key] ? addClass(document.body, 'color-weak') : removeClass(document.body, 'color-weak')
+				}
+
+				if (key === 'grayMode') {
+					defaultSetting[key] ? addClass(document.body, 'gray-mode') : removeClass(document.body, 'gray-mode')
+				}
 			}
 			removeSettingValues()
 		}
