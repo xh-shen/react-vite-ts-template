@@ -2,14 +2,14 @@
  * @Author: shen
  * @Date: 2022-10-17 16:12:22
  * @LastEditors: shen
- * @LastEditTime: 2022-10-17 16:14:00
+ * @LastEditTime: 2022-10-18 13:52:48
  * @Description:
  */
 
 import raf from '@/utils/raf'
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
 
-export default function useRaf<Callback extends Function>(callback: Callback) {
+export function useRaf<Callback extends Function>(callback: Callback) {
 	const rafRef = useRef<number>()
 	const removedRef = useRef(false)
 
@@ -33,4 +33,30 @@ export default function useRaf<Callback extends Function>(callback: Callback) {
 	}, [])
 
 	return trigger
+}
+
+type Callback<T> = (ori: T) => T
+
+export function useRafState<T>(defaultState: T | (() => T)): [T, (updater: Callback<T>) => void] {
+	const batchRef = useRef<Callback<T>[]>([])
+	const [, forceUpdate] = useState({})
+	const state = useRef<T>(typeof defaultState === 'function' ? (defaultState as any)() : defaultState)
+
+	const flushUpdate = useRaf(() => {
+		let current = state.current
+		batchRef.current.forEach(callback => {
+			current = callback(current)
+		})
+		batchRef.current = []
+
+		state.current = current
+		forceUpdate({})
+	})
+
+	function updater(callback: Callback<T>) {
+		batchRef.current.push(callback)
+		flushUpdate()
+	}
+
+	return [state.current, updater]
 }
