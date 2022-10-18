@@ -2,14 +2,57 @@
  * @Author: shen
  * @Date: 2022-10-13 14:05:42
  * @LastEditors: shen
- * @LastEditTime: 2022-10-17 09:34:51
+ * @LastEditTime: 2022-10-18 09:03:32
  * @Description:
  */
-import { addClass, removeClass } from '@/utils'
+import { addClass, hasClass, removeClass } from '@/utils'
 import { useAppSelector, useAppDispatch, setAppSettingValues, resetAppSetting } from '@/store'
 import { disable as darkreaderDisable, enable as darkreaderEnable, setFetchMethod as setFetch } from 'darkreader'
+import defaultSetting from '@/defaultSetting'
 
 import type { AppSetting } from '@/defaultSetting'
+
+const setDarkMode = isDark => {
+	if (isDark) {
+		const defaultTheme = {
+			brightness: 100,
+			contrast: 90,
+			sepia: 10
+		}
+
+		const defaultFixes = {
+			invert: [],
+			css: '',
+			ignoreInlineStyle: ['.react-switch-handle'],
+			ignoreImageAnalysis: [],
+			disableStyleSheetsProxy: true
+		}
+		if (window.MutationObserver && window.fetch) {
+			setFetch(window.fetch)
+			darkreaderEnable(defaultTheme, defaultFixes)
+		}
+	} else {
+		if (window.MutationObserver) darkreaderDisable()
+	}
+}
+
+const setColorWeak = isColorWeak => {
+	const has = hasClass(document.body, 'color-weak')
+	if (isColorWeak) {
+		!has && addClass(document.body, 'color-weak')
+	} else {
+		has && removeClass(document.body, 'color-weak')
+	}
+}
+
+const setGrayMode = isGrapMode => {
+	const has = hasClass(document.body, 'gray-mode')
+	if (isGrapMode) {
+		!has && addClass(document.body, 'gray-mode')
+	} else {
+		has && removeClass(document.body, 'gray-mode')
+	}
+}
 
 export const useAppSetting = () => {
 	const themeColor = useAppSelector(state => state.app.themeColor)
@@ -38,38 +81,17 @@ export const useAppSetting = () => {
 	const accordionMenu = useAppSelector(state => state.app.accordionMenu)
 
 	const dispatch = useAppDispatch()
-
 	const setSettingValue = <T = any>(key: keyof AppSetting, value: T, cache: boolean = true) => {
 		if (key === 'colorWeak') {
-			value ? addClass(document.body, 'color-weak') : removeClass(document.body, 'color-weak')
+			setColorWeak(value)
 		}
 
 		if (key === 'grayMode') {
-			value ? addClass(document.body, 'gray-mode') : removeClass(document.body, 'gray-mode')
+			setGrayMode(value)
 		}
 
 		if (key === 'pageStyle') {
-			if (value === 'realDark') {
-				const defaultTheme = {
-					brightness: 100,
-					contrast: 90,
-					sepia: 10
-				}
-
-				const defaultFixes = {
-					invert: [],
-					css: '',
-					ignoreInlineStyle: ['.react-switch-handle'],
-					ignoreImageAnalysis: [],
-					disableStyleSheetsProxy: true
-				}
-				if (window.MutationObserver && window.fetch) {
-					setFetch(window.fetch)
-					darkreaderEnable(defaultTheme, defaultFixes)
-				}
-			} else {
-				if (window.MutationObserver) darkreaderDisable()
-			}
+			setDarkMode(value === 'realDark')
 		}
 
 		dispatch(setAppSettingValues({ key, value, cache }))
@@ -77,6 +99,11 @@ export const useAppSetting = () => {
 
 	const resetSettingValues = () => {
 		dispatch(resetAppSetting())
+		setColorWeak(defaultSetting.colorWeak)
+		setGrayMode(defaultSetting.grayMode)
+		if (defaultSetting.pageStyle !== pageStyle) {
+			setDarkMode(defaultSetting.pageStyle === 'realDark')
+		}
 	}
 
 	return {
