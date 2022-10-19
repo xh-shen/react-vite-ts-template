@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-03 10:13:10
  * @LastEditors: shen
- * @LastEditTime: 2022-10-16 11:59:50
+ * @LastEditTime: 2022-10-19 18:13:03
  * @Description:
  */
 
@@ -38,6 +38,16 @@ declare interface WheelEvent {
 declare interface ImportMetaEnv extends ViteEnv {
 	__: unknown
 }
+
+declare interface Fn<T = any, R = T> {
+	(...arg: T[]): R
+}
+
+declare interface PromiseFn<T = any, R = T> {
+	(...arg: T[]): Promise<R>
+}
+
+declare type RefType<T> = T | null
 
 interface Window {
 	APP_DEFAULT_SETTING: Record<string, any>
