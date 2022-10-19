@@ -2,13 +2,13 @@
  * @Author: shen
  * @Date: 2022-09-23 15:03:55
  * @LastEditors: shen
- * @LastEditTime: 2022-10-06 21:20:49
+ * @LastEditTime: 2022-10-19 08:01:38
  * @Description:
  */
 import { Tabs } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { SelectLang } from '@/components'
-import { useLanguage, usePrefixCls } from '@/hooks'
+import { useAppSetting, useLanguage, usePrefixCls } from '@/hooks'
 import AccountForm from './components/AccountForm'
 import QrCodeForm from './components/QrCodeForm'
 import MobileForm from './components/MobileForm'
@@ -16,12 +16,16 @@ import './index.less'
 import './lang'
 
 import type { FC } from 'react'
+import classNames from 'classnames'
 
 const Login: FC = () => {
 	const { t } = useTranslation()
 	const [language, setLanguage] = useLanguage()
+	const { pageStyle } = useAppSetting()
 	const prefixCls = usePrefixCls('login')
-
+	const className = classNames(prefixCls, {
+		[`${prefixCls}-dark`]: pageStyle === 'realDark'
+	})
 	const items = [
 		{
 			label: t('login.tabs.account'),
@@ -36,7 +40,7 @@ const Login: FC = () => {
 	]
 
 	return (
-		<div className={prefixCls}>
+		<div className={className}>
 			<div className={`${prefixCls}-container`}>
 				<div className={`${prefixCls}-wrapper`}>
 					<QrCodeForm />
