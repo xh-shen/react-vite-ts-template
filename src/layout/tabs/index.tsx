@@ -3,7 +3,7 @@
  * @Author: shen
  * @Date: 2022-10-16 15:04:32
  * @LastEditors: shen
- * @LastEditTime: 2022-10-18 18:21:51
+ * @LastEditTime: 2022-10-19 08:37:49
  * @Description:
  */
 import { Tag, Dropdown, Menu } from 'antd'
@@ -47,8 +47,18 @@ const LayoutTabs: FC = () => {
 	const operationsRef = useRef<HTMLDivElement>(null)
 	const [getBtnRef, removeBtnRef] = useRefs<HTMLDivElement>()
 	const whelEventsRef = useRef<(e: WheelEvent) => void>()
-	const { themeColor, tabsHeight, fullContent, setSettingValue } = useAppSetting()
-
+	const {
+		themeColor,
+		tabsHeight,
+		headerHeight,
+		fullContent,
+		siderCollapsed,
+		siderWidth,
+		showSiderbar,
+		fixedHeader,
+		layout,
+		setSettingValue
+	} = useAppSetting()
 	const [transformLeft, setTransformLeft] = useSyncState(0, (next, prev) => {
 		// console.log(next, prev)
 	})
@@ -270,6 +280,16 @@ const LayoutTabs: FC = () => {
 		/>
 	)
 
+	//====================style========================
+	const needFixedHeader = useMemo(() => fixedHeader || layout === 'mix', [fixedHeader, layout])
+	const width = useMemo(() => {
+		return layout !== 'top' && needFixedHeader && showSiderbar ? `calc(100% - ${siderCollapsed ? 48 : siderWidth}px)` : '100%'
+	}, [siderCollapsed, siderWidth, layout, needFixedHeader, showSiderbar])
+
+	const className = classNames(prefixCls, {
+		[`${prefixCls}-fixed`]: needFixedHeader
+	})
+
 	const renderTag = item => {
 		return (
 			<Tag
@@ -327,41 +347,59 @@ const LayoutTabs: FC = () => {
 	}, [])
 
 	return (
-		<div className={prefixCls} style={{ height: tabsHeight + 'px' }}>
-			<ResizeObserver onResize={onListHolderResize}>
-				<div className={`${prefixCls}-nav`} ref={containerRef}>
-					<div className={`${prefixCls}-nav-wrap`} ref={tabsWrapperRef}>
-						<ResizeObserver onResize={onListHolderResize}>
-							<div
-								className={`${prefixCls}-nav-list`}
-								ref={tabListRef}
-								style={{
-									transform: `translateX(${transformLeft}px)`,
-									transition: lockAnimation ? 'none' : undefined
-								}}
-							>
-								{renderTag(dashboardMenu)}
-								{visitedList.map(item => renderTag(item))}
-							</div>
-						</ResizeObserver>
+		<>
+			{needFixedHeader && (
+				<div
+					style={{
+						height: tabsHeight,
+						background: 'transparent'
+					}}
+				></div>
+			)}
+			<div
+				className={className}
+				style={{
+					height: tabsHeight,
+					width: fullContent ? '100%' : width,
+					right: needFixedHeader ? 0 : undefined,
+					top: fullContent ? 0 : needFixedHeader ? headerHeight : undefined
+				}}
+			>
+				<ResizeObserver onResize={onListHolderResize}>
+					<div className={`${prefixCls}-nav`} ref={containerRef}>
+						<div className={`${prefixCls}-nav-wrap`} ref={tabsWrapperRef}>
+							<ResizeObserver onResize={onListHolderResize}>
+								<div
+									className={`${prefixCls}-nav-list`}
+									ref={tabListRef}
+									style={{
+										transform: `translateX(${transformLeft}px)`,
+										transition: lockAnimation ? 'none' : undefined
+									}}
+								>
+									{renderTag(dashboardMenu)}
+									{visitedList.map(item => renderTag(item))}
+								</div>
+							</ResizeObserver>
+						</div>
+						<div className={operationsClass} ref={operationsRef}>
+							<Dropdown overlay={<Menu onClick={e => navigate(e.key)} items={hiddenTabs} />} placement="bottomRight">
+								<EllipsisOutlined />
+							</Dropdown>
+						</div>
 					</div>
-					<div className={operationsClass} ref={operationsRef}>
-						<Dropdown overlay={<Menu onClick={e => navigate(e.key)} items={hiddenTabs} />} placement="bottomRight">
-							<EllipsisOutlined />
-						</Dropdown>
-					</div>
-				</div>
-			</ResizeObserver>
+				</ResizeObserver>
 
-			<div className={`${prefixCls}-actions `}>
-				<Dropdown overlay={menu} placement="bottom" trigger={['click']}>
-					<MenuOutlined />
-				</Dropdown>
-				<span onClick={() => setSettingValue('fullContent', !fullContent, false)}>
-					<SvgIcon name={fullContent ? 'exit-full-line' : 'full-line'} />
-				</span>
+				<div className={`${prefixCls}-actions `}>
+					<Dropdown overlay={menu} placement="bottom" trigger={['click']}>
+						<MenuOutlined />
+					</Dropdown>
+					<span onClick={() => setSettingValue('fullContent', !fullContent, false)}>
+						<SvgIcon name={fullContent ? 'exit-full-line' : 'full-line'} />
+					</span>
+				</div>
 			</div>
-		</div>
+		</>
 	)
 }
 
