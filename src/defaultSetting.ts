@@ -42,7 +42,7 @@ const defaultSetting: AppSetting = {
 	themeColor: config.themeColor, // 获取于环境变量，如需修改请修改.env文件中 VITE_APP_THEME_COLOR
 	colorWeak: config.colorWeak, // 获取于环境变量，如需修改请修改.env文件中 VITE_APP_COLOR_WEAK
 	grayMode: config.grayMode, // 获取于环境变量，如需修改请修改.env文件中 VITE_APP_GRAY_MODE
-	pageStyle: config.darkMode ? 'realDark' : 'light',
+	pageStyle: config.darkMode ? 'realDark' : 'dark',
 	layout: 'side',
 	siderCollapsed: false,
 	fixedHeader: true,
