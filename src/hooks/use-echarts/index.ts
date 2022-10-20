@@ -2,11 +2,11 @@
  * @Author: shen
  * @Date: 2022-10-19 08:07:43
  * @LastEditors: shen
- * @LastEditTime: 2022-10-20 15:23:58
+ * @LastEditTime: 2022-10-20 16:16:17
  * @Description:
  */
 import { useEffect, useRef } from 'react'
-import { useThrottleFn } from 'ahooks'
+import { useDebounceFn } from 'ahooks'
 import { createInstance, color, tooltip } from '@/charts'
 import { getTargetElement } from '@/utils'
 
@@ -37,9 +37,13 @@ export const useECharts = (
 		}
 	}
 
-	const { run, cancel } = useThrottleFn(
+	const { run, cancel } = useDebounceFn(
 		() => {
-			instance.current?.resize()
+			instance.current?.resize({
+				animation: {
+					duration: 300
+				}
+			})
 		},
 		{ wait: 100 }
 	)

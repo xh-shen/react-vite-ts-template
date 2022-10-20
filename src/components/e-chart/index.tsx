@@ -2,13 +2,13 @@
  * @Author: shen
  * @Date: 2022-10-19 16:25:36
  * @LastEditors: shen
- * @LastEditTime: 2022-10-20 15:23:09
+ * @LastEditTime: 2022-10-20 15:45:18
  * @Description:
  */
 import { useEffect, useRef } from 'react'
 import { stringify } from '@/utils'
 import { createInstance, color, tooltip } from '@/charts'
-import { useThrottleFn } from 'ahooks'
+import { useDebounceFn } from 'ahooks'
 import ResizeObserver from 'rc-resize-observer'
 
 import type { EChartsOption, EChartsType } from '@/charts'
@@ -29,9 +29,14 @@ function EChart<T>({ height, options, data, notMerge, replaceMerge, lazyUpdate, 
 	const instance = useRef<EChartsType | null>(null)
 	const domRef = useRef<HTMLDivElement>(null)
 
-	const { run: onListHolderResize, cancel } = useThrottleFn(
+	const { run: onListHolderResize, cancel } = useDebounceFn(
 		() => {
-			instance.current?.resize()
+			instance.current?.resize({
+				animation: {
+					duration: 300,
+					easing: 'cubicInOut'
+				}
+			})
 			onResize?.()
 		},
 		{ wait: 100 }
