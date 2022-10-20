@@ -2,13 +2,14 @@
  * @Author: shen
  * @Date: 2022-10-13 20:22:30
  * @LastEditors: shen
- * @LastEditTime: 2022-10-14 14:33:44
+ * @LastEditTime: 2022-10-20 10:57:10
  * @Description:
  */
-import { isObject } from './validate'
+import { isObject, isFunction, isBrowser } from './validate'
 import { entriesOf, keysOf } from './objects'
-import { CSSProperties } from 'react'
 import { camelCase } from 'lodash-es'
+
+import type { CSSProperties, MutableRefObject } from 'react'
 
 export const on = function (
 	element: HTMLElement | Document | Window,
@@ -82,4 +83,35 @@ export const removeStyle = (element: HTMLElement, style: CSSProperties | keyof C
 	} else {
 		setStyle(element, style, '')
 	}
+}
+
+type TargetValue<T> = T | undefined | null
+
+type TargetType = HTMLElement | Element | Window | Document
+
+export type BasicTarget<T extends TargetType = Element> =
+	| (() => TargetValue<T>)
+	| TargetValue<T>
+	| MutableRefObject<TargetValue<T>>
+
+export function getTargetElement<T extends TargetType>(target: BasicTarget<T>, defaultElement?: T) {
+	if (!isBrowser) {
+		return undefined
+	}
+
+	if (!target) {
+		return defaultElement
+	}
+
+	let targetElement: TargetValue<T>
+
+	if (isFunction(target)) {
+		targetElement = target()
+	} else if ('current' in target) {
+		targetElement = target.current
+	} else {
+		targetElement = target
+	}
+
+	return targetElement
 }

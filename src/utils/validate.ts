@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-13 19:02:51
  * @LastEditors: shen
- * @LastEditTime: 2022-10-13 19:03:20
+ * @LastEditTime: 2022-10-20 10:51:41
  * @Description:
  */
 const toString = Object.prototype.toString
@@ -95,13 +95,17 @@ export function isMap(val: unknown): val is Map<any, any> {
 	return is(val, 'Map')
 }
 
-export const isServer = typeof window === 'undefined'
-
-export const isClient = !isServer
-
 export function isUrl(path: string): boolean {
 	const reg =
 		// eslint-disable-next-line no-useless-escape
 		/^(((^https?:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+(?::\d+)?|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?(\/#\/)?(?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)$/
 	return reg.test(path)
 }
+
+export function isBrowser() {
+	return !!(typeof window !== 'undefined' && window.document && window.document.createElement)
+}
+
+export const isServer = !isBrowser()
+
+export const isClient = isBrowser()
