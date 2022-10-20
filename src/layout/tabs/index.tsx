@@ -1,9 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /*
  * @Author: shen
  * @Date: 2022-10-16 15:04:32
  * @LastEditors: shen
- * @LastEditTime: 2022-10-19 09:10:14
+ * @LastEditTime: 2022-10-20 10:09:21
  * @Description:
  */
 import { Tag, Dropdown, Menu } from 'antd'
@@ -59,9 +58,7 @@ const LayoutTabs: FC = () => {
 		layout,
 		setSettingValue
 	} = useAppSetting()
-	const [transformLeft, setTransformLeft] = useSyncState(0, (next, prev) => {
-		// console.log(next, prev)
-	})
+	const [transformLeft, setTransformLeft] = useSyncState(0, () => {})
 	const [containerWidth, setContainerWidth] = useState<number>(0)
 	const [tabContentWidth, setTabContentWidth] = useState<number>(0)
 	const [operationWidth, setOperationWidth] = useState<number>(0)
@@ -222,6 +219,7 @@ const LayoutTabs: FC = () => {
 			}
 		}
 		dispatch(delTabsItem(key))
+		removeBtnRef(key)
 	}
 
 	const handleCloseLeft = () => {
