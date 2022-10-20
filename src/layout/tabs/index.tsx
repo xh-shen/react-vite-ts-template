@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-16 15:04:32
  * @LastEditors: shen
- * @LastEditTime: 2022-10-20 10:09:21
+ * @LastEditTime: 2022-10-20 16:35:56
  * @Description:
  */
 import { Tag, Dropdown, Menu } from 'antd'
@@ -55,6 +55,7 @@ const LayoutTabs: FC = () => {
 		siderWidth,
 		showSiderbar,
 		fixedHeader,
+		showHeader,
 		layout,
 		setSettingValue
 	} = useAppSetting()
@@ -360,7 +361,7 @@ const LayoutTabs: FC = () => {
 					height: tabsHeight,
 					width: fullContent ? '100%' : width,
 					right: needFixedHeader ? 0 : undefined,
-					top: fullContent ? 0 : needFixedHeader ? headerHeight : undefined
+					top: needFixedHeader ? (fullContent || !showHeader ? 0 : headerHeight) : undefined
 				}}
 			>
 				<ResizeObserver onResize={onListHolderResize}>
