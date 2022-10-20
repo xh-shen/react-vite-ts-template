@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 09:18:17
  * @LastEditors: shen
- * @LastEditTime: 2022-10-16 12:01:10
+ * @LastEditTime: 2022-10-20 16:30:13
  * @Description:
  */
 import { parseEnv } from '@/utils'
@@ -17,6 +17,7 @@ interface Config {
 	colorWeak: boolean
 	grayMode: boolean
 	darkMode: boolean
+	enableSetting: boolean
 }
 
 const {
@@ -27,18 +28,20 @@ const {
 	VITE_APP_NAMESPACE,
 	VITE_APP_COLOR_WEAK,
 	VITE_APP_GRAY_MODE,
-	VITE_APP_DARK_MODE
+	VITE_APP_DARK_MODE,
+	VITE_ENABLE_SETTING
 } = parseEnv(import.meta.env)
 
 const config: Config = {
-	title: VITE_APP_TITLE || 'Shene Admin',
-	lang: VITE_APP_LANGUAGE || 'en',
-	baseApi: VITE_API_URL_PREFIX || '/api',
-	themeColor: VITE_APP_THEME_COLOR || '#409eff',
-	namespace: VITE_APP_NAMESPACE || 'shene',
-	colorWeak: VITE_APP_COLOR_WEAK || false,
-	grayMode: VITE_APP_GRAY_MODE || false,
-	darkMode: VITE_APP_DARK_MODE || false,
+	title: VITE_APP_TITLE ?? 'Shene Admin',
+	lang: VITE_APP_LANGUAGE ?? 'en',
+	baseApi: VITE_API_URL_PREFIX ?? '/api',
+	themeColor: VITE_APP_THEME_COLOR ?? '#409eff',
+	namespace: VITE_APP_NAMESPACE ?? 'shene',
+	colorWeak: VITE_APP_COLOR_WEAK ?? false,
+	grayMode: VITE_APP_GRAY_MODE ?? false,
+	darkMode: VITE_APP_DARK_MODE ?? false,
+	enableSetting: VITE_ENABLE_SETTING ?? true,
 	timeout: 5000
 }
 
