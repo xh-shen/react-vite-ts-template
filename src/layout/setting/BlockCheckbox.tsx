@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-09 15:11:08
  * @LastEditors: shen
- * @LastEditTime: 2022-10-16 11:48:32
+ * @LastEditTime: 2022-10-20 09:03:26
  * @Description:
  */
 import { useMemo } from 'react'
@@ -18,14 +18,15 @@ export type BlockCheckboxProps = {
 		title: string
 		key: string
 	}[]
+	disabled?: boolean
 	prefixCls: string
 }
 
-const BlockCheckbox: FC<BlockCheckboxProps> = ({ list, value, prefixCls, onChange }) => {
+const BlockCheckbox: FC<BlockCheckboxProps> = ({ list, value, disabled, prefixCls, onChange }) => {
 	const baseClassName = `${prefixCls}-block-checkbox`
 
 	const onSelect = (key: string) => {
-		if (value === key) {
+		if (value === key || disabled) {
 			return
 		}
 		onChange(key)
@@ -33,8 +34,11 @@ const BlockCheckbox: FC<BlockCheckboxProps> = ({ list, value, prefixCls, onChang
 
 	const dom = useMemo(() => {
 		const domList = (list || []).map(item => (
-			<Tooltip title={item.title} key={item.key}>
-				<div className={`${baseClassName}-item ${baseClassName}-item-${item.key}`} onClick={() => onSelect(item.key)}>
+			<Tooltip title={disabled ? '' : item.title} key={item.key}>
+				<div
+					className={`${baseClassName}-item ${baseClassName}-item-${item.key} ${disabled ? 'disabled' : ''}`}
+					onClick={() => onSelect(item.key)}
+				>
 					<CheckOutlined
 						className={`${baseClassName}-item-select`}
 						style={{

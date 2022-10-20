@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-13 11:05:18
  * @LastEditors: shen
- * @LastEditTime: 2022-10-15 22:32:13
+ * @LastEditTime: 2022-10-20 08:57:00
  * @Description:
  */
 import { cloneElement } from 'react'
@@ -37,6 +37,10 @@ const InterfaceFunction: FC = () => {
 		collapsePosition,
 		dragSidebar,
 		accordionMenu,
+		showSiderbar,
+		showHeader,
+		showCollapseButton,
+		fullContent,
 		setSettingValue
 	} = useAppSetting()
 
@@ -46,6 +50,7 @@ const InterfaceFunction: FC = () => {
 			dataSource={[
 				{
 					title: t('setting.interfaceFunction.fixedHeader'),
+					disabled: !showHeader || fullContent,
 					action: (
 						<Switch
 							size="small"
@@ -58,7 +63,7 @@ const InterfaceFunction: FC = () => {
 				},
 				{
 					title: t('setting.interfaceFunction.fixedSidebar'),
-					disabled: layout === 'top',
+					disabled: layout === 'top' || !showSiderbar || fullContent,
 					disabledReason: t('setting.interfaceFunction.sidebarReason'),
 					action: (
 						<Switch
@@ -72,7 +77,7 @@ const InterfaceFunction: FC = () => {
 				},
 				{
 					title: t('setting.interfaceFunction.collapseSidebar'),
-					disabled: layout === 'top',
+					disabled: layout === 'top' || !showSiderbar || fullContent,
 					disabledReason: t('setting.interfaceFunction.sidebarReason'),
 					action: (
 						<Switch
@@ -86,7 +91,7 @@ const InterfaceFunction: FC = () => {
 				},
 				{
 					title: t('setting.interfaceFunction.dragSidebar'),
-					disabled: layout === 'top' || !!siderCollapsed,
+					disabled: layout === 'top' || !!siderCollapsed || !showSiderbar || fullContent,
 					disabledReason: t('setting.interfaceFunction.dragSidebarReason'),
 					action: (
 						<Switch
@@ -100,7 +105,7 @@ const InterfaceFunction: FC = () => {
 				},
 				{
 					title: t('setting.interfaceFunction.accordionMenu'),
-					disabled: layout === 'top' || !!siderCollapsed,
+					disabled: layout === 'top' || !!siderCollapsed || !showSiderbar || fullContent,
 					disabledReason: t('setting.interfaceFunction.dragSidebarReason'),
 					action: (
 						<Switch
@@ -114,7 +119,7 @@ const InterfaceFunction: FC = () => {
 				},
 				{
 					title: t('setting.interfaceFunction.collapsePosition'),
-					disabled: layout === 'top',
+					disabled: layout === 'top' || !showSiderbar || !showCollapseButton || fullContent,
 					disabledReason: t('setting.interfaceFunction.sidebarReason'),
 					action: (
 						<Select
@@ -132,7 +137,7 @@ const InterfaceFunction: FC = () => {
 				},
 				{
 					title: t('setting.interfaceFunction.siderWidth'),
-					disabled: layout === 'top' || !!siderCollapsed,
+					disabled: layout === 'top' || !!siderCollapsed || !showSiderbar || fullContent,
 					disabledReason: t('setting.interfaceFunction.dragSidebarReason'),
 					action: (
 						<InputNumber

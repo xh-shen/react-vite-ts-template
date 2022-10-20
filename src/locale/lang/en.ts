@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 14:08:17
  * @LastEditors: shen
- * @LastEditTime: 2022-10-17 14:15:25
+ * @LastEditTime: 2022-10-20 09:39:57
  * @Description:
  */
 export default {
@@ -100,6 +100,12 @@ export default {
 			footer: 'Footer',
 			tabs: 'Tabs',
 			fullContent: 'Full content',
+			colorWeak: 'Weak Mode',
+			grayMode: 'Gray Mode'
+		},
+		otherSettings: {
+			title: 'Other Settings',
+			darkMode: 'Dark Mode',
 			colorWeak: 'Weak Mode',
 			grayMode: 'Gray Mode'
 		}

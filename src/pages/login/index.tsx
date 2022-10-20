@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-23 15:03:55
  * @LastEditors: shen
- * @LastEditTime: 2022-10-19 08:01:38
+ * @LastEditTime: 2022-10-20 09:46:38
  * @Description:
  */
 import { Tabs } from 'antd'
@@ -21,10 +21,10 @@ import classNames from 'classnames'
 const Login: FC = () => {
 	const { t } = useTranslation()
 	const [language, setLanguage] = useLanguage()
-	const { pageStyle } = useAppSetting()
+	const { darkMode } = useAppSetting()
 	const prefixCls = usePrefixCls('login')
 	const className = classNames(prefixCls, {
-		[`${prefixCls}-dark`]: pageStyle === 'realDark'
+		[`${prefixCls}-dark`]: darkMode
 	})
 	const items = [
 		{

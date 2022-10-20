@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-08 09:03:57
  * @LastEditors: shen
- * @LastEditTime: 2022-10-16 14:59:56
+ * @LastEditTime: 2022-10-20 09:46:05
  * @Description:
  */
 import { useMemo } from 'react'
@@ -29,6 +29,7 @@ const LayoutHeader: FC = () => {
 	const {
 		pageStyle,
 		layout,
+		darkMode,
 		siderCollapsed: collapsed,
 		fixedHeader,
 		siderWidth,
@@ -44,9 +45,9 @@ const LayoutHeader: FC = () => {
 
 	const headerTheme = useMemo(() => {
 		if (
-			pageStyle === 'light' ||
-			pageStyle === 'realDark' ||
-			(layout === 'mix' && pageStyle === 'dark') ||
+			darkMode ||
+			(pageStyle === 'light' && layout !== 'mix') ||
+			// (layout === 'mix' && pageStyle === 'dark') ||
 			(layout === 'side' && pageStyle === 'dark')
 		) {
 			return 'light'

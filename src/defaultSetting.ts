@@ -2,12 +2,12 @@
  * @Author: shen
  * @Date: 2022-10-15 19:20:51
  * @LastEditors: shen
- * @LastEditTime: 2022-10-17 09:33:54
+ * @LastEditTime: 2022-10-20 09:46:42
  * @Description:
  */
 import config from './config'
 
-export type PageStyleType = 'light' | 'dark' | 'layoutDark' | 'realDark'
+export type PageStyleType = 'light' | 'dark' | 'layoutDark'
 export type LayoutType = 'side' | 'top' | 'mix'
 export type CollapsePositionType = 'top' | 'bottom'
 
@@ -24,6 +24,7 @@ export interface AppSetting {
 	tabsHeight: number
 	colorWeak: boolean
 	grayMode: boolean
+	darkMode: boolean
 	dragSidebar: boolean
 	collapsePosition: CollapsePositionType
 	showHeader: boolean
@@ -42,7 +43,8 @@ const defaultSetting: AppSetting = {
 	themeColor: config.themeColor, // 获取于环境变量，如需修改请修改.env文件中 VITE_APP_THEME_COLOR
 	colorWeak: config.colorWeak, // 获取于环境变量，如需修改请修改.env文件中 VITE_APP_COLOR_WEAK
 	grayMode: config.grayMode, // 获取于环境变量，如需修改请修改.env文件中 VITE_APP_GRAY_MODE
-	pageStyle: config.darkMode ? 'realDark' : 'dark',
+	darkMode: config.darkMode, // 获取于环境变量，如需修改请修改.env文件中 VITE_APP_DARK_MODE
+	pageStyle: 'dark',
 	layout: 'side',
 	siderCollapsed: false,
 	fixedHeader: true,

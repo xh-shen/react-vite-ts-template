@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-13 11:05:18
  * @LastEditors: shen
- * @LastEditTime: 2022-10-17 08:00:29
+ * @LastEditTime: 2022-10-20 09:38:07
  * @Description:
  */
 import { cloneElement } from 'react'
@@ -29,8 +29,6 @@ export const renderLayoutSettingItem = (item: SettingItemProps) => {
 const InterfaceDisplay: FC = () => {
 	const { t } = useTranslation()
 	const {
-		colorWeak,
-		grayMode,
 		showBreadcrumbs,
 		showBreadcrumbIcon,
 		showHeader,
@@ -38,8 +36,10 @@ const InterfaceDisplay: FC = () => {
 		showLogo,
 		showSiderbar,
 		fullContent,
+		collapsePosition,
 		showCollapseButton,
 		showTabs,
+		layout,
 		setSettingValue
 	} = useAppSetting()
 
@@ -49,6 +49,7 @@ const InterfaceDisplay: FC = () => {
 			dataSource={[
 				{
 					title: t('setting.interfaceDisplay.header'),
+					disabled: fullContent,
 					action: (
 						<Switch
 							size="small"
@@ -61,6 +62,7 @@ const InterfaceDisplay: FC = () => {
 				},
 				{
 					title: t('setting.interfaceDisplay.siderbar'),
+					disabled: layout === 'top' || fullContent,
 					action: (
 						<Switch
 							size="small"
@@ -73,6 +75,7 @@ const InterfaceDisplay: FC = () => {
 				},
 				{
 					title: t('setting.interfaceDisplay.footer'),
+					disabled: fullContent,
 					action: (
 						<Switch
 							size="small"
@@ -97,6 +100,7 @@ const InterfaceDisplay: FC = () => {
 				},
 				{
 					title: t('setting.interfaceDisplay.breadcrumbs'),
+					disabled: fullContent || !showHeader,
 					action: (
 						<Switch
 							size="small"
@@ -109,6 +113,7 @@ const InterfaceDisplay: FC = () => {
 				},
 				{
 					title: t('setting.interfaceDisplay.breadcrumbIcon'),
+					disabled: fullContent || !showHeader || !showBreadcrumbs,
 					action: (
 						<Switch
 							size="small"
@@ -121,6 +126,7 @@ const InterfaceDisplay: FC = () => {
 				},
 				{
 					title: t('setting.interfaceDisplay.logo'),
+					disabled: fullContent || (!showHeader && layout !== 'side') || (!showSiderbar && layout === 'side'),
 					action: (
 						<Switch
 							size="small"
@@ -133,6 +139,8 @@ const InterfaceDisplay: FC = () => {
 				},
 				{
 					title: t('setting.interfaceFunction.collapsePosition'),
+					disabled:
+						fullContent || (!showHeader && collapsePosition === 'top') || (!showSiderbar && collapsePosition === 'bottom'),
 					action: (
 						<Switch
 							size="small"
@@ -151,30 +159,6 @@ const InterfaceDisplay: FC = () => {
 							checked={!!fullContent}
 							onChange={checked => {
 								setSettingValue('fullContent', checked)
-							}}
-						/>
-					)
-				},
-				{
-					title: t('setting.interfaceDisplay.grayMode'),
-					action: (
-						<Switch
-							size="small"
-							checked={!!grayMode}
-							onChange={checked => {
-								setSettingValue('grayMode', checked)
-							}}
-						/>
-					)
-				},
-				{
-					title: t('setting.interfaceDisplay.colorWeak'),
-					action: (
-						<Switch
-							size="small"
-							checked={!!colorWeak}
-							onChange={checked => {
-								setSettingValue('colorWeak', checked)
 							}}
 						/>
 					)

@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 14:08:22
  * @LastEditors: shen
- * @LastEditTime: 2022-10-17 14:20:38
+ * @LastEditTime: 2022-10-20 09:39:37
  * @Description:
  */
 export default {
@@ -99,7 +99,11 @@ export default {
 			logo: 'Logo',
 			footer: '页脚',
 			tabs: '标签页',
-			fullContent: '全屏内容',
+			fullContent: '全屏内容'
+		},
+		otherSettings: {
+			title: '其他设置',
+			darkMode: '暗色模式',
 			colorWeak: '色弱模式',
 			grayMode: '灰色模式'
 		}

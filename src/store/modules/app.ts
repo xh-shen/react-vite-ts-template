@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 10:50:37
  * @LastEditors: shen
- * @LastEditTime: 2022-10-18 08:49:50
+ * @LastEditTime: 2022-10-20 09:36:58
  * @Description:
  */
 import { getLang, setLang, getSettingValues, setSettingValues, getSettingValue, removeSettingValues } from '@/utils'
@@ -40,6 +40,7 @@ const initialState: AppState = {
 	tabsHeight: getSettingValue<number>('tabsHeight') ?? defaultSetting.tabsHeight,
 	colorWeak: getSettingValue<boolean>('colorWeak') ?? defaultSetting.colorWeak,
 	grayMode: getSettingValue<boolean>('grayMode') ?? defaultSetting.grayMode,
+	darkMode: getSettingValue<boolean>('darkMode') ?? defaultSetting.darkMode,
 	dragSidebar: getSettingValue<boolean>('dragSidebar') ?? defaultSetting.dragSidebar,
 	collapsePosition: getSettingValue<CollapsePositionType>('collapsePosition') ?? defaultSetting.collapsePosition,
 	showHeader: getSettingValue<boolean>('showHeader') ?? defaultSetting.showHeader,

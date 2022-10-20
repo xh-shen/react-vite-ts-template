@@ -18,7 +18,7 @@
       var appSetting = window.localStorage.getItem('__APP__SETTING__');
       appSetting = appSetting ? JSON.parse(appSetting) : {}
 
-      var darkMode = appSetting.pageStyle == undefined ? window.APP_DEFAULT_SETTING.pageStyle === 'realDark' || JSON.parse('<%= darkMode %>') : appSetting.pageStyle === 'realDark'
+      var darkMode = appSetting.darkMode == undefined ? window.APP_DEFAULT_SETTING.darkMode || JSON.parse('<%= darkMode %>') : appSetting.darkMode
       if (darkMode) {
         document.body.classList.add("dark-mode");
       }

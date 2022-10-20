@@ -4,7 +4,7 @@
  * @Author: shen
  * @Date: 2022-10-15 19:52:38
  * @LastEditors: shen
- * @LastEditTime: 2022-10-17 09:34:12
+ * @LastEditTime: 2022-10-20 09:51:43
  * @Description: 
  */
 (function(win){
@@ -12,10 +12,11 @@
   // 支持全量替换和部分配置替换，会合并配置
   // 例如：开启灰度模式，只需打开grayMode注释，并修改值为true即可
   var defaultSetting = {
-    // themeColor:'#ff4d4f', //系统主题色
+    // themeColor:'rgb(24, 144, 255)', //系统主题色
     // colorWeak: false, //色弱模式
     // grayMode: false, //灰度模式
-    // pageStyle: 'light',
+    // darkMode: false, //暗色模式
+    // pageStyle: 'dark',
     // layout: 'side',
     // siderCollapsed: false,
     // fixedHeader: true,
@@ -29,11 +30,11 @@
     // showHeader: true,
     // showSiderbar: true,
     // showBreadcrumbs: true,
-    // showBreadcrumbIcon: true,
     // showLogo: true,
     // showFooter: true,
     // showTabs: true,
     // showCollapseButton: true,
+    // showBreadcrumbIcon: true,
     // fullContent: false,
     // accordionMenu: true
   }

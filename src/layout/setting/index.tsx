@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-09 13:39:01
  * @LastEditors: shen
- * @LastEditTime: 2022-10-16 08:22:34
+ * @LastEditTime: 2022-10-20 09:46:22
  * @Description:
  */
 import { usePrefixCls, useAppSetting } from '@/hooks'
@@ -15,6 +15,7 @@ import ThemeColor from './ThemeColor'
 import BlockCheckbox from './BlockCheckbox'
 import InterfaceFunction from './InterfaceFunction'
 import InterfaceDisplay from './InterfaceDisplay'
+import InterfaceMode from './InterfaceMode'
 
 import type { FC, ReactNode, ReactElement } from 'react'
 export type SettingItemProps = {
@@ -28,7 +29,7 @@ const LayoutSetting: FC = () => {
 	const { t } = useTranslation()
 	const [open, setOpen] = useState(false)
 	const prefixCls = usePrefixCls('layout-setting')
-	const { pageStyle, layout, setSettingValue, resetSettingValues } = useAppSetting()
+	const { pageStyle, layout, setSettingValue, resetSettingValues, fullContent } = useAppSetting()
 
 	return (
 		<>
@@ -51,13 +52,14 @@ const LayoutSetting: FC = () => {
 								{
 									key: 'layoutDark',
 									title: t('setting.pageStyle.darkLayout')
-								},
-								{
-									key: 'realDark',
-									title: t('setting.pageStyle.dark')
 								}
-							]}
+							].filter(item => {
+								if (item.key === 'dark' && layout === 'mix') return false
+								if (item.key === 'layoutDark' && layout === 'top') return false
+								return true
+							})}
 							value={pageStyle}
+							disabled={fullContent}
 							prefixCls={prefixCls}
 							onChange={value => setSettingValue('pageStyle', value)}
 						/>
@@ -80,8 +82,13 @@ const LayoutSetting: FC = () => {
 									key: 'mix',
 									title: t('setting.layout.mixinMenu')
 								}
-							]}
+							].filter(item => {
+								if (item.key === 'mix' && pageStyle === 'dark') return false
+								if (item.key === 'top' && pageStyle === 'layoutDark') return false
+								return true
+							})}
 							value={layout}
+							disabled={fullContent}
 							prefixCls={prefixCls}
 							onChange={value => setSettingValue('layout', value)}
 						/>
@@ -93,6 +100,10 @@ const LayoutSetting: FC = () => {
 					<Divider />
 					<SettingBlock title={t('setting.interfaceDisplay.title')}>
 						<InterfaceDisplay />
+					</SettingBlock>
+					<Divider />
+					<SettingBlock title={t('setting.otherSettings.title')}>
+						<InterfaceMode />
 					</SettingBlock>
 					<Divider />
 					<Alert

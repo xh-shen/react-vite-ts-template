@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-09 16:20:39
  * @LastEditors: shen
- * @LastEditTime: 2022-10-15 19:30:25
+ * @LastEditTime: 2022-10-20 09:49:32
  * @Description:
  */
 import { useAppSetting, usePrefixCls } from '@/hooks'
@@ -60,7 +60,7 @@ const ThemeColor: FC = () => {
 			title: t('setting.themeColor.goldenPurple'),
 			color: 'rgb(114, 46, 209)'
 		}
-	]
+	].filter(item => item.color !== config.themeColor)
 	return (
 		<div className={prefixCls}>
 			<Tooltip placement="top" title={t('setting.themeColor.default')}>
