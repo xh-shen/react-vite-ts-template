@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-19 08:07:43
  * @LastEditors: shen
- * @LastEditTime: 2022-10-20 14:51:27
+ * @LastEditTime: 2022-10-20 15:23:58
  * @Description:
  */
 import { useEffect, useRef } from 'react'
@@ -37,7 +37,7 @@ export const useECharts = (
 		}
 	}
 
-	const { run } = useThrottleFn(
+	const { run, cancel } = useThrottleFn(
 		() => {
 			instance.current?.resize()
 		},
@@ -61,6 +61,7 @@ export const useECharts = (
 			{ notMerge, replaceMerge, lazyUpdate }
 		)
 		return () => {
+			cancel()
 			instance.current?.dispose()
 			instance.current = null
 		}
