@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-19 16:25:36
  * @LastEditors: shen
- * @LastEditTime: 2022-10-20 14:11:53
+ * @LastEditTime: 2022-10-20 15:23:09
  * @Description:
  */
 import { useEffect, useRef } from 'react'
@@ -29,7 +29,7 @@ function EChart<T>({ height, options, data, notMerge, replaceMerge, lazyUpdate, 
 	const instance = useRef<EChartsType | null>(null)
 	const domRef = useRef<HTMLDivElement>(null)
 
-	const { run: onListHolderResize } = useThrottleFn(
+	const { run: onListHolderResize, cancel } = useThrottleFn(
 		() => {
 			instance.current?.resize()
 			onResize?.()
@@ -70,6 +70,7 @@ function EChart<T>({ height, options, data, notMerge, replaceMerge, lazyUpdate, 
 		)
 		getInstance?.(instance.current)
 		return () => {
+			cancel()
 			instance.current?.dispose()
 			instance.current = null
 		}
