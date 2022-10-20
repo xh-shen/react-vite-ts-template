@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-28 08:27:39
  * @LastEditors: shen
- * @LastEditTime: 2022-10-18 14:05:14
+ * @LastEditTime: 2022-10-20 14:23:23
  * @Description:
  */
 export * from './use-language'
@@ -12,3 +12,5 @@ export * from './use-app-setting'
 export * from './use-darkreader'
 export * from './use-raf'
 export * from './use-sync-state'
+export * from './use-echarts'
+export * from './use-resize-observer'
