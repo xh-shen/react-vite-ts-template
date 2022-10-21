@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-12 08:04:52
  * @LastEditors: shen
- * @LastEditTime: 2022-10-12 09:34:17
+ * @LastEditTime: 2022-10-20 16:51:41
  * @Description:
  */
 import { lazy } from 'react'
@@ -29,7 +29,7 @@ export const routes: RouteObject[] = [
 		children: [
 			{
 				path: DASHBOARD_PATH,
-				element: lazyLoad(lazy(() => import(/* webpackChunkName: "dashboard'"*/ '@/pages/dashboard/index')))
+				element: lazyLoad(lazy(() => import(/* webpackChunkName: "dashboard'"*/ '@/pages/dashboard/analysis/index')))
 			},
 			{
 				path: FORBIDDEN_PATH,
