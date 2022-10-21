@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-19 13:26:47
  * @LastEditors: shen
- * @LastEditTime: 2022-10-19 19:41:55
+ * @LastEditTime: 2022-10-21 10:03:22
  * @Description:
  */
 
@@ -19,6 +19,7 @@ import {
 	ParallelComponent,
 	LegendComponent,
 	RadarComponent,
+	DatasetComponent,
 	ToolboxComponent,
 	DataZoomComponent,
 	VisualMapComponent,
@@ -42,6 +43,7 @@ echarts.use([
 	PolarComponent,
 	AriaComponent,
 	ParallelComponent,
+	DatasetComponent,
 	BarChart,
 	LineChart,
 	PieChart,
