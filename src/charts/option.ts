@@ -2,11 +2,11 @@
  * @Author: shen
  * @Date: 2022-10-19 19:29:45
  * @LastEditors: shen
- * @LastEditTime: 2022-10-19 19:31:06
+ * @LastEditTime: 2022-10-21 13:58:56
  * @Description:
  */
 export const color = [
-	'#3AA1FF',
+	'#6d96f2',
 	'#36CBCB',
 	'#F2637B',
 	'#975FE5',
