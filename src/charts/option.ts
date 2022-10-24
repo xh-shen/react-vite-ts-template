@@ -2,21 +2,21 @@
  * @Author: shen
  * @Date: 2022-10-19 19:29:45
  * @LastEditors: shen
- * @LastEditTime: 2022-10-21 13:58:56
+ * @LastEditTime: 2022-10-24 15:10:26
  * @Description:
  */
 export const color = [
 	'#6d96f2',
-	'#36CBCB',
+	'#83d7ae',
 	'#F2637B',
-	'#975FE5',
+	'#726bf1',
 	'#FBD437',
-	'#1890FF',
-	'#13C2C2',
-	'rgb(245, 34, 45)',
-	'rgb(250, 173, 20)',
-	'rgb(47, 84, 235)',
-	'rgb(114, 46, 209)'
+	'#eec14f',
+	'#89c8e8',
+	'#f5222d',
+	'#faad14',
+	'#2f54eb',
+	'#722ed1'
 ]
 
 export const tooltip = {
@@ -27,3 +27,5 @@ export const tooltip = {
 		fontSize: 12
 	}
 }
+
+export const animationDuration = 1500
