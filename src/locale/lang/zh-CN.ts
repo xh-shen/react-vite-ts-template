@@ -2,14 +2,15 @@
  * @Author: shen
  * @Date: 2022-09-26 14:08:22
  * @LastEditors: shen
- * @LastEditTime: 2022-10-20 09:39:37
+ * @LastEditTime: 2022-10-24 20:43:43
  * @Description:
  */
 export default {
 	app: {
 		notifyTitle: '提示',
 		login: '登录',
-		dashboard: '首页',
+		analysis: '分析页',
+		workplace: '工作台',
 		copyright: '© 2022 shene 开发完成 如有问题请使用QQ扫码加好友咨询'
 	},
 	request: {

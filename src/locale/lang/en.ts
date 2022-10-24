@@ -2,14 +2,15 @@
  * @Author: shen
  * @Date: 2022-09-26 14:08:17
  * @LastEditors: shen
- * @LastEditTime: 2022-10-20 09:39:57
+ * @LastEditTime: 2022-10-24 20:43:57
  * @Description:
  */
 export default {
 	app: {
 		notifyTitle: 'Tips',
 		login: 'Login',
-		dashboard: 'Dashboard',
+		analysis: 'Analysis',
+		workplace: 'Workplace',
 		copyright: '© 2022 shene development if you have any questions please scan the QQ code and ask friends'
 	},
 	request: {

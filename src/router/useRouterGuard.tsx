@@ -18,7 +18,7 @@ import {
 	setAppInvalid
 } from '@/store'
 import { Spin } from 'antd'
-import { LOGIN_PATH, DASHBOARD_PATH, WHITE_PATHS, NOT_FOUND_PATH, ROOT_PATH, FORBIDDEN_PATH } from './constant'
+import { LOGIN_PATH, ANALYSIS_PATH, WHITE_PATHS, NOT_FOUND_PATH, ROOT_PATH, FORBIDDEN_PATH } from './constant'
 import config from '@/config'
 
 import type { RouteObject, NavigateFunction } from 'react-router-dom'
@@ -66,7 +66,7 @@ export default (metaRoutes: RouteObject[], pathnames: string[]): RouteObject[] =
 			return
 		}
 		if (token && pathname === LOGIN_PATH) {
-			navigate({ pathname: DASHBOARD_PATH }, { replace: true })
+			navigate({ pathname: ANALYSIS_PATH }, { replace: true })
 			return
 		}
 

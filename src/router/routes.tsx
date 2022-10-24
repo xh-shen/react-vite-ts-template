@@ -2,34 +2,38 @@
  * @Author: shen
  * @Date: 2022-10-12 08:04:52
  * @LastEditors: shen
- * @LastEditTime: 2022-10-20 16:51:41
+ * @LastEditTime: 2022-10-24 20:54:46
  * @Description:
  */
 import { lazy } from 'react'
 import { Navigate } from 'react-router-dom'
 import lazyLoad from './lazyLoad'
 import { genModuleRoutes, findPathnames } from './util'
-import { LOGIN_PATH, DASHBOARD_PATH, ROOT_PATH, NOT_FOUND_PATH, FORBIDDEN_PATH } from './constant'
+import { LOGIN_PATH, ANALYSIS_PATH, ROOT_PATH, NOT_FOUND_PATH, FORBIDDEN_PATH, WORKPLACE_PATH } from './constant'
 import type { RouteObject } from 'react-router-dom'
 
 const modules = import.meta.glob('./modules/*.ts', { eager: true })
 
 export const moduleRoutes = genModuleRoutes(modules)
 
-export const pathnames = findPathnames(moduleRoutes, [DASHBOARD_PATH, LOGIN_PATH, FORBIDDEN_PATH])
+export const pathnames = findPathnames(moduleRoutes, [ANALYSIS_PATH, WORKPLACE_PATH, LOGIN_PATH, FORBIDDEN_PATH])
 
 export const routes: RouteObject[] = [
 	{
 		path: ROOT_PATH,
-		element: <Navigate to={DASHBOARD_PATH} />
+		element: <Navigate to={ANALYSIS_PATH} />
 	},
 	{
 		path: ROOT_PATH,
 		element: lazyLoad(lazy(() => import(/* webpackChunkName: "layout'"*/ '@/layout/index'))),
 		children: [
 			{
-				path: DASHBOARD_PATH,
-				element: lazyLoad(lazy(() => import(/* webpackChunkName: "dashboard'"*/ '@/pages/dashboard/analysis/index')))
+				path: ANALYSIS_PATH,
+				element: lazyLoad(lazy(() => import(/* webpackChunkName: "analysis'"*/ '@/pages/dashboard/analysis/index')))
+			},
+			{
+				path: WORKPLACE_PATH,
+				element: lazyLoad(lazy(() => import(/* webpackChunkName: "workplace'"*/ '@/pages/dashboard/workplace/index')))
 			},
 			{
 				path: FORBIDDEN_PATH,

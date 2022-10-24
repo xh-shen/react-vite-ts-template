@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-16 15:04:32
  * @LastEditors: shen
- * @LastEditTime: 2022-10-20 16:35:56
+ * @LastEditTime: 2022-10-24 20:47:23
  * @Description:
  */
 import { Tag, Dropdown, Menu } from 'antd'
@@ -10,7 +10,7 @@ import { useAppSetting, usePrefixCls, useRaf, useRafState, useSyncState } from '
 import { FC, useEffect, WheelEvent, useRef, useState, useMemo } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { genDashboardMenu, on, off, stringify } from '@/utils'
+import { genAnalysisMenu, on, off, stringify } from '@/utils'
 import {
 	addTabsItem,
 	delTabsItem,
@@ -23,7 +23,7 @@ import {
 	useAppSelector,
 	setTabsLang
 } from '@/store'
-import { DASHBOARD_PATH } from '@/router/constant'
+import { ANALYSIS_PATH } from '@/router/constant'
 import { SvgIcon } from '@/components'
 import { MenuOutlined, EllipsisOutlined } from '@ant-design/icons'
 import ResizeObserver from 'rc-resize-observer'
@@ -65,7 +65,7 @@ const LayoutTabs: FC = () => {
 	const [operationWidth, setOperationWidth] = useState<number>(0)
 
 	const prefixCls = usePrefixCls('layout-tabs')
-	const dashboardMenu = genDashboardMenu()
+	const dashboardMenu = genAnalysisMenu()
 	const lang = useAppSelector(state => state.app.lang)
 	const tabsLang = useAppSelector(state => state.tabs.tabsLang)
 	const flatMenus = useAppSelector(state => state.permission.flatMenus)
@@ -241,7 +241,7 @@ const LayoutTabs: FC = () => {
 			items={[
 				{
 					key: 'current',
-					disabled: pathname === DASHBOARD_PATH || !visitedList.length,
+					disabled: pathname === ANALYSIS_PATH || !visitedList.length,
 					label: <span>{t('tabs.closeCurrent')}</span>,
 					onClick: () => handleClose(pathname)
 				},
@@ -250,7 +250,7 @@ const LayoutTabs: FC = () => {
 				},
 				{
 					key: 'left',
-					disabled: pathname === DASHBOARD_PATH || !visitedList.length || pathname === visitedList[0].path,
+					disabled: pathname === ANALYSIS_PATH || !visitedList.length || pathname === visitedList[0].path,
 					label: <span>{t('tabs.closeLeft')}</span>,
 					onClick: handleCloseLeft
 				},
@@ -265,7 +265,7 @@ const LayoutTabs: FC = () => {
 				},
 				{
 					key: 'other',
-					disabled: !visitedList.length || (pathname !== DASHBOARD_PATH && visitedList.length === 1),
+					disabled: !visitedList.length || (pathname !== ANALYSIS_PATH && visitedList.length === 1),
 					label: <span>{t('tabs.closeOther')}</span>,
 					onClick: handleCloseOther
 				},
@@ -295,7 +295,7 @@ const LayoutTabs: FC = () => {
 				ref={getBtnRef(item.path)}
 				className={`${prefixCls}-nav-tag ${item.path === pathname ? 'active' : ''}`}
 				key={item.path}
-				closable={item.path !== DASHBOARD_PATH}
+				closable={item.path !== ANALYSIS_PATH}
 				color={item.path === pathname ? themeColor : undefined}
 				onClick={() => navigate(item.path)}
 				onClose={() => handleClose(item.path)}
@@ -320,7 +320,7 @@ const LayoutTabs: FC = () => {
 	}
 
 	useEffect(() => {
-		if (pathname === DASHBOARD_PATH) {
+		if (pathname === ANALYSIS_PATH) {
 			return
 		}
 		const tab = visitedList.find(item => item.path === pathname)

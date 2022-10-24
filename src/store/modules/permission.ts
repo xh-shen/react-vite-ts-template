@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-01 08:39:30
  * @LastEditors: shen
- * @LastEditTime: 2022-10-17 08:23:00
+ * @LastEditTime: 2022-10-24 20:48:17
  * @Description:
  */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
@@ -41,7 +41,7 @@ export const permissionSlice = createSlice({
 	},
 	extraReducers(builder) {
 		builder.addCase(fetchAuthorizedMenu.fulfilled, (state, { payload }) => {
-			state.flatMenus = [genDashboardMenu(), ...payload]
+			state.flatMenus = [...genDashboardMenu(), ...payload]
 			state.flatMenuKeys = state.flatMenus.map(menu => menu.path)
 			let tempMenuTitles: any = {}
 			state.flatMenus.forEach(item => {
