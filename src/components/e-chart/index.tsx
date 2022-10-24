@@ -2,12 +2,12 @@
  * @Author: shen
  * @Date: 2022-10-19 16:25:36
  * @LastEditors: shen
- * @LastEditTime: 2022-10-20 15:45:18
+ * @LastEditTime: 2022-10-24 15:05:08
  * @Description:
  */
 import { useEffect, useRef } from 'react'
 import { stringify } from '@/utils'
-import { createInstance, color, tooltip } from '@/charts'
+import { createInstance, color, tooltip, animationDuration } from '@/charts'
 import { useDebounceFn } from 'ahooks'
 import ResizeObserver from 'rc-resize-observer'
 
@@ -25,7 +25,7 @@ export interface EChartProps<T = any> {
 	getInstance?: Fn<EChartsType, void>
 }
 
-function EChart<T>({ height, options, data, notMerge, replaceMerge, lazyUpdate, getInstance, onResize }: EChartProps<T>) {
+function EChart<T>({ height, options, data = [], notMerge, replaceMerge, lazyUpdate, getInstance, onResize }: EChartProps<T>) {
 	const instance = useRef<EChartsType | null>(null)
 	const domRef = useRef<HTMLDivElement>(null)
 
@@ -43,33 +43,29 @@ function EChart<T>({ height, options, data, notMerge, replaceMerge, lazyUpdate, 
 	)
 
 	useEffect(() => {
-		if (options) {
-			instance.current?.setOption(options || {}, { notMerge, replaceMerge, lazyUpdate })
-		}
+		instance.current?.setOption(options, { notMerge, replaceMerge, lazyUpdate })
 	}, [stringify(options)])
 
 	useEffect(() => {
-		if (data) {
-			instance.current?.setOption({
-				dataset: {
-					source: data
-				}
-			})
-		}
-	}, [stringify(data || [])])
+		instance.current?.setOption({
+			dataset: {
+				source: data
+			}
+		})
+	}, [stringify(data)])
 
 	useEffect(() => {
 		instance.current = createInstance(domRef.current!)
+		instance.current.clear()
 		instance.current.setOption(
 			{
 				color,
 				tooltip,
+				animationDuration,
 				...options,
-				dataset: data
-					? {
-							source: data
-					  }
-					: {}
+				dataset: {
+					source: data
+				}
 			},
 			{ notMerge, replaceMerge, lazyUpdate }
 		)
