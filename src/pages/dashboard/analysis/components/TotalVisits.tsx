@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-21 08:49:00
  * @LastEditors: shen
- * @LastEditTime: 2022-10-23 16:38:19
+ * @LastEditTime: 2022-10-24 09:13:54
  * @Description:
  */
 import { EChart } from '@/components'
@@ -73,14 +73,7 @@ const options: EChartsOption = {
 
 const TotalVisits: FC<{ loading: boolean; data?: StatisticsVisitData }> = ({ loading, data }) => {
 	return (
-		<ChartCard
-			title="访问量"
-			tooltip="指标说明"
-			total={data?.total ?? 0}
-			loading={loading}
-			label="日访问量"
-			number={data?.day ?? 0}
-		>
+		<ChartCard title="访问量" tooltip="指标说明" total={data?.total} loading={loading} label="日访问量" number={data?.day}>
 			<EChart height="100%" options={options} data={data?.list?.map(item => [item.date, item.value]) ?? []} />
 		</ChartCard>
 	)

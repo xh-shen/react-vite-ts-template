@@ -2,26 +2,44 @@
  * @Author: shen
  * @Date: 2022-10-20 16:59:56
  * @LastEditors: shen
- * @LastEditTime: 2022-10-21 09:13:38
+ * @LastEditTime: 2022-10-24 09:14:29
  * @Description:
  */
+import { CountUp } from '@/components'
 import { usePrefixCls } from '@/hooks'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 import { Card, Tooltip } from 'antd'
-import { FC, ReactNode } from 'react'
+import type { FC, ReactNode } from 'react'
 
 interface ChartCardProps {
 	title: string
-	total: number | string
+	total?: number
 	label?: string
-	number?: number | string
+	number?: number
 	tooltip?: string
 	loading?: boolean
 	footer?: ReactNode
 	children?: ReactNode
+	totalPrefix?: string
+	totalSuffix?: string
+	numberPrefix?: string
+	numberSuffix?: string
 }
 
-const ChartCard: FC<ChartCardProps> = ({ title, tooltip, total, loading, number, label, footer, children }) => {
+const ChartCard: FC<ChartCardProps> = ({
+	title,
+	tooltip,
+	total = 0,
+	totalPrefix = '',
+	totalSuffix = '',
+	loading,
+	number = 0,
+	numberPrefix = '',
+	numberSuffix = '',
+	label,
+	footer,
+	children
+}) => {
 	const prefixCls = usePrefixCls('analysis-card')
 	return (
 		<Card className={prefixCls} bodyStyle={{ padding: '20px 24px 8px' }} loading={loading}>
@@ -33,19 +51,23 @@ const ChartCard: FC<ChartCardProps> = ({ title, tooltip, total, loading, number,
 					</Tooltip>
 				</div>
 				<div className={`${prefixCls}-total`}>
-					<span>{total}</span>
+					<CountUp prefix={totalPrefix} suffix={totalSuffix} end={total} separator="," />
 				</div>
 			</div>
 			<div className={`${prefixCls}-center`} style={{ height: '46px' }}>
 				{children}
 			</div>
 			<div className={`${prefixCls}-footer`}>
-				{footer ? (
-					footer
-				) : (
+				{footer || (
 					<div className={`${prefixCls}-field`}>
 						<span className={`${prefixCls}-field-label`}>{label}</span>
-						<span className={`${prefixCls}-field-number`}>{number}</span>
+						<CountUp
+							className={`${prefixCls}-field-number`}
+							prefix={numberPrefix}
+							suffix={numberSuffix}
+							end={number}
+							separator=","
+						/>
 					</div>
 				)}
 			</div>

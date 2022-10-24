@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-21 13:39:21
  * @LastEditors: shen
- * @LastEditTime: 2022-10-23 16:36:49
+ * @LastEditTime: 2022-10-24 09:13:41
  * @Description:
  */
 import { EChart } from '@/components'
@@ -54,10 +54,11 @@ const TotalPayments: FC<{ loading: boolean; data?: StatisticsPaymentData }> = ({
 		<ChartCard
 			title="支付笔数"
 			tooltip="指标说明"
-			total={data?.total ?? 0}
+			total={data?.total}
 			loading={loading}
 			label="转化率"
-			number={`${data?.conversion || 0}%`}
+			numberSuffix="%"
+			number={data?.conversion}
 		>
 			<EChart height="100%" options={options} data={data?.list?.map(item => [item.date, item.value]) ?? []} />
 		</ChartCard>

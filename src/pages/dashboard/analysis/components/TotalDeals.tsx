@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-21 13:39:21
  * @LastEditors: shen
- * @LastEditTime: 2022-10-23 16:49:10
+ * @LastEditTime: 2022-10-24 09:14:01
  * @Description:
  */
 import { EChart } from '@/components'
@@ -51,10 +51,10 @@ const TotalDeals: FC<{ loading: boolean; data?: StatisticsDealData }> = ({ loadi
 		<ChartCard
 			title="总成交数"
 			tooltip="指标说明"
-			total={data?.total ?? 0}
+			total={data?.total}
 			loading={loading}
 			label="总访问数"
-			number={data?.totalVisit ?? 0}
+			number={data?.totalVisit}
 		>
 			<EChart height="100%" options={options} data={data?.list?.map(item => [item.deal, item.visit]) ?? []} />
 		</ChartCard>
