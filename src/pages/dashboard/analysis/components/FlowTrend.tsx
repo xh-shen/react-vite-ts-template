@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-21 16:06:02
  * @LastEditors: shen
- * @LastEditTime: 2022-10-24 15:10:54
+ * @LastEditTime: 2022-10-24 15:54:35
  * @Description:
  */
 import { EChart } from '@/components'
@@ -51,7 +51,7 @@ const options: EChartsOption = {
 			}
 		}
 	],
-	grid: { left: '1%', right: '1%', top: '10%', bottom: 0, containLabel: true },
+	grid: { left: '1%', right: '1%', top: '3%', bottom: 0, containLabel: true },
 	series: [
 		{
 			smooth: true,

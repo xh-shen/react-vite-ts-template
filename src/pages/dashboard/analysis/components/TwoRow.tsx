@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-21 16:06:02
  * @LastEditors: shen
- * @LastEditTime: 2022-10-24 15:11:43
+ * @LastEditTime: 2022-10-24 15:53:01
  * @Description:
  */
 import { useState, useEffect } from 'react'
@@ -64,6 +64,7 @@ const TwoRow: FC = () => {
 			tabList={tabList}
 			activeTabKey={activeTabKey}
 			tabBarExtraContent={<RangePicker />}
+			style={{ marginBottom: 16 }}
 			onTabChange={setActiveTabKey}
 		>
 			{contentList[activeTabKey]}
