@@ -2,14 +2,16 @@
  * @Author: shen
  * @Date: 2022-09-28 09:22:28
  * @LastEditors: shen
- * @LastEditTime: 2022-10-11 15:14:37
+ * @LastEditTime: 2022-10-21 16:50:24
  * @Description:
  */
 import { useState, useEffect } from 'react'
 import { useAppDispatch, useAppSelector, setAppLang } from '@/store'
 import i18n from '@/locale'
+import moment from 'moment'
 import zhCN from 'antd/lib/locale/zh_CN'
 import enUS from 'antd/lib/locale/en_US'
+import 'moment/locale/zh-cn'
 
 import type { Locale } from 'antd/lib/locale-provider'
 
@@ -35,12 +37,18 @@ const languageToAntdMap: Record<string, Locale> = {
 	'zh-CN': zhCN
 }
 
+const languageToMomentMap: Record<string, string> = {
+	en: 'en',
+	'zh-CN': 'zh-cn'
+}
+
 export const useAntdLanguage = () => {
 	const [language] = useLanguage()
 	const [antdLanguage, setAntdLanguage] = useState<Locale>(languageToAntdMap[language])
 
 	useEffect(() => {
 		setAntdLanguage(languageToAntdMap[language])
+		moment.locale(languageToMomentMap[language])
 	}, [language])
 
 	return antdLanguage
