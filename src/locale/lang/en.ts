@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 14:08:17
  * @LastEditors: shen
- * @LastEditTime: 2022-10-24 20:43:57
+ * @LastEditTime: 2022-10-24 21:16:20
  * @Description:
  */
 export default {
@@ -82,7 +82,8 @@ export default {
 			fixedSidebar: 'Fixed Sidebar',
 			sidebarReason: 'Works on Side Menu Layout',
 			siderWidth: 'Sidebar Width',
-			accordionMenu: 'Menu Accordion',
+			accordionMenus: 'Accordion Menus',
+			splitMenus: 'Split Menus',
 			dragSidebar: 'Drag Sidebar',
 			dragSidebarReason: 'Works on Side Menu Layout and Unfolded',
 			collapseSidebar: 'Collapse Sidebar',

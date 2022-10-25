@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 14:08:22
  * @LastEditors: shen
- * @LastEditTime: 2022-10-24 20:43:43
+ * @LastEditTime: 2022-10-24 21:17:10
  * @Description:
  */
 export default {
@@ -80,11 +80,10 @@ export default {
 			title: '界面功能',
 			fixedHeader: '固定顶栏',
 			fixedSidebar: '固定侧边菜单',
-			sidebarReason: '侧边菜单布局时可配置',
 			siderWidth: '侧边菜单宽度',
-			accordionMenu: '手风琴菜单',
+			accordionMenus: '手风琴菜单',
+			splitMenus: '自动分割菜单',
 			dragSidebar: '拖拽侧边菜单',
-			dragSidebarReason: '侧边菜单布局且未折叠时可配置',
 			collapseSidebar: '折叠侧边菜单',
 			collapsePosition: '折叠按钮',
 			collapsePositionTop: '顶部',

@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-15 19:20:51
  * @LastEditors: shen
- * @LastEditTime: 2022-10-20 09:46:42
+ * @LastEditTime: 2022-10-24 21:04:26
  * @Description:
  */
 import config from './config'
@@ -15,6 +15,7 @@ export interface AppSetting {
 	themeColor: string
 	pageStyle: PageStyleType
 	layout: LayoutType
+	splitMenus: boolean
 	siderCollapsed: boolean
 	fixedHeader: boolean
 	fixSiderbar: boolean
@@ -46,6 +47,7 @@ const defaultSetting: AppSetting = {
 	darkMode: config.darkMode, // 获取于环境变量，如需修改请修改.env文件中 VITE_APP_DARK_MODE
 	pageStyle: 'dark',
 	layout: 'side',
+	splitMenus: false,
 	siderCollapsed: false,
 	fixedHeader: true,
 	fixSiderbar: true,

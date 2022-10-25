@@ -4,7 +4,7 @@
  * @Author: shen
  * @Date: 2022-10-15 19:52:38
  * @LastEditors: shen
- * @LastEditTime: 2022-10-20 09:51:43
+ * @LastEditTime: 2022-10-24 21:05:46
  * @Description: 
  */
 (function(win){
@@ -18,6 +18,7 @@
     // darkMode: false, //暗色模式
     // pageStyle: 'dark',
     // layout: 'side',
+    // splitMenus: false,
     // siderCollapsed: false,
     // fixedHeader: true,
     // fixSiderbar: true,
