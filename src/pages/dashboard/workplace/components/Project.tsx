@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-25 13:59:03
  * @LastEditors: shen
- * @LastEditTime: 2022-10-25 20:54:17
+ * @LastEditTime: 2022-10-25 21:56:56
  * @Description:
  */
 import { useState, useEffect } from 'react'
@@ -22,6 +22,7 @@ const list = [
 	{
 		icon: 'github',
 		title: 'Github',
+		key: 'Github',
 		author: '可望不可及',
 		date: '5秒前',
 		iconColor: '#000',
