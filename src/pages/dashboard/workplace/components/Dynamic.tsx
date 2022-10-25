@@ -2,12 +2,12 @@
  * @Author: shen
  * @Date: 2022-10-25 13:59:03
  * @LastEditors: shen
- * @LastEditTime: 2022-10-25 14:46:33
+ * @LastEditTime: 2022-10-25 20:18:48
  * @Description:
  */
 import { useState, useEffect } from 'react'
 import { sleep } from '@/utils'
-import { Card, List, Avatar } from 'antd'
+import { Card, List, Avatar, Skeleton } from 'antd'
 
 import type { FC } from 'react'
 
@@ -103,13 +103,15 @@ const Dynamic: FC = () => {
 		sleep(1000).then(() => setLoading(false))
 	}, [])
 	return (
-		<Card title="最新动态" extra={<a href="#">更多</a>} style={{ marginTop: 16 }} loading={loading}>
+		<Card title="最新动态" extra={<a href="#">更多</a>} style={{ marginTop: 16 }}>
 			<List
 				itemLayout="horizontal"
 				dataSource={data}
 				renderItem={item => (
 					<List.Item>
-						<List.Item.Meta avatar={<Avatar src={item.avatar} />} title={item.title} description={item.date} />
+						<Skeleton loading={loading} active avatar>
+							<List.Item.Meta avatar={<Avatar src={item.avatar} />} title={item.title} description={item.date} />
+						</Skeleton>
 					</List.Item>
 				)}
 			/>

@@ -30,4 +30,54 @@
 			}
 		}
 	}
+
+	.project {
+		.ant-card-meta-description {
+			height: 44px;
+			overflow: hidden;
+			color: @text-color-secondary;
+			line-height: 22px;
+		}
+
+		&-title {
+			display: flex;
+			align-items: center;
+
+			span {
+				margin-right: 10px;
+			}
+		}
+
+		&-item {
+			display: flex;
+			height: 20px;
+			margin-top: 8px;
+			font-size: 12px;
+			line-height: 20px;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			word-break: break-all;
+
+			a {
+				display: inline-block;
+				flex: 1 1;
+				color: @text-color-secondary;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				word-break: break-all;
+
+				&:hover {
+					color: @primary-color;
+				}
+			}
+
+			span {
+				flex: 0 0 auto;
+				float: right;
+				color: rgb(0 0 0 / 25%);
+			}
+		}
+	}
 }
