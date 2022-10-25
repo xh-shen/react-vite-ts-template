@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-24 21:27:41
  * @LastEditors: shen
- * @LastEditTime: 2022-10-25 08:25:47
+ * @LastEditTime: 2022-10-25 21:21:46
  * @Description:
  */
 import { useEffect, useMemo } from 'react'
@@ -57,7 +57,7 @@ const PrimaryMenu: FC = () => {
 				.map(menu => ({
 					label: menu.title,
 					key: menu.path,
-					icon: <SvgIcon name={menu.icon} />
+					icon: <SvgIcon name={menu.icon || 'smile-line'} />
 				})),
 		[flatMenus]
 	)

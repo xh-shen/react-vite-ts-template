@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-16 15:04:32
  * @LastEditors: shen
- * @LastEditTime: 2022-10-24 20:47:23
+ * @LastEditTime: 2022-10-25 21:27:36
  * @Description:
  */
 import { Tag, Dropdown, Menu } from 'antd'
@@ -57,6 +57,7 @@ const LayoutTabs: FC = () => {
 		fixedHeader,
 		showHeader,
 		layout,
+		splitMenus,
 		setSettingValue
 	} = useAppSetting()
 	const [transformLeft, setTransformLeft] = useSyncState(0, () => {})
@@ -70,6 +71,7 @@ const LayoutTabs: FC = () => {
 	const tabsLang = useAppSelector(state => state.tabs.tabsLang)
 	const flatMenus = useAppSelector(state => state.permission.flatMenus)
 	const visitedList = useAppSelector(state => state.tabs.visitedList)
+	const primaryMenuKey = useAppSelector(state => state.app.primaryMenuKey)
 
 	const tabs = useMemo(
 		() => [
@@ -359,7 +361,7 @@ const LayoutTabs: FC = () => {
 				className={className}
 				style={{
 					height: tabsHeight,
-					width: fullContent ? '100%' : width,
+					width: fullContent || (splitMenus && pathname === primaryMenuKey) ? '100%' : width,
 					right: needFixedHeader ? 0 : undefined,
 					top: needFixedHeader ? (fullContent || !showHeader ? 0 : headerHeight) : undefined
 				}}

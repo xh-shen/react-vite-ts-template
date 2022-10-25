@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-29 09:06:24
  * @LastEditors: shen
- * @LastEditTime: 2022-10-25 20:13:16
+ * @LastEditTime: 2022-10-25 21:26:17
  * @Description:
  */
 
@@ -25,7 +25,7 @@ const BasicLayout: FC = () => {
 	const { pathname } = useLocation()
 	const prefixCls = usePrefixCls('layout')
 	const primaryMenuKey = useAppSelector(state => state.app.primaryMenuKey)
-	const { layout, showHeader, showSiderbar, showFooter, showTabs, fullContent } = useAppSetting()
+	const { layout, showHeader, showSiderbar, showFooter, showTabs, fullContent, splitMenus } = useAppSetting()
 	return (
 		<>
 			<div className={`${prefixCls} ${prefixCls}-${layout}`}>
@@ -34,7 +34,9 @@ const BasicLayout: FC = () => {
 					{layout !== 'side' && showHeader && !fullContent ? <LayoutHeader /> : null}
 					<Layout>
 						{layout === 'side' && showHeader && !fullContent ? <LayoutHeader /> : null}
-						{layout === 'mix' && showSiderbar && !fullContent && pathname !== primaryMenuKey ? <LayoutSider /> : null}
+						{layout === 'mix' && showSiderbar && !fullContent && !(splitMenus && pathname === primaryMenuKey) ? (
+							<LayoutSider />
+						) : null}
 						<Layout>
 							{showTabs ? <LayoutTabs /> : null}
 							<LayoutContent />
