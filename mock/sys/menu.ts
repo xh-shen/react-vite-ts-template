@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-01 08:06:55
  * @LastEditors: shen
- * @LastEditTime: 2022-10-15 19:09:02
+ * @LastEditTime: 2022-10-25 21:19:03
  * @Description:
  */
 import { MockMethod } from 'vite-plugin-mock'
@@ -101,6 +101,12 @@ const genMenList = lang => [
 		pid: '30',
 		path: '/menu/menu2',
 		title: lang === 'zh-CN' ? '菜单2' : 'Menu2'
+	},
+	{
+		id: '37',
+		pid: '0',
+		path: '/root',
+		title: lang === 'zh-CN' ? '根菜单' : 'Root'
 	}
 ]
 
