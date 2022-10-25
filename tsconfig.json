@@ -29,6 +29,7 @@
 		"src/**/*.ts",
 		"src/**/*.d.ts",
 		"src/**/*.tsx",
+		"src/**/*.json",
 		"types/**/*.d.ts",
 		"types/**/*.ts",
 		"build/**/*.d.ts",
