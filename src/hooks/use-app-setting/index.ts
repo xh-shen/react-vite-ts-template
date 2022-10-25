@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-13 14:05:42
  * @LastEditors: shen
- * @LastEditTime: 2022-10-25 09:31:01
+ * @LastEditTime: 2022-10-25 18:12:59
  * @Description:
  */
 import { addClass, hasClass, removeClass } from '@/utils'
@@ -57,6 +57,7 @@ const setGrayMode = isGrapMode => {
 export const useAppSetting = () => {
 	const themeColor = useAppSelector(state => state.app.themeColor)
 	const layout = useAppSelector(state => state.app.layout)
+	const contentWidth = useAppSelector(state => state.app.contentWidth)
 	const splitMenus = useAppSelector(state => state.app.splitMenus)
 	const pageStyle = useAppSelector(state => state.app.pageStyle)
 	const siderWidth = useAppSelector(state => state.app.siderWidth)
@@ -96,8 +97,13 @@ export const useAppSetting = () => {
 			setDarkMode(value)
 		}
 
-		if (key === 'layout' && value !== 'mix' && splitMenus) {
-			dispatch(setAppSettingValues({ key: 'splitMenus', value: false, cache }))
+		if (key === 'layout') {
+			if (value !== 'mix' && splitMenus) {
+				dispatch(setAppSettingValues({ key: 'splitMenus', value: false, cache }))
+			}
+			if (value !== 'top' && contentWidth === 'Fixed') {
+				dispatch(setAppSettingValues({ key: 'contentWidth', value: 'Fluid', cache }))
+			}
 		}
 
 		if (key === 'splitMenus' && value && collapsePosition === 'top') {
@@ -125,6 +131,7 @@ export const useAppSetting = () => {
 		siderWidth,
 		pageStyle,
 		layout,
+		contentWidth,
 		splitMenus,
 		fixedHeader,
 		fixSiderbar,

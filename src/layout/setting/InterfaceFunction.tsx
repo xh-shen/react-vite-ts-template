@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-13 11:05:18
  * @LastEditors: shen
- * @LastEditTime: 2022-10-25 09:28:50
+ * @LastEditTime: 2022-10-25 18:10:53
  * @Description:
  */
 import { cloneElement } from 'react'
@@ -29,6 +29,7 @@ export const renderLayoutSettingItem = (item: SettingItemProps) => {
 const InterfaceFunction: FC = () => {
 	const { t } = useTranslation()
 	const {
+		contentWidth,
 		layout,
 		fixSiderbar,
 		fixedHeader,
@@ -49,6 +50,24 @@ const InterfaceFunction: FC = () => {
 		<List
 			split={false}
 			dataSource={[
+				{
+					title: t('setting.interfaceFunction.contentWidth'),
+					action: (
+						<Select
+							size="small"
+							value={contentWidth}
+							style={{ width: 80 }}
+							onChange={value => {
+								setSettingValue('contentWidth', value)
+							}}
+						>
+							{layout === 'top' ? (
+								<Select.Option value="Fixed">{t('setting.interfaceFunction.contentWidthFixed')}</Select.Option>
+							) : null}
+							<Select.Option value="Fluid">{t('setting.interfaceFunction.contentWidthFluid')}</Select.Option>
+						</Select>
+					)
+				},
 				{
 					title: t('setting.interfaceFunction.fixedHeader'),
 					disabled: !showHeader || fullContent,

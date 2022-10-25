@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 14:08:22
  * @LastEditors: shen
- * @LastEditTime: 2022-10-24 21:17:10
+ * @LastEditTime: 2022-10-25 18:08:22
  * @Description:
  */
 export default {
@@ -78,6 +78,9 @@ export default {
 		},
 		interfaceFunction: {
 			title: '界面功能',
+			contentWidth: '内容区域宽度',
+			contentWidthFixed: '定宽',
+			contentWidthFluid: '流式',
 			fixedHeader: '固定顶栏',
 			fixedSidebar: '固定侧边菜单',
 			siderWidth: '侧边菜单宽度',

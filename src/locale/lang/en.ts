@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 14:08:17
  * @LastEditors: shen
- * @LastEditTime: 2022-10-24 21:16:20
+ * @LastEditTime: 2022-10-25 18:09:03
  * @Description:
  */
 export default {
@@ -78,6 +78,9 @@ export default {
 		},
 		interfaceFunction: {
 			title: 'Interface Function',
+			contentWidth: 'Content Width',
+			contentWidthFixed: 'Fixed',
+			contentWidthFluid: 'Fluid',
 			fixedHeader: 'Fixed Header',
 			fixedSidebar: 'Fixed Sidebar',
 			sidebarReason: 'Works on Side Menu Layout',

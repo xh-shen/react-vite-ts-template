@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 10:50:37
  * @LastEditors: shen
- * @LastEditTime: 2022-10-24 22:33:01
+ * @LastEditTime: 2022-10-25 17:58:28
  * @Description:
  */
 import { getLang, setLang, getSettingValues, setSettingValues, getSettingValue, removeSettingValues } from '@/utils'
@@ -10,7 +10,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import defaultSetting from '@/defaultSetting'
 import config from '@/config'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import type { AppSetting, PageStyleType, LayoutType, CollapsePositionType } from '@/defaultSetting'
+import type { AppSetting, PageStyleType, LayoutType, ContentWidth, CollapsePositionType } from '@/defaultSetting'
 
 export interface AppState extends AppSetting {
 	lang: string
@@ -33,6 +33,7 @@ const initialState: AppState = {
 	themeColor: getSettingValue<PageStyleType>('themeColor') ?? defaultSetting.themeColor,
 	pageStyle: getSettingValue<PageStyleType>('pageStyle') ?? defaultSetting.pageStyle,
 	layout: getSettingValue<LayoutType>('layout') ?? defaultSetting.layout,
+	contentWidth: getSettingValue<ContentWidth>('contentWidth') ?? defaultSetting.contentWidth,
 	splitMenus: getSettingValue<boolean>('splitMenus') ?? defaultSetting.splitMenus,
 	siderCollapsed: getSettingValue<boolean>('siderCollapsed') ?? defaultSetting.siderCollapsed,
 	fixedHeader: getSettingValue<boolean>('fixedHeader') ?? defaultSetting.fixedHeader,
