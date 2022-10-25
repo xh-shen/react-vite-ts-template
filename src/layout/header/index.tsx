@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-08 09:03:57
  * @LastEditors: shen
- * @LastEditTime: 2022-10-20 09:46:05
+ * @LastEditTime: 2022-10-25 09:05:43
  * @Description:
  */
 import { useMemo } from 'react'
@@ -20,8 +20,10 @@ import Fullscreen from './Fullscreen'
 import LayoutMenu from '../menu'
 import MenuTrigger from './MenuTrigger'
 import Breadcrumb from './Breadcrumb'
+import PrimaryMenu from './PrimaryMenu'
 
 import type { FC } from 'react'
+
 const { Header } = Layout
 
 const LayoutHeader: FC = () => {
@@ -34,6 +36,7 @@ const LayoutHeader: FC = () => {
 		fixedHeader,
 		siderWidth,
 		headerHeight,
+		splitMenus,
 		showSiderbar,
 		showLogo,
 		showBreadcrumbs,
@@ -65,6 +68,29 @@ const LayoutHeader: FC = () => {
 		return layout === 'side' && needFixedHeader && showSiderbar ? `calc(100% - ${collapsed ? 48 : siderWidth}px)` : '100%'
 	}, [collapsed, siderWidth, layout, needFixedHeader, showSiderbar])
 
+	const renderLeftOrMenus = () => {
+		if (layout === 'top') {
+			return (
+				<div className={`${prefixCls}-menu`} style={{ flex: '1 1 0%' }}>
+					<LayoutMenu />
+				</div>
+			)
+		} else if (layout === 'mix' && splitMenus) {
+			return (
+				<div className={`${prefixCls}-menu`} style={{ flex: '1 1 0%' }}>
+					<PrimaryMenu />
+				</div>
+			)
+		} else {
+			return (
+				<div className={`${prefixCls}-left`} style={{ flex: '1 1 0%' }}>
+					{showCollapseButton && collapsePosition === 'top' && <MenuTrigger />}
+					{showBreadcrumbs && <Breadcrumb />}
+				</div>
+			)
+		}
+	}
+
 	return (
 		<>
 			{needFixedHeader && (
@@ -92,18 +118,7 @@ const LayoutHeader: FC = () => {
 						<Logo />
 					</div>
 				)}
-
-				{layout === 'top' ? (
-					<div className={`${prefixCls}-menu`} style={{ flex: '1 1 0%' }}>
-						<LayoutMenu />
-					</div>
-				) : (
-					<div className={`${prefixCls}-left`} style={{ flex: '1 1 0%' }}>
-						{showCollapseButton && collapsePosition === 'top' && <MenuTrigger />}
-						{showBreadcrumbs && <Breadcrumb />}
-					</div>
-				)}
-
+				{renderLeftOrMenus()}
 				<Space className={`${prefixCls}-right`}>
 					<Search />
 					<Question />

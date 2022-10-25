@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-09 12:40:37
  * @LastEditors: shen
- * @LastEditTime: 2022-10-17 11:02:40
+ * @LastEditTime: 2022-10-25 09:08:46
  * @Description:
  */
 import { AppState, useAppDispatch, useAppSelector, setMatchMenus } from '@/store'
@@ -36,6 +36,8 @@ const getOpenKeysProps = (
 	return openKeysProps
 }
 
+let currentRootId = '0'
+
 const getNavMenuItems = (flatMenus: MenuData[], parentId: string = '0'): MenuProps['items'] => {
 	const items: MenuProps['items'] = []
 	for (let i = 0; i < flatMenus.length; i++) {
@@ -45,12 +47,16 @@ const getNavMenuItems = (flatMenus: MenuData[], parentId: string = '0'): MenuPro
 			items.push({
 				label: item.title,
 				key: item.path,
-				icon: parentId === '0' ? <SvgIcon name={item.icon} /> : null,
+				icon: parentId === currentRootId ? <SvgIcon name={item.icon || 'smile-line'} /> : null,
 				children: children.length > 0 ? children : undefined
 			})
 		}
 	}
 	return items
+}
+
+const getSplitMenuItems = (flatMenus: MenuData[], parentId: string) => {
+	return getNavMenuItems(flatMenus, parentId)
 }
 
 const getMatchMenu = (pathname: string, flatMenus: MenuData[]): MenuData[] => {
@@ -73,9 +79,10 @@ const LayoutMenu: FC<{ className?: string }> = ({ className }) => {
 	const navigate = useNavigate()
 	const openKeysCache = useRef<string[]>([])
 	const { pathname } = useLocation()
-	const { pageStyle, layout, siderCollapsed: collapsed, accordionMenu } = useAppSetting()
+	const { pageStyle, layout, siderCollapsed: collapsed, accordionMenu, splitMenus } = useAppSetting()
 	const flatMenus = useAppSelector(state => state.permission.flatMenus)
 	const matchMenus = useAppSelector(state => state.permission.matchMenus)
+	const primaryMenuKey = useAppSelector(state => state.app.primaryMenuKey)
 	const [openKeys, setOpenKeys] = useState<string[]>([])
 	const [selectedKeys, setSelectedKeys] = useState<string[]>([pathname])
 	const dispatch = useAppDispatch()
@@ -129,7 +136,7 @@ const LayoutMenu: FC<{ className?: string }> = ({ className }) => {
 
 	useEffect(() => {
 		setSelectedKeys([pathname])
-	}, [pathname])
+	}, [pathname, splitMenus])
 
 	useEffect(() => {
 		if (accordionMenu && !collapsed && matchMenuKeys) {
@@ -144,10 +151,18 @@ const LayoutMenu: FC<{ className?: string }> = ({ className }) => {
 	)
 
 	const menuList = useMemo<MenuProps['items']>(() => {
-		const items = getNavMenuItems(flatMenus) || []
-		rootSubmenuKeys = items.filter(item => item).map(item => item?.key) as string[]
+		let items: MenuProps['items'] = []
+		if (!!primaryMenuKey && splitMenus) {
+			const root = flatMenus.find(menu => menu.path === primaryMenuKey)
+			currentRootId = root!.id
+			items = getSplitMenuItems(flatMenus, root!.id)
+		} else {
+			currentRootId = '0'
+			items = getNavMenuItems(flatMenus)
+		}
+		rootSubmenuKeys = items!.filter(item => item).map(item => item?.key) as string[]
 		return items
-	}, [flatMenus])
+	}, [flatMenus, primaryMenuKey, splitMenus])
 
 	const onClick: MenuProps['onClick'] = e => {
 		if (e.key === pathname) {

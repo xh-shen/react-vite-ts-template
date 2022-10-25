@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-13 11:05:18
  * @LastEditors: shen
- * @LastEditTime: 2022-10-20 08:57:00
+ * @LastEditTime: 2022-10-25 09:28:50
  * @Description:
  */
 import { cloneElement } from 'react'
@@ -37,6 +37,7 @@ const InterfaceFunction: FC = () => {
 		collapsePosition,
 		dragSidebar,
 		accordionMenu,
+		splitMenus,
 		showSiderbar,
 		showHeader,
 		showCollapseButton,
@@ -64,7 +65,6 @@ const InterfaceFunction: FC = () => {
 				{
 					title: t('setting.interfaceFunction.fixedSidebar'),
 					disabled: layout === 'top' || !showSiderbar || fullContent,
-					disabledReason: t('setting.interfaceFunction.sidebarReason'),
 					action: (
 						<Switch
 							size="small"
@@ -78,7 +78,6 @@ const InterfaceFunction: FC = () => {
 				{
 					title: t('setting.interfaceFunction.collapseSidebar'),
 					disabled: layout === 'top' || !showSiderbar || fullContent,
-					disabledReason: t('setting.interfaceFunction.sidebarReason'),
 					action: (
 						<Switch
 							size="small"
@@ -92,7 +91,6 @@ const InterfaceFunction: FC = () => {
 				{
 					title: t('setting.interfaceFunction.dragSidebar'),
 					disabled: layout === 'top' || !!siderCollapsed || !showSiderbar || fullContent,
-					disabledReason: t('setting.interfaceFunction.dragSidebarReason'),
 					action: (
 						<Switch
 							size="small"
@@ -104,9 +102,8 @@ const InterfaceFunction: FC = () => {
 					)
 				},
 				{
-					title: t('setting.interfaceFunction.accordionMenu'),
+					title: t('setting.interfaceFunction.accordionMenus'),
 					disabled: layout === 'top' || !!siderCollapsed || !showSiderbar || fullContent,
-					disabledReason: t('setting.interfaceFunction.dragSidebarReason'),
 					action: (
 						<Switch
 							size="small"
@@ -118,9 +115,21 @@ const InterfaceFunction: FC = () => {
 					)
 				},
 				{
+					title: t('setting.interfaceFunction.splitMenus'),
+					disabled: layout !== 'mix' || !showSiderbar || fullContent,
+					action: (
+						<Switch
+							size="small"
+							checked={!!splitMenus}
+							onChange={checked => {
+								setSettingValue('splitMenus', checked)
+							}}
+						/>
+					)
+				},
+				{
 					title: t('setting.interfaceFunction.collapsePosition'),
 					disabled: layout === 'top' || !showSiderbar || !showCollapseButton || fullContent,
-					disabledReason: t('setting.interfaceFunction.sidebarReason'),
 					action: (
 						<Select
 							size="small"
@@ -130,7 +139,9 @@ const InterfaceFunction: FC = () => {
 								setSettingValue('collapsePosition', value)
 							}}
 						>
-							<Select.Option value="top">{t('setting.interfaceFunction.collapsePositionTop')}</Select.Option>
+							{!(layout === 'mix' && splitMenus) && (
+								<Select.Option value="top">{t('setting.interfaceFunction.collapsePositionTop')}</Select.Option>
+							)}
 							<Select.Option value="bottom">{t('setting.interfaceFunction.collapsePositionBottom')}</Select.Option>
 						</Select>
 					)
@@ -138,7 +149,6 @@ const InterfaceFunction: FC = () => {
 				{
 					title: t('setting.interfaceFunction.siderWidth'),
 					disabled: layout === 'top' || !!siderCollapsed || !showSiderbar || fullContent,
-					disabledReason: t('setting.interfaceFunction.dragSidebarReason'),
 					action: (
 						<InputNumber
 							value={siderWidth}
