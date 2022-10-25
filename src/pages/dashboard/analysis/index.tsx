@@ -2,10 +2,11 @@
  * @Author: shen
  * @Date: 2022-10-20 16:51:07
  * @LastEditors: shen
- * @LastEditTime: 2022-10-24 15:52:23
+ * @LastEditTime: 2022-10-25 10:11:54
  * @Description:
  */
 import { PageContainer } from '@/components'
+import { usePrefixCls } from '@/hooks'
 import FirstRow from './components/FirstRow'
 import TwoRow from './components/TwoRow'
 import ThreeRow from './components/ThreeRow'
@@ -13,9 +14,10 @@ import './index.less'
 
 import type { FC } from 'react'
 
-const Dashboard: FC = () => {
+const Analysis: FC = () => {
+	const prefixCls = usePrefixCls('analysis')
 	return (
-		<PageContainer>
+		<PageContainer className={prefixCls}>
 			<FirstRow />
 			<TwoRow />
 			<ThreeRow />
@@ -23,4 +25,4 @@ const Dashboard: FC = () => {
 	)
 }
 
-export default Dashboard
+export default Analysis

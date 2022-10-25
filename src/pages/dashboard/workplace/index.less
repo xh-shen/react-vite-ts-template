@@ -1,0 +1,33 @@
+@prefix-cls: ~'@{namespace}-workplace';
+
+.@{prefix-cls} {
+	.overview {
+		.detail {
+			display: flex;
+			align-items: center;
+			overflow: hidden;
+		}
+
+		.content {
+			overflow: hidden;
+			position: relative;
+			top: 4px;
+			flex: 1;
+			margin-left: 24px;
+			color: @text-color-secondary;
+			line-height: 22px;
+
+			.avatar {
+				overflow: hidden;
+			}
+
+			.welcome {
+				margin-bottom: 12px;
+				color: @text-color;
+				font-weight: 500;
+				font-size: 20px;
+				line-height: 28px;
+			}
+		}
+	}
+}
