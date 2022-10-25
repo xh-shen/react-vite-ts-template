@@ -2,11 +2,11 @@
  * @Author: shen
  * @Date: 2022-09-29 09:06:24
  * @LastEditors: shen
- * @LastEditTime: 2022-10-25 09:05:34
+ * @LastEditTime: 2022-10-25 20:13:16
  * @Description:
  */
 
-import { Layout } from 'antd'
+import { Layout, BackTop } from 'antd'
 import { useAppSetting, usePrefixCls } from '@/hooks'
 import { useLocation } from 'react-router-dom'
 import { useAppSelector } from '@/store'
@@ -22,27 +22,30 @@ import './index.less'
 import type { FC } from 'react'
 
 const BasicLayout: FC = () => {
-	const prefixCls = usePrefixCls('layout')
 	const { pathname } = useLocation()
+	const prefixCls = usePrefixCls('layout')
 	const primaryMenuKey = useAppSelector(state => state.app.primaryMenuKey)
 	const { layout, showHeader, showSiderbar, showFooter, showTabs, fullContent } = useAppSetting()
 	return (
-		<div className={`${prefixCls} ${prefixCls}-${layout}`}>
-			<Layout style={{ minHeight: '100%' }}>
-				{config.enableSetting && <LayoutSetting />}
-				{layout === 'side' && showSiderbar && !fullContent && <LayoutSider />}
-				{layout !== 'side' && showHeader && !fullContent && <LayoutHeader />}
-				<Layout>
-					{layout === 'side' && showHeader && !fullContent && <LayoutHeader />}
-					{layout === 'mix' && showSiderbar && !fullContent && pathname !== primaryMenuKey && <LayoutSider />}
+		<>
+			<div className={`${prefixCls} ${prefixCls}-${layout}`}>
+				<Layout style={{ minHeight: '100%' }}>
+					{layout === 'side' && showSiderbar && !fullContent ? <LayoutSider /> : null}
+					{layout !== 'side' && showHeader && !fullContent ? <LayoutHeader /> : null}
 					<Layout>
-						{showTabs && <LayoutTabs />}
-						<LayoutContent />
-						{showFooter && <LayoutFooter />}
+						{layout === 'side' && showHeader && !fullContent ? <LayoutHeader /> : null}
+						{layout === 'mix' && showSiderbar && !fullContent && pathname !== primaryMenuKey ? <LayoutSider /> : null}
+						<Layout>
+							{showTabs ? <LayoutTabs /> : null}
+							<LayoutContent />
+							{showFooter ? <LayoutFooter /> : null}
+						</Layout>
 					</Layout>
 				</Layout>
-			</Layout>
-		</div>
+			</div>
+			<BackTop visibilityHeight={100} />
+			{config.enableSetting ? <LayoutSetting /> : null}
+		</>
 	)
 }
 
