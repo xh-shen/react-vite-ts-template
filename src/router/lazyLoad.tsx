@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-29 13:45:06
  * @LastEditors: shen
- * @LastEditTime: 2022-10-12 16:04:06
+ * @LastEditTime: 2022-10-25 18:21:54
  * @Description:
  */
 import { Suspense } from 'react'
@@ -19,6 +19,7 @@ const lazyLoad = (Comp: LazyExoticComponent<any>): ReactNode => {
 						display: 'flex',
 						alignItems: 'center',
 						justifyContent: 'center',
+						paddingTop: 100,
 						minHeight: '100%'
 					}}
 				/>
