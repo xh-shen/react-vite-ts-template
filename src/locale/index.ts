@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 14:03:51
  * @LastEditors: shen
- * @LastEditTime: 2022-10-13 09:04:27
+ * @LastEditTime: 2022-10-26 20:48:02
  * @Description:
  */
 import i18n from 'i18next'
@@ -10,24 +10,27 @@ import { initReactI18next } from 'react-i18next'
 import { store } from '@/store'
 
 const resources = import.meta.glob('./lang/*.ts', { eager: true })
+const componentResources = import.meta.glob('../components/locale/*.ts', { eager: true })
 
 const transformResources = (lang: string) => {
-	const data: Record<string, any> = {}
-	Object.keys(resources).forEach((key: string) => {
-		const lng = key.match(/.*\/.*\/(.*)\..*/)?.[1]
-		if (lng === lang) {
-			data[lng] = {
-				translation: (resources[key] as any).default
-			}
-		}
-	})
-	return data
+	const paths = Object.keys({ ...resources, ...componentResources })
+		.map(path => ({ path, lang: path.substring(path.lastIndexOf('/') + 1, path.lastIndexOf('.')) }))
+		.filter(item => item.lang === lang)
+		.map(item => item.path)
+	return {
+		...((resources[paths[0]] || {}) as any).default,
+		...((componentResources[paths[1]] || {}) as any).default
+	}
 }
 
 export function setupI18n() {
 	const state = store.getState()
 	i18n.use(initReactI18next).init({
-		resources: transformResources(state.app.lang),
+		resources: {
+			[state.app.lang]: {
+				translation: transformResources(state.app.lang)
+			}
+		},
 		fallbackLng: state.app.lang,
 		debug: false,
 		interpolation: {
