@@ -1,0 +1,33 @@
+.transition-common(@duration: @animation-duration-base) {
+	animation-duration: @duration;
+	animation-fill-mode: both;
+}
+
+.transition-common-exit(@duration: @animation-duration-base) {
+	animation-duration: @duration;
+	animation-fill-mode: both;
+}
+
+.make-transition(@className, @keyframeName, @duration: @animation-duration-base) {
+	.@{className}-enter,
+	.@{className}-appear {
+		.transition-common(@duration);
+
+		animation-play-state: paused;
+	}
+	.@{className}-exit {
+		.transition-common-exit(@duration);
+
+		animation-play-state: paused;
+	}
+	.@{className}-enter.@{className}-enter-active,
+	.@{className}-appear.@{className}-appear-active {
+		animation-name: ~'@{keyframeName}-in';
+		animation-play-state: running;
+	}
+	.@{className}-exit.@{className}-exit-active {
+		animation-name: ~'@{keyframeName}-out';
+		animation-play-state: running;
+		pointer-events: none;
+	}
+}
