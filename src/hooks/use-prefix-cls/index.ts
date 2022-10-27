@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-06 19:59:35
  * @LastEditors: shen
- * @LastEditTime: 2022-10-06 21:18:22
+ * @LastEditTime: 2022-10-26 15:06:33
  * @Description:
  */
 
@@ -17,3 +17,5 @@ export const usePrefixCls = (block: string) => {
 	const { namespace } = config
 	return getPrefixCls(namespace, block)
 }
+
+export const rootPrefixCls = config.namespace
