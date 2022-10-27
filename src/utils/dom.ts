@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-13 20:22:30
  * @LastEditors: shen
- * @LastEditTime: 2022-10-20 10:57:10
+ * @LastEditTime: 2022-10-26 08:55:40
  * @Description:
  */
 import { isObject, isFunction, isBrowser } from './validate'
@@ -114,4 +114,8 @@ export function getTargetElement<T extends TargetType>(target: BasicTarget<T>, d
 	}
 
 	return targetElement
+}
+
+export const canUseDom = () => {
+	return !!(typeof window !== 'undefined' && window.document && window.document.createElement)
 }
