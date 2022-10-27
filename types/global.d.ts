@@ -2,12 +2,16 @@
  * @Author: shen
  * @Date: 2022-10-03 10:13:10
  * @LastEditors: shen
- * @LastEditTime: 2022-10-20 16:22:41
+ * @LastEditTime: 2022-10-27 16:25:10
  * @Description:
  */
 
 declare type Writable<T> = {
 	-readonly [P in keyof T]: T[P]
+}
+
+declare interface VoidFunction {
+	(): void
 }
 
 declare type Nullable<T> = T | null
