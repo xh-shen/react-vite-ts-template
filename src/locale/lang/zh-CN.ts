@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 14:08:22
  * @LastEditors: shen
- * @LastEditTime: 2022-10-25 18:08:22
+ * @LastEditTime: 2022-10-27 16:42:37
  * @Description:
  */
 export default {
@@ -35,6 +35,7 @@ export default {
 		closeAll: '关闭所有标签页'
 	},
 	header: {
+		menuSearch: '搜索菜单',
 		componentSize: '组件大小',
 		language: '语言',
 		theme: '主题',

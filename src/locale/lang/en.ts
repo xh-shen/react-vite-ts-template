@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 14:08:17
  * @LastEditors: shen
- * @LastEditTime: 2022-10-25 18:09:03
+ * @LastEditTime: 2022-10-27 16:45:40
  * @Description:
  */
 export default {
@@ -35,12 +35,9 @@ export default {
 		closeAll: 'Close All'
 	},
 	header: {
+		menuSearch: 'Search Menu',
 		componentSize: 'Component Size',
 		language: 'Language',
-		theme: 'theme',
-		themeSetting: 'Theme setting',
-		darkMode: 'Dark Mode',
-		lightMode: 'Light Mode',
 		fullScreen: 'Full Screen',
 		exitFullScreen: 'Exit Full Screen',
 		personalData: 'Personal Data',
