@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-28 08:27:39
  * @LastEditors: shen
- * @LastEditTime: 2022-10-24 08:30:57
+ * @LastEditTime: 2022-10-28 21:55:45
  * @Description:
  */
 export * from './use-language'
@@ -15,3 +15,4 @@ export * from './use-sync-state'
 export * from './use-echarts'
 export * from './use-resize-observer'
 export * from './use-event-callback'
+export * from './use-scroll-locker'
