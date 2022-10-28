@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-26 10:27:03
  * @LastEditors: shen
- * @LastEditTime: 2022-10-17 08:23:14
+ * @LastEditTime: 2022-10-27 20:57:03
  * @Description:
  */
 export * from './util'
@@ -18,3 +18,4 @@ export * from './objects'
 export * from './env'
 export * from './raf'
 export * from './menu'
+export * from './pinyin'
