@@ -2,11 +2,12 @@
  * @Author: shen
  * @Date: 2022-10-26 09:04:35
  * @LastEditors: shen
- * @LastEditTime: 2022-10-26 11:30:25
+ * @LastEditTime: 2022-10-28 21:57:16
  * @Description:
  */
 import { useState, useEffect } from 'react'
 import { createPortal } from 'react-dom'
+import { useScrollLocker } from '@/hooks'
 import { canUseDom } from '@/utils'
 import OrderContext from './Context'
 import useDom from './useDom'
@@ -45,7 +46,7 @@ const getPortalContainer = (getContainer?: GetContainer) => {
 }
 
 export default function Portal(props: PortalProps) {
-	const { open, getContainer, debug, autoDestroy = true, children } = props
+	const { open, getContainer, debug, autoDestroy = true, children, autoLock } = props
 	const [mergedRender, setMergedRender] = useState(open)
 	useEffect(() => {
 		if (autoDestroy || open) {
@@ -63,6 +64,8 @@ export default function Portal(props: PortalProps) {
 
 	const [defaultContainer, queueCreate] = useDom(mergedRender && !innerContainer, debug)
 	const mergedContainer = innerContainer ?? defaultContainer
+
+	useScrollLocker(autoLock && open && canUseDom() && (mergedContainer === defaultContainer || mergedContainer === document.body))
 
 	if (!mergedRender || !canUseDom() || innerContainer === undefined) {
 		return null
