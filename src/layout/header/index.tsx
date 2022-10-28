@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-08 09:03:57
  * @LastEditors: shen
- * @LastEditTime: 2022-10-25 09:05:43
+ * @LastEditTime: 2022-10-27 16:39:47
  * @Description:
  */
 import { useMemo } from 'react'
@@ -14,7 +14,7 @@ import Logo from '../logo'
 import Language from './Language'
 import User from './User'
 import Notice from './Notice'
-import Search from './Search'
+import MenuSearch from './MenuSearch'
 import Question from './Question'
 import Fullscreen from './Fullscreen'
 import LayoutMenu from '../menu'
@@ -120,7 +120,7 @@ const LayoutHeader: FC = () => {
 				)}
 				{renderLeftOrMenus()}
 				<Space className={`${prefixCls}-right`}>
-					<Search />
+					<MenuSearch />
 					<Question />
 					<Fullscreen />
 					<Notice />
