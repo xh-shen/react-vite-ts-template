@@ -2,10 +2,10 @@
  * @Author: shen
  * @Date: 2022-10-09 12:32:54
  * @LastEditors: shen
- * @LastEditTime: 2022-10-28 08:47:06
+ * @LastEditTime: 2022-10-28 16:26:22
  * @Description:
  */
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { usePrefixCls } from '@/hooks'
 import { SvgIcon, Search } from '@/components'
 import { useTranslation } from 'react-i18next'
@@ -15,6 +15,7 @@ import { unionBy } from 'lodash-es'
 
 import type { FC } from 'react'
 import type { MenuData } from '@/interfaces'
+import { getFullChars } from '@/utils'
 
 const getLastLevelMenus = (flatMenus: MenuData[], parentMenu: MenuData) => {
 	const menus: MenuData[] = []
@@ -55,13 +56,22 @@ const MenuSearch: FC = () => {
 	const [dataSource, setDataSource] = useState<any[]>([])
 	const flatMenus = useAppSelector(state => state.permission.flatMenus)
 
+	const onClose = () => {
+		setOpen(false)
+		setDataSource([])
+	}
+
+	const pinYinFlatMenus = useMemo(() => flatMenus.map(item => ({ ...item, chars: getFullChars(item.title) })), [flatMenus])
+
 	const onDebounceChange = (value?: string) => {
 		if (!value?.trim()) {
 			setDataSource([])
 			return
 		}
 		const lastLevelMenus: MenuData[] = []
-		const filter = flatMenus.filter(menu => menu.title.toLowerCase().indexOf(value.toLowerCase()) > -1)
+		const filter = pinYinFlatMenus.filter(
+			menu => menu.title.toLowerCase().indexOf(value.toLowerCase()) > -1 || menu.chars.indexOf(value.toLowerCase()) > -1
+		)
 		filter.forEach(item => {
 			lastLevelMenus.push(...getLastLevelMenus(flatMenus, item))
 		})
@@ -93,7 +103,7 @@ const MenuSearch: FC = () => {
 				destroyOnClose
 				dataSource={dataSource}
 				placeholder={t('header.menuSearch')}
-				onClose={() => setOpen(false)}
+				onClose={onClose}
 				onSelect={onSelect}
 				onDebounceChange={onDebounceChange}
 			/>
