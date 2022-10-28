@@ -2,10 +2,10 @@
  * @Author: shen
  * @Date: 2022-10-26 07:56:38
  * @LastEditors: shen
- * @LastEditTime: 2022-10-27 15:55:53
+ * @LastEditTime: 2022-10-28 12:43:58
  * @Description:
  */
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import SearchBox from './SearchBox'
 import SearchResult from './SearchResult'
 import SearchEmpty from './SearchEmpty'
@@ -13,7 +13,7 @@ import SearchCommands from './SearchCommands'
 
 import type { FC, KeyboardEventHandler } from 'react'
 import type { SearchBoxProps } from './SearchBox'
-import type { SearchResultProps } from './SearchResult'
+import type { SearchResultProps, SearchResultRef } from './SearchResult'
 
 export interface SearchPanelProps extends Omit<SearchBoxProps, 'prefixCls'>, Omit<SearchResultProps, 'prefixCls' | 'stateList'> {
 	prefixCls?: string
@@ -32,6 +32,7 @@ const CustomSearchPanel: FC<SearchPanelProps> = ({
 	onDebounceChange,
 	onClose
 }) => {
+	const resultRef = useRef<SearchResultRef>(null)
 	const [results, setResults] = useState<any[]>([])
 	const searchBoxPorops = {
 		open,
@@ -52,9 +53,17 @@ const CustomSearchPanel: FC<SearchPanelProps> = ({
 	}
 
 	const onPanelKeyDown: KeyboardEventHandler<HTMLDivElement> = event => {
+		event.stopPropagation()
 		const { code } = event
 		if (code === 'Escape') {
 			onClose?.(event)
+		}
+		if (code === 'ArrowUp' || code === 'ArrowDown') {
+			event.preventDefault()
+			resultRef.current?.onKeyDownArrowUpOrDown(code)
+		}
+		if (code === 'Enter') {
+			resultRef.current?.onKeyDownEnter(event)
 		}
 	}
 
@@ -69,9 +78,7 @@ const CustomSearchPanel: FC<SearchPanelProps> = ({
 	return (
 		<div className={`${prefixCls}-panel`} onKeyDown={onPanelKeyDown}>
 			<SearchBox {...searchBoxPorops} />
-			<div className={`${prefixCls}-panel-container`}>
-				{results.length > 0 ? <SearchResult {...searchStatePorops} /> : <SearchEmpty prefixCls={prefixCls} />}
-			</div>
+			{results.length > 0 ? <SearchResult ref={resultRef} {...searchStatePorops} /> : <SearchEmpty prefixCls={prefixCls} />}
 			<div className={`${prefixCls}-panel-footer`}>
 				<SearchCommands prefixCls={prefixCls} />
 			</div>

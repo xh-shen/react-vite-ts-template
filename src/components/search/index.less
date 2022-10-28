@@ -48,7 +48,7 @@
 	&-empty {
 		font-size: 12px;
 		margin: 0 auto;
-		padding: 36px 0;
+		padding: 48px 0;
 		text-align: center;
 	}
 
@@ -60,14 +60,6 @@
 		border-radius: 6px;
 		box-shadow: inset 1px 1px 0 0 hsl(0deg 0% 100% / 50%), 0 3px 8px 0 #555a64;
 		pointer-events: auto;
-
-		&-container {
-			max-height: 500px;
-			min-height: 20px;
-			overflow-y: overlay;
-			padding: 0 12px;
-			margin: 12px 0 0;
-		}
 
 		&-footer {
 			align-items: center;
@@ -115,7 +107,16 @@
 	}
 
 	&-result {
-		padding: 4px 0 20px;
+		max-height: 500px;
+		min-height: 20px;
+		overflow-y: overlay;
+		padding: 0 12px;
+		margin: 12px 0 0;
+
+		&-container {
+			position: relative;
+			padding: 4px 0 20px;
+		}
 
 		&-item {
 			margin-top: 4px;
