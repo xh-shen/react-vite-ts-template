@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-13 20:22:30
  * @LastEditors: shen
- * @LastEditTime: 2022-10-26 08:55:40
+ * @LastEditTime: 2022-10-28 22:09:42
  * @Description:
  */
 import { isObject, isFunction, isBrowser } from './validate'
@@ -118,4 +118,151 @@ export function getTargetElement<T extends TargetType>(target: BasicTarget<T>, d
 
 export const canUseDom = () => {
 	return !!(typeof window !== 'undefined' && window.document && window.document.createElement)
+}
+export const contains = (root: Node | null | undefined, n?: Node) => {
+	if (!root) {
+		return false
+	}
+
+	if (root.contains) {
+		return root.contains(n!)
+	}
+
+	let node = n
+	while (node) {
+		if (node === root) {
+			return true
+		}
+		node = node.parentNode as any
+	}
+
+	return false
+}
+const APPEND_ORDER = 'data-order'
+const MARK_KEY = `util-key`
+
+const containerCache = new Map<Element, Node & ParentNode>()
+
+export type Prepend = boolean | 'queue'
+export type AppendType = 'prependQueue' | 'append' | 'prepend'
+
+interface Options {
+	attachTo?: Element
+	csp?: { nonce?: string }
+	prepend?: Prepend
+	mark?: string
+}
+
+function getMark({ mark }: Options = {}) {
+	if (mark) {
+		return mark.startsWith('data-') ? mark : `data-${mark}`
+	}
+	return MARK_KEY
+}
+
+function getContainer(option: Options) {
+	if (option.attachTo) {
+		return option.attachTo
+	}
+
+	const head = document.querySelector('head')
+	return head || document.body
+}
+
+function getOrder(prepend?: Prepend): AppendType {
+	if (prepend === 'queue') {
+		return 'prependQueue'
+	}
+
+	return prepend ? 'prepend' : 'append'
+}
+
+function findStyles(container: Element) {
+	return Array.from((containerCache.get(container) || container).children).filter(
+		node => node.tagName === 'STYLE'
+	) as HTMLStyleElement[]
+}
+
+export function injectCSS(css: string, option: Options = {}) {
+	if (!canUseDom()) {
+		return null
+	}
+
+	const { csp, prepend } = option
+
+	const styleNode = document.createElement('style')
+	styleNode.setAttribute(APPEND_ORDER, getOrder(prepend))
+
+	if (csp?.nonce) {
+		styleNode.nonce = csp?.nonce
+	}
+	styleNode.innerHTML = css
+
+	const container = getContainer(option)
+	const { firstChild } = container
+
+	if (prepend) {
+		if (prepend === 'queue') {
+			const existStyle = findStyles(container).filter(node =>
+				['prepend', 'prependQueue'].includes(node.getAttribute(APPEND_ORDER) as string)
+			)
+			if (existStyle.length) {
+				container.insertBefore(styleNode, existStyle[existStyle.length - 1].nextSibling)
+
+				return styleNode
+			}
+		}
+
+		container.insertBefore(styleNode, firstChild)
+	} else {
+		container.appendChild(styleNode)
+	}
+
+	return styleNode
+}
+
+function findExistNode(key: string, option: Options = {}) {
+	const container = getContainer(option)
+
+	return findStyles(container).find(node => node.getAttribute(getMark(option)) === key)
+}
+
+export function removeCSS(key: string, option: Options = {}) {
+	const existNode = findExistNode(key, option)
+	existNode?.parentNode?.removeChild(existNode)
+}
+
+function syncRealContainer(container: Element, option: Options) {
+	const cachedRealContainer = containerCache.get(container)
+
+	if (!cachedRealContainer || !contains(document, cachedRealContainer)) {
+		const placeholderStyle = injectCSS('', option)
+		const { parentNode } = placeholderStyle!
+		containerCache.set(container, parentNode!)
+		parentNode!.removeChild(placeholderStyle!)
+	}
+}
+
+export function updateCSS(css: string, key: string, option: Options = {}) {
+	const container = getContainer(option)
+
+	syncRealContainer(container, option)
+
+	const existNode = findExistNode(key, option)
+
+	if (existNode) {
+		if (option.csp?.nonce && existNode.nonce !== option.csp?.nonce) {
+			existNode.nonce = option.csp?.nonce
+		}
+
+		if (existNode.innerHTML !== css) {
+			existNode.innerHTML = css
+		}
+
+		return existNode
+	}
+
+	const newNode = injectCSS(css, option)
+	newNode!.setAttribute(getMark(option), key)
+	return newNode
 }
