@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-08 09:19:47
  * @LastEditors: shen
- * @LastEditTime: 2022-10-16 15:35:32
+ * @LastEditTime: 2022-10-29 11:32:22
  * @Description:
  */
 import { useMemo } from 'react'
@@ -73,6 +73,9 @@ const LayoutSider: FC = () => {
 				width={siderWidth}
 				collapsedWidth={48}
 				breakpoint="lg"
+				onCollapse={collapse => {
+					setSettingValue('siderCollapsed', collapse, false)
+				}}
 				style={{
 					// overflow: 'hidden',
 					paddingTop: layout === 'mix' && showHeader && fixSiderbar ? headerHeight : undefined
