@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-14 10:20:49
  * @LastEditors: shen
- * @LastEditTime: 2022-10-18 09:37:24
+ * @LastEditTime: 2022-10-29 09:12:07
  * @Description:
  */
 import { useState, useRef, useEffect } from 'react'
@@ -80,6 +80,11 @@ const DragHandle: FC<DragHandleProps> = ({ width, minWidth, maxWidth, onStop }) 
 			on(dragRef.current, 'mousedown', handleMouseDown as any)
 		}
 		return () => removeEvents()
+	}, [])
+
+	useEffect(() => {
+		setCurrent(width)
+		finalWidth.current = width
 	}, [])
 
 	return (
