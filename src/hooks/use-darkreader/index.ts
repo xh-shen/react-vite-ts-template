@@ -2,11 +2,11 @@
  * @Author: shen
  * @Date: 2022-10-16 11:13:32
  * @LastEditors: shen
- * @LastEditTime: 2022-10-16 11:16:56
+ * @LastEditTime: 2022-11-01 14:33:25
  * @Description:
  */
 import * as DarkReader from 'darkreader'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState, useRef, MutableRefObject } from 'react'
 
 export type Action = {
 	toggle: () => void
@@ -17,13 +17,15 @@ export type Result = [boolean, Action]
 
 export function useDarkreader(defaultDarken: boolean = false): [
 	boolean,
+	MutableRefObject<boolean>,
 	{
 		toggle: () => void
 		collectCSS: () => Promise<string>
+		reset: (dark: boolean) => void
 	}
 ] {
 	const { enable: enableDarkMode, disable: disableDarkMode, exportGeneratedCSS: collectCSS, setFetchMethod } = DarkReader || {}
-
+	const darken = useRef(defaultDarken)
 	const [isDark, setIsDark] = useState(defaultDarken)
 
 	const defaultTheme = {
@@ -57,10 +59,17 @@ export function useDarkreader(defaultDarken: boolean = false): [
 	}, [isDark])
 
 	const action = useMemo(() => {
-		const toggle = () => setIsDark(prevState => !prevState)
+		const toggle = () => {
+			darken.current = !darken.current
+			setIsDark(prevState => !prevState)
+		}
+		const reset = (isDark: boolean) => {
+			darken.current = isDark
+			setIsDark(isDark)
+		}
 
-		return { toggle, collectCSS }
+		return { toggle, collectCSS, reset }
 	}, [isDark])
 
-	return [isDark, action]
+	return [isDark, darken, action]
 }

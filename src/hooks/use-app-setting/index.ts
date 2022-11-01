@@ -1,41 +1,15 @@
+import { useDispatchDarkModeContext } from './../../context/DarkModeContext'
 /*
  * @Author: shen
  * @Date: 2022-10-13 14:05:42
  * @LastEditors: shen
- * @LastEditTime: 2022-10-25 18:12:59
+ * @LastEditTime: 2022-11-01 14:42:48
  * @Description:
  */
 import { addClass, hasClass, removeClass } from '@/utils'
 import { useAppSelector, useAppDispatch, setAppSettingValues, resetAppSetting } from '@/store'
-import { disable as darkreaderDisable, enable as darkreaderEnable, setFetchMethod as setFetch } from 'darkreader'
+import { useDispatchThemeColorContext } from '@/context/ThemeColorContext'
 import defaultSetting from '@/defaultSetting'
-
-import type { AppSetting } from '@/defaultSetting'
-
-const setDarkMode = isDark => {
-	if (isDark) {
-		const defaultTheme = {
-			brightness: 100,
-			contrast: 90,
-			sepia: 10
-		}
-
-		const defaultFixes = {
-			invert: [],
-			css: '',
-			ignoreInlineStyle: ['.react-switch-handle'],
-			ignoreImageAnalysis: [],
-			disableStyleSheetsProxy: true
-		}
-		if (window.MutationObserver && window.fetch) {
-			setFetch(window.fetch)
-			darkreaderEnable(defaultTheme, defaultFixes)
-		}
-	} else {
-		if (window.MutationObserver) darkreaderDisable()
-	}
-}
-
 const setColorWeak = isColorWeak => {
 	const has = hasClass(document.body, 'color-weak')
 	if (isColorWeak) {
@@ -55,7 +29,6 @@ const setGrayMode = isGrapMode => {
 }
 
 export const useAppSetting = () => {
-	const themeColor = useAppSelector(state => state.app.themeColor)
 	const layout = useAppSelector(state => state.app.layout)
 	const contentWidth = useAppSelector(state => state.app.contentWidth)
 	const splitMenus = useAppSelector(state => state.app.splitMenus)
@@ -83,6 +56,9 @@ export const useAppSetting = () => {
 	const fullContent = useAppSelector(state => state.app.fullContent)
 	const accordionMenu = useAppSelector(state => state.app.accordionMenu)
 
+	const { resetThemeColor } = useDispatchThemeColorContext()
+	const { resetDarkMode } = useDispatchDarkModeContext()
+
 	const dispatch = useAppDispatch()
 	const setSettingValue = <T = any>(key: keyof AppSetting, value: T, cache: boolean = true) => {
 		if (key === 'colorWeak') {
@@ -92,11 +68,6 @@ export const useAppSetting = () => {
 		if (key === 'grayMode') {
 			setGrayMode(value)
 		}
-
-		if (key === 'darkMode') {
-			setDarkMode(value)
-		}
-
 		if (key === 'layout') {
 			if (value !== 'mix' && splitMenus) {
 				dispatch(setAppSettingValues({ key: 'splitMenus', value: false, cache }))
@@ -121,13 +92,12 @@ export const useAppSetting = () => {
 		if (defaultSetting.grayMode !== grayMode) {
 			setGrayMode(defaultSetting.grayMode)
 		}
-		if (defaultSetting.darkMode !== darkMode) {
-			setDarkMode(defaultSetting.darkMode)
-		}
+
+		resetThemeColor()
+		resetDarkMode()
 	}
 
 	return {
-		themeColor,
 		siderWidth,
 		pageStyle,
 		layout,

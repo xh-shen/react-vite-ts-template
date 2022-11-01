@@ -2,10 +2,9 @@
  * @Author: shen
  * @Date: 2022-09-28 08:27:39
  * @LastEditors: shen
- * @LastEditTime: 2022-10-29 10:40:08
+ * @LastEditTime: 2022-11-01 11:03:39
  * @Description:
  */
-export * from './use-language'
 export * from './use-countdown'
 export * from './use-prefix-cls'
 export * from './use-app-setting'
