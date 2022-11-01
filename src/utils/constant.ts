@@ -2,13 +2,15 @@
  * @Author: shen
  * @Date: 2022-05-29 08:04:18
  * @LastEditors: shen
- * @LastEditTime: 2022-10-17 08:44:19
+ * @LastEditTime: 2022-11-01 14:22:15
  * @Description:
  */
 export const TOKEN_KEY = `__APP__TOKEN__`
 export const USER_INFO_KEY = `__APP__USER_INFO__`
 export const THEME_COLOR_KEY = `__APP__THEME__COLOR__`
 export const LANG_KEY = `__APP__LANG__`
+export const SIZE_KEY = `__APP__SIZE__`
+export const DARK_MODE_KEY = `__APP__DARK__MODE__`
 export const SETTING_KEY = `__APP__SETTING__`
 export const TABS_KEY = `__APP__TABS__`
 

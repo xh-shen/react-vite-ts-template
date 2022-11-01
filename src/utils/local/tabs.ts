@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-17 08:44:04
  * @LastEditors: shen
- * @LastEditTime: 2022-10-17 09:13:40
+ * @LastEditTime: 2022-11-01 12:20:38
  * @Description:
  */
 import { local } from '../storage'
@@ -11,7 +11,7 @@ import { TABS_KEY } from '../constant'
 import type { VisitedItem } from '@/store'
 
 export interface LocalTabs {
-	lang: string
+	lang: LocaleType
 	list: VisitedItem[]
 }
 
