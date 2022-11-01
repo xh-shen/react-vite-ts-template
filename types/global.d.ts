@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-03 10:13:10
  * @LastEditors: shen
- * @LastEditTime: 2022-10-27 16:25:10
+ * @LastEditTime: 2022-11-01 08:31:22
  * @Description:
  */
 
@@ -69,7 +69,7 @@ declare interface ViteEnv {
 	VITE_LEGACY: boolean
 	VITE_USE_IMAGEMIN: boolean
 	VITE_APP_THEME_COLOR: string
-	VITE_APP_LANGUAGE: 'en' | 'zh-CN'
+	VITE_APP_LANGUAGE: LocaleType
 	VITE_API_URL_PREFIX: string
 	VITE_UPLOAD_URL_PREFIX: string
 	VITE_APP_COLOR_WEAK: boolean
