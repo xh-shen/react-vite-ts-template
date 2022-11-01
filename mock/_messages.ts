@@ -6,7 +6,7 @@
  * @Description:
  */
 export default {
-	'zh-CN': {
+	'zh-cn': {
 		loginSuccess: '登录成功',
 		accoutError: '密码错误',
 		codeError: '验证码错误',

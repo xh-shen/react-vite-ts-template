@@ -57,9 +57,9 @@ export default [
 				realName: 'Shene Admin',
 				phone: '13000000000',
 				avatar: 'https://q1.qlogo.cn/g?b=qq&nk=339449197&s=640',
-				roleName: request.headers.lang === 'zh-CN' ? '超级管理员' : 'Super Admin',
+				roleName: request.headers.lang === 'zh-cn' ? '超级管理员' : 'Super Admin',
 				role: 'super',
-				sex: request.headers.lang === 'zh-CN' ? '男' : 'man'
+				sex: request.headers.lang === 'zh-cn' ? '男' : 'man'
 			})
 		}
 	}
