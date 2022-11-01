@@ -2,13 +2,16 @@
  * @Author: shen
  * @Date: 2022-09-26 09:17:44
  * @LastEditors: shen
- * @LastEditTime: 2022-09-30 16:16:32
+ * @LastEditTime: 2022-11-01 12:22:48
  * @Description:
  */
 import axios, { AxiosError, AxiosInstance } from 'axios'
 import { requestConfig, CODE_MESSAGE } from './config'
 import { store, setAppInvalid } from '@/store'
-import { Notification } from '@/utils'
+import { getLang, Notification } from '@/utils'
+import config from '@/config'
+
+const lang = config.lang
 
 const instance: AxiosInstance = axios.create(requestConfig)
 
@@ -26,7 +29,7 @@ instance.interceptors.request.use(config => {
 	const state = store.getState()
 	config.headers = {
 		...config.headers,
-		lang: state.app.lang,
+		lang: getLang() || lang,
 		authorization: state.user.token
 	}
 	return config

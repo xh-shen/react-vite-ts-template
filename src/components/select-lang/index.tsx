@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-09-28 08:27:06
  * @LastEditors: shen
- * @LastEditTime: 2022-10-14 16:40:52
+ * @LastEditTime: 2022-11-01 10:07:16
  * @Description:
  */
 import { Dropdown, Menu } from 'antd'
@@ -11,13 +11,13 @@ import type { FC } from 'react'
 
 export interface SelectLangProps {
 	className?: string
-	language: string
-	setLanguage: (language: string) => void
-	onChange?: (language: string) => void
+	language: LocaleType
+	setLanguage: (language: LocaleType) => void
+	onChange?: (language: LocaleType) => void
 }
 
 const SelectLang: FC<SelectLangProps> = ({ className, language, setLanguage, onChange }) => {
-	const onItemClick = async (key: string) => {
+	const onItemClick = async (key: LocaleType) => {
 		if (key === language) {
 			return
 		}
@@ -31,10 +31,10 @@ const SelectLang: FC<SelectLangProps> = ({ className, language, setLanguage, onC
 			defaultSelectedKeys={[language]}
 			items={[
 				{
-					key: 'zh-CN',
+					key: 'zh-cn',
 					label: <span style={{ marginLeft: 8 }}>简体中文</span>,
 					icon: '🇨🇳',
-					onClick: () => onItemClick('zh-CN')
+					onClick: () => onItemClick('zh-cn')
 				},
 				{
 					key: 'en',

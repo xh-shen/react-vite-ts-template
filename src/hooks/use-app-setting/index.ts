@@ -1,14 +1,13 @@
-import { useDispatchDarkModeContext } from './../../context/DarkModeContext'
 /*
  * @Author: shen
  * @Date: 2022-10-13 14:05:42
  * @LastEditors: shen
- * @LastEditTime: 2022-11-01 14:42:48
+ * @LastEditTime: 2022-11-01 14:56:55
  * @Description:
  */
 import { addClass, hasClass, removeClass } from '@/utils'
 import { useAppSelector, useAppDispatch, setAppSettingValues, resetAppSetting } from '@/store'
-import { useDispatchThemeColorContext } from '@/context/ThemeColorContext'
+import { useDispatchThemeColorContext, useDispatchDarkModeContext } from '@/context'
 import defaultSetting from '@/defaultSetting'
 const setColorWeak = isColorWeak => {
 	const has = hasClass(document.body, 'color-weak')
@@ -41,7 +40,6 @@ export const useAppSetting = () => {
 	const tabsHeight = useAppSelector(state => state.app.tabsHeight)
 	const siderCollapsed = useAppSelector(state => state.app.siderCollapsed)
 	const grayMode = useAppSelector(state => state.app.grayMode)
-	const darkMode = useAppSelector(state => state.app.darkMode)
 	const colorWeak = useAppSelector(state => state.app.colorWeak)
 	const collapsePosition = useAppSelector(state => state.app.collapsePosition)
 	const dragSidebar = useAppSelector(state => state.app.dragSidebar)
@@ -111,7 +109,6 @@ export const useAppSetting = () => {
 		tabsHeight,
 		colorWeak,
 		grayMode,
-		darkMode,
 		collapsePosition,
 		dragSidebar,
 		showHeader,

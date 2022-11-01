@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-16 15:04:32
  * @LastEditors: shen
- * @LastEditTime: 2022-10-25 21:27:36
+ * @LastEditTime: 2022-11-01 13:23:15
  * @Description:
  */
 import { Tag, Dropdown, Menu } from 'antd'
@@ -31,6 +31,7 @@ import useRefs from './useRefs'
 import useOffsets, { TabSizeMap } from './useOffsets'
 import useVisibleRange from './useVisibleRange'
 import classNames from 'classnames'
+import { useLocaleContext, useThemeColorContext } from '@/context'
 
 const getWidth = (refObj: React.RefObject<HTMLElement>): number => {
 	const { offsetWidth = 0 } = refObj.current || {}
@@ -46,8 +47,8 @@ const LayoutTabs: FC = () => {
 	const operationsRef = useRef<HTMLDivElement>(null)
 	const [getBtnRef, removeBtnRef] = useRefs<HTMLDivElement>()
 	const whelEventsRef = useRef<(e: WheelEvent) => void>()
+	const themeColor = useThemeColorContext()
 	const {
-		themeColor,
 		tabsHeight,
 		headerHeight,
 		fullContent,
@@ -67,7 +68,7 @@ const LayoutTabs: FC = () => {
 
 	const prefixCls = usePrefixCls('layout-tabs')
 	const dashboardMenu = genAnalysisMenu()
-	const lang = useAppSelector(state => state.app.lang)
+	const locale = useLocaleContext()
 	const tabsLang = useAppSelector(state => state.tabs.tabsLang)
 	const flatMenus = useAppSelector(state => state.permission.flatMenus)
 	const visitedList = useAppSelector(state => state.tabs.visitedList)
@@ -308,7 +309,7 @@ const LayoutTabs: FC = () => {
 	}
 
 	const updateTabsList = () => {
-		if (tabsLang && tabsLang !== lang && visitedList.length > 0) {
+		if (tabsLang && tabsLang !== locale && visitedList.length > 0) {
 			const newVisitedList = visitedList.map(item => {
 				const menu = flatMenus.find(m => m.path === item.path)
 				return {
@@ -316,9 +317,9 @@ const LayoutTabs: FC = () => {
 					path: item.path
 				}
 			})
-			dispatch(setVisitedList({ list: newVisitedList, lang }))
+			dispatch(setVisitedList({ list: newVisitedList, lang: locale }))
 		}
-		dispatch(setTabsLang(lang))
+		dispatch(setTabsLang(locale))
 	}
 
 	useEffect(() => {

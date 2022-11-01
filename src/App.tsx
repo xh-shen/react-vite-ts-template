@@ -2,34 +2,24 @@
  * @Author: shen
  * @Date: 2022-09-20 09:48:07
  * @LastEditors: shen
- * @LastEditTime: 2022-10-31 14:35:47
+ * @LastEditTime: 2022-11-01 13:56:50
  * @Description:
  */
-import { useEffect } from 'react'
 import { BrowserRouter } from 'react-router-dom'
-import { ConfigProvider } from 'antd'
-import { useAntdLanguage, useAppSetting, useDarkreader } from './hooks'
 import Router from './router'
-import AppProvider from './AppProvider'
+import Provider from './Provider'
+import AntdProvider from './AntdProvider'
 
 import type { FC } from 'react'
-const App: FC = () => {
-	const antdLanguage = useAntdLanguage()
-	const { themeColor, darkMode } = useAppSetting()
-	useDarkreader(darkMode)
-	useEffect(() => {
-		ConfigProvider.config({
-			theme: { primaryColor: themeColor }
-		})
-	}, [themeColor])
 
+const App: FC = () => {
 	return (
 		<BrowserRouter>
-			<AppProvider>
-				<ConfigProvider locale={antdLanguage}>
+			<Provider>
+				<AntdProvider>
 					<Router />
-				</ConfigProvider>
-			</AppProvider>
+				</AntdProvider>
+			</Provider>
 		</BrowserRouter>
 	)
 }

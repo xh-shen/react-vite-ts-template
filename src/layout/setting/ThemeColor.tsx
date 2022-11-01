@@ -2,22 +2,22 @@
  * @Author: shen
  * @Date: 2022-10-09 16:20:39
  * @LastEditors: shen
- * @LastEditTime: 2022-10-20 09:49:32
+ * @LastEditTime: 2022-11-01 13:16:53
  * @Description:
  */
-import { useAppSetting, usePrefixCls } from '@/hooks'
 import { Tooltip, Divider } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { CheckOutlined } from '@ant-design/icons'
-import config from '@/config'
+import setting from '@/defaultSetting'
 
 import type { FC } from 'react'
+import { useAppContext, useThemeColor } from '@/context'
 
 const ThemeColor: FC = () => {
 	const { t } = useTranslation()
-	const prefixCls = usePrefixCls('layout-setting-theme-color')
-
-	const { themeColor, setSettingValue } = useAppSetting()
+	const { getPrefixCls } = useAppContext()
+	const prefixCls = getPrefixCls('layout-setting-theme-color')
+	const [themeColor, { updateThemeColor }] = useThemeColor()
 
 	const items = [
 		{
@@ -60,18 +60,18 @@ const ThemeColor: FC = () => {
 			title: t('setting.themeColor.goldenPurple'),
 			color: 'rgb(114, 46, 209)'
 		}
-	].filter(item => item.color !== config.themeColor)
+	].filter(item => item.color !== setting.themeColor)
 	return (
 		<div className={prefixCls}>
 			<Tooltip placement="top" title={t('setting.themeColor.default')}>
 				<div
 					className={`${prefixCls}-item`}
-					onClick={() => setSettingValue('themeColor', config.themeColor)}
-					style={{ backgroundColor: config.themeColor, marginRight: 0 }}
+					onClick={() => updateThemeColor(setting.themeColor)}
+					style={{ backgroundColor: setting.themeColor, marginRight: 0 }}
 				>
 					<CheckOutlined
 						className={`${prefixCls}-item-select`}
-						style={{ display: themeColor === config.themeColor ? 'block' : 'none' }}
+						style={{ display: themeColor === setting.themeColor ? 'block' : 'none' }}
 					/>
 				</div>
 			</Tooltip>
@@ -80,7 +80,7 @@ const ThemeColor: FC = () => {
 				<Tooltip key={item.key} placement="top" title={item.title}>
 					<div
 						className={`${prefixCls}-item`}
-						onClick={() => setSettingValue('themeColor', item.color)}
+						onClick={() => updateThemeColor(item.color)}
 						style={{ backgroundColor: item.color }}
 					>
 						<CheckOutlined

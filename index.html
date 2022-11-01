@@ -18,8 +18,9 @@
       var appSetting = window.localStorage.getItem('__APP__SETTING__');
       appSetting = appSetting ? JSON.parse(appSetting) : {}
 
-      var darkMode = appSetting.darkMode == undefined ? window.APP_DEFAULT_SETTING.darkMode || JSON.parse('<%= darkMode %>') : appSetting.darkMode
-      if (darkMode) {
+      var localeDarkMode = window.localStorage.getItem('__APP__DARK__MODE__');
+      var darkMode = localeDarkMode === null ? (window.APP_DEFAULT_SETTING.darkMode !== undefined ? window.APP_DEFAULT_SETTING.darkMode : JSON.parse('<%= darkMode %>')) : JSON.parse(localeDarkMode)
+      if (!!darkMode) {
         document.body.classList.add("dark-mode");
       }
       var colorWeak = appSetting.colorWeak == undefined ? window.APP_DEFAULT_SETTING.colorWeak || JSON.parse('<%= colorWeak %>') : appSetting.colorWeak
@@ -180,9 +181,8 @@
   </div>
   <script>
     (function () {
-      var appSetting = window.localStorage.getItem('__APP__SETTING__');
-      appSetting = appSetting ? JSON.parse(appSetting) : {}
-      var themeColor = !appSetting.themeColor ? window.APP_DEFAULT_SETTING.themeColor || '<%= themeColor %>' : appSetting.themeColor
+      var localeThemeColor = window.localStorage.getItem('__APP__THEME__COLOR__');
+      var themeColor = !localeThemeColor ? window.APP_DEFAULT_SETTING.themeColor || '<%= themeColor %>' : JSON.parse(localeThemeColor)
       var spinDotList = document.getElementById('loading-dot').children;
       for (var i = 0; i < spinDotList.length; i++) {
         spinDotList[i].style.backgroundColor = themeColor;

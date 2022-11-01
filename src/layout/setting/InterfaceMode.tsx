@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-13 11:05:18
  * @LastEditors: shen
- * @LastEditTime: 2022-10-20 09:40:41
+ * @LastEditTime: 2022-11-01 14:19:48
  * @Description:
  */
 import { cloneElement } from 'react'
@@ -12,6 +12,7 @@ import { useAppSetting } from '@/hooks'
 
 import type { FC } from 'react'
 import type { SettingItemProps } from '.'
+import { useDarkMode } from '@/context'
 
 export const renderLayoutSettingItem = (item: SettingItemProps) => {
 	const action = cloneElement(item.action, {
@@ -28,23 +29,15 @@ export const renderLayoutSettingItem = (item: SettingItemProps) => {
 
 const InterfaceMode: FC = () => {
 	const { t } = useTranslation()
-	const { colorWeak, grayMode, darkMode, setSettingValue } = useAppSetting()
-
+	const { colorWeak, grayMode, setSettingValue } = useAppSetting()
+	const [darkMode, { updateDarkMode }] = useDarkMode()
 	return (
 		<List
 			split={false}
 			dataSource={[
 				{
 					title: t('setting.otherSettings.darkMode'),
-					action: (
-						<Switch
-							size="small"
-							checked={!!darkMode}
-							onChange={checked => {
-								setSettingValue('darkMode', checked)
-							}}
-						/>
-					)
+					action: <Switch size="small" checked={!!darkMode} onChange={updateDarkMode} />
 				},
 				{
 					title: t('setting.otherSettings.grayMode'),

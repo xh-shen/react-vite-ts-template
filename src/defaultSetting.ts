@@ -2,45 +2,10 @@
  * @Author: shen
  * @Date: 2022-10-15 19:20:51
  * @LastEditors: shen
- * @LastEditTime: 2022-10-25 18:02:56
+ * @LastEditTime: 2022-11-01 08:36:49
  * @Description:
  */
 import config from './config'
-
-export type PageStyleType = 'light' | 'dark' | 'layoutDark'
-export type LayoutType = 'side' | 'top' | 'mix'
-export type CollapsePositionType = 'top' | 'bottom'
-export type ContentWidth = 'Fluid' | 'Fixed'
-
-export interface AppSetting {
-	themeColor: string
-	pageStyle: PageStyleType
-	layout: LayoutType
-	contentWidth: ContentWidth
-	splitMenus: boolean
-	siderCollapsed: boolean
-	fixedHeader: boolean
-	fixSiderbar: boolean
-	siderWidth: number
-	headerHeight: number
-	footerHeight: number
-	tabsHeight: number
-	colorWeak: boolean
-	grayMode: boolean
-	darkMode: boolean
-	dragSidebar: boolean
-	collapsePosition: CollapsePositionType
-	showHeader: boolean
-	showSiderbar: boolean
-	showBreadcrumbs: boolean
-	showBreadcrumbIcon: boolean
-	showLogo: boolean
-	showFooter: boolean
-	showTabs: boolean
-	showCollapseButton: boolean
-	fullContent: boolean
-	accordionMenu: boolean
-}
 
 const defaultSetting: AppSetting = {
 	themeColor: config.themeColor, // 获取于环境变量，如需修改请修改.env文件中 VITE_APP_THEME_COLOR

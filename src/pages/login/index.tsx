@@ -2,13 +2,14 @@
  * @Author: shen
  * @Date: 2022-09-23 15:03:55
  * @LastEditors: shen
- * @LastEditTime: 2022-10-20 09:46:38
+ * @LastEditTime: 2022-11-01 10:17:22
  * @Description:
  */
 import { Tabs } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { SelectLang } from '@/components'
-import { useAppSetting, useLanguage, usePrefixCls } from '@/hooks'
+import { useAppSetting } from '@/hooks'
+import { useLocale, useAppContext } from '@/context'
 import AccountForm from './components/AccountForm'
 import QrCodeForm from './components/QrCodeForm'
 import MobileForm from './components/MobileForm'
@@ -20,9 +21,11 @@ import classNames from 'classnames'
 
 const Login: FC = () => {
 	const { t } = useTranslation()
-	const [language, setLanguage] = useLanguage()
 	const { darkMode } = useAppSetting()
-	const prefixCls = usePrefixCls('login')
+	const { getPrefixCls } = useAppContext()
+	const [locale, setLocale] = useLocale()
+	const prefixCls = getPrefixCls('login')
+
 	const className = classNames(prefixCls, {
 		[`${prefixCls}-dark`]: darkMode
 	})
@@ -50,7 +53,7 @@ const Login: FC = () => {
 					</div>
 				</div>
 				<div className={`${prefixCls}-lang`}>
-					<SelectLang language={language} setLanguage={setLanguage} />
+					<SelectLang language={locale} setLanguage={setLocale} />
 				</div>
 				<div className={`${prefixCls}-copyright`}>{t('login.copyright')}</div>
 			</div>

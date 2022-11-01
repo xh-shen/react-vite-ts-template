@@ -2,27 +2,28 @@
  * @Author: shen
  * @Date: 2022-09-23 16:19:32
  * @LastEditors: shen
- * @LastEditTime: 2022-10-06 21:23:37
+ * @LastEditTime: 2022-11-01 12:29:13
  * @Description:
  */
-import { useState, useEffect, useCallback } from 'react'
+import { useState } from 'react'
 import { Button, Form, Input } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
-import { useLanguage, useCountdown, usePrefixCls } from '@/hooks'
+import { useCountdown } from '@/hooks'
 import { useAppDispatch, fetchLogin } from '@/store'
 import { PHONE_REGEXP } from '@/utils'
+import { useAppContext } from '@/context'
 
 import type { FC } from 'react'
 import type { LoginParams } from '@/interfaces'
 
 const MobileForm: FC = () => {
 	const [loading, setLoading] = useState(false)
-	const [language] = useLanguage()
+	const { getPrefixCls } = useAppContext()
 	const [form] = Form.useForm()
 	const navigate = useNavigate()
 	const dispatch = useAppDispatch()
-	const prefixCls = usePrefixCls('login-form')
+	const prefixCls = getPrefixCls('login-form')
 	const { t } = useTranslation()
 	const { currentCount, start, isStart } = useCountdown(60)
 
@@ -36,11 +37,6 @@ const MobileForm: FC = () => {
 		}
 	}
 
-	const hasFieldError = useCallback(() => {
-		const fieldsError = form.getFieldsError()
-		return fieldsError.some(field => field.errors.length > 0)
-	}, [])
-
 	const onCodeClick = async () => {
 		try {
 			await form.validateFields(['phone'])
@@ -52,13 +48,6 @@ const MobileForm: FC = () => {
 			// TODO
 		}
 	}
-
-	useEffect(() => {
-		const hasError = hasFieldError()
-		if (hasError) {
-			form.validateFields()
-		}
-	}, [language])
 
 	return (
 		<div className={`${prefixCls}-wrapper`}>

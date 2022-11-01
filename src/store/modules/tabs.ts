@@ -2,7 +2,7 @@
  * @Author: shen
  * @Date: 2022-10-16 18:28:21
  * @LastEditors: shen
- * @LastEditTime: 2022-10-17 15:08:48
+ * @LastEditTime: 2022-11-01 12:20:45
  * @Description:
  */
 import { getTabList, setTabList } from '@/utils'
@@ -17,7 +17,7 @@ export interface VisitedItem {
 
 export interface TabsState {
 	visitedList: VisitedItem[]
-	tabsLang: string
+	tabsLang: LocaleType
 }
 
 const initialState: TabsState = {
@@ -65,7 +65,7 @@ export const tabsSlice = createSlice({
 			state.visitedList = []
 			setTabList({ list: [], lang: state.tabsLang })
 		},
-		setTabsLang(state, { payload }: PayloadAction<string>) {
+		setTabsLang(state, { payload }: PayloadAction<LocaleType>) {
 			state.tabsLang = payload
 		},
 		setVisitedList(state, { payload }: PayloadAction<LocalTabs>) {

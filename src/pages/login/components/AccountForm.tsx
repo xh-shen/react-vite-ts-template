@@ -2,13 +2,13 @@
  * @Author: shen
  * @Date: 2022-09-23 16:19:32
  * @LastEditors: shen
- * @LastEditTime: 2022-10-06 21:22:33
+ * @LastEditTime: 2022-11-01 12:27:46
  * @Description:
  */
-import { useEffect, useState, useCallback } from 'react'
+import { useState } from 'react'
 import { Button, Form, Input } from 'antd'
 import { useTranslation } from 'react-i18next'
-import { useLanguage, usePrefixCls } from '@/hooks'
+import { useAppContext } from '@/context'
 import { useAppDispatch, fetchLogin } from '@/store'
 import { useNavigate } from 'react-router-dom'
 import type { FC } from 'react'
@@ -16,11 +16,11 @@ import type { LoginParams } from '@/interfaces'
 
 const AccountForm: FC = () => {
 	const [loading, setLoading] = useState(false)
-	const [language] = useLanguage()
 	const [form] = Form.useForm()
+	const { getPrefixCls } = useAppContext()
 	const navigate = useNavigate()
 	const dispatch = useAppDispatch()
-	const prefixCls = usePrefixCls('login-form')
+	const prefixCls = getPrefixCls('login-form')
 	const { t } = useTranslation()
 
 	const onFinish = async (values: LoginParams) => {
@@ -32,19 +32,6 @@ const AccountForm: FC = () => {
 			setLoading(false)
 		}
 	}
-
-	const hasFieldError = useCallback(() => {
-		const fieldsError = form.getFieldsError()
-		return fieldsError.some(field => field.errors.length > 0)
-	}, [])
-
-	useEffect(() => {
-		const hasError = hasFieldError()
-		if (hasError) {
-			form.validateFields()
-		}
-	}, [language])
-
 	return (
 		<div className={`${prefixCls}-wrapper`}>
 			<Form
